@@ -15,10 +15,10 @@ function ZipCodeList() {
                 }
                 else {
 
-                    setMyZipCodes([
-                        ...myZipCodes,
+                    setMyZipCodes(list => [
+                        ...list,
                         {
-                            id: myZipCodes.length,
+                            id: result.data[0].zipcodes[0].zipcode,
                             zipcode: result.data[0].zipcodes[0].zipcode,
                             state: result.data[0].zipcodes[0].state_abbreviation
                         }
