@@ -1,15 +1,14 @@
 
 import React from "react"
 import { RandomPerson } from "../modules/RandomPerson"
-import { Router as MyRouter } from "@reach/router"
+import { Router } from "@reach/router"
 
-const Router = (results = 1) => {
-    const sample = ""
+const App = () => {
     return (
-        <MyRouter>
+        <Router>
             <RandomPerson path="/app/random-person/:results" />
-        </MyRouter>
+        </Router>
     )
 }
 
-export default Router
+export default App

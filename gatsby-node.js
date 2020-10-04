@@ -5,10 +5,7 @@ exports.onCreatePage = async ({ page, actions }) => {
     console.log("Page - ", page.path)
 
     if (page.path.match(/^\/app/)) {
-        createPage({
-            path: "/app",
-            matchPath: "/app/*",
-            component: path.resolve(`src/pages/app.js`),
-        })
+        page.matchPath = "/app/*"
+        createPage(page)
     }
 }

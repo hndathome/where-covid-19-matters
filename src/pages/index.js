@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, Router } from "@reach/router";
+import { Link } from "@reach/router";
 
 export default function Home() {
   return (
@@ -10,6 +10,5 @@ export default function Home() {
         <Link to="dashboard">Dashboard</Link>
       </nav>
     </>
-
   )
 }
