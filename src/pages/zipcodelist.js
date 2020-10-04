@@ -9,7 +9,6 @@ function ZipCodeList() {
     useEffect(() => {
         const fetchData = async () => {
             if (url !== '') {
-                console.log(url);
                 const result = await axios.get(url, { headers: { 'Accept': 'application/json' } });
                 if (result.data[0].zipcodes === undefined) {
                     alert('Invalid zip code.');
