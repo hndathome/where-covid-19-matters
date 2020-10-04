@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+
+import ZipCode from "../components/ZipCode"
 import axios from "axios"
 
 function ZipCodeList() {
@@ -14,7 +16,6 @@ function ZipCodeList() {
                     alert('Invalid zip code.');
                 }
                 else {
-
                     setMyZipCodes(list => [
                         ...list,
                         {
@@ -30,6 +31,10 @@ function ZipCodeList() {
 
         fetchData();
     }, [url]);
+
+    const handleDelete = (id) => {
+        setMyZipCodes(list => list.filter(obj => obj.id !== id));
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -63,11 +68,12 @@ function ZipCodeList() {
                     />
                 </label>
             </form>
-            <ul>
-                {myZipCodes.map(item => (
-                    <li key={item.id}>{item.zipcode} {item.state}</li>
-                ))}
-            </ul>
+            <div class="card">
+                <h5 class="card-header">My Zip Codes</h5>
+                <ul class="list-group list-group-flush">
+                    {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
+                </ul>
+            </div>
         </>
     );
 }
