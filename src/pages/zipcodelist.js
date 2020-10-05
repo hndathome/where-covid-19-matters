@@ -26,6 +26,11 @@ function ZipCodeList() {
                         }
                     ]);
                     setZipCode("");
+
+                    //const result2 = await fetch(`https://api.covidtracking.com/v1/states/ar/info.json`)
+                    const result2 = await fetch(`https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${result.data[0].zipcodes[0].zipcode}&daysInPast=4`)
+                    const resultData = await result2.json()
+                    console.log(resultData);
                 }
             }
         };
