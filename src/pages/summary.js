@@ -27,6 +27,5 @@ export default function Summary({ location }) {
                 </div>
             </div>
         </main>
-
     )
 }

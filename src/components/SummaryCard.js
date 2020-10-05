@@ -1,5 +1,4 @@
 import React from "react"
-
 import { navigate } from 'gatsby'
 
 function SummaryCard(props) {
@@ -20,9 +19,7 @@ function SummaryCard(props) {
                                         state: { item },
                                     }
                                 )
-                            }}>get data</button>
-                            {/* <Link type="button" to={`/details/${item.zipcode}`} state={item}>View</Link>
-                                                <a href={`/details/${item.zipcode}`} type="button" >View</a> */}
+                            }}>get details</button>
                         </div>
                     </div>
                 </div>

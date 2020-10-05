@@ -32,8 +32,6 @@ function ZipCodeList() {
                         }
                     ]);
                     setZipCode("");
-
-
                 }
             }
         };
@@ -98,8 +96,6 @@ function ZipCodeList() {
                     }
                 )
             }}>get data</button>
-
-
         </>
     );
 }
