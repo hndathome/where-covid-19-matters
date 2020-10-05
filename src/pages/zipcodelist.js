@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { navigate } from "gatsby"
+import axios from "axios"
 
 import ZipCode from "../components/ZipCode"
-import axios from "axios"
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
@@ -88,6 +89,17 @@ function ZipCodeList() {
                     {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
                 </ul>
             </div>
+            <button onClick={event => {
+                event.preventDefault()
+                navigate(
+                    "/summary/",
+                    {
+                        state: { myZipCodes },
+                    }
+                )
+            }}>get data</button>
+
+
         </>
     );
 }
