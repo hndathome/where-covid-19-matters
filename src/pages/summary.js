@@ -1,4 +1,5 @@
 import React from "react"
+import SummaryCard from "../components/SummaryCard"
 
 export default function Summary({ location }) {
     return (
@@ -15,28 +16,13 @@ export default function Summary({ location }) {
             <section className="jumbotron text-center">
                 <div className="container">
                     <h1>COVID-19 Summary Results</h1>
-                    {/* <p className="lead text-muted">An album of <a href="https://www.kingarthurbaking.com/recipes">King Arthur Baking recipes</a> baked during COVID-19 quarantine.</p> */}
+                    {/* <p className="lead text-muted"></p> */}
                 </div>
             </section>
             <div className="album py-5 bg-light">
                 <div className="container">
                     <div className="row">
-                        {location.state.myZipCodes.map((item, index) => (
-                            <div className="col-md-4">
-                                <div className="card mb-4 shadow-sm">
-                                    <img className="bd-placeholder-img card-img-top" width="100%" height="225" focusable="false" src="" alt="" />
-                                    <div className="card-body">
-                                        <p className="card-text">{item.zipcode}</p>
-                                        {/* text-truncate */}
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            {/* <div className="btn-group">
-                                                <a href={node.name} type="button" className="btn btn-sm btn-outline-secondary">View</a>
-                                            </div> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                        {location.state.myZipCodes.map(zip => <SummaryCard item={zip} key={zip.id} />)}
                     </div>
                 </div>
             </div>
