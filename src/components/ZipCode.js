@@ -4,8 +4,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 function ZipCode(props) {
     return (
-        <li class="list-group-item">
-            <span >{props.zipcode.zipcode}</span> <FontAwesomeIcon icon={faTrash} onClick={() => props.handleDelete(props.zipcode.id)} />
+        <li className="list-group-item">
+            <span >{props.zipcode.zipcode}</span> <FontAwesomeIcon icon={faTrash} style={{ color: "red" }} onClick={() => props.handleDelete(props.zipcode.id)} />
         </li>
     )
 }

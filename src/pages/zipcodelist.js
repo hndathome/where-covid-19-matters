@@ -7,6 +7,7 @@ function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
     const [zipCode, setZipCode] = useState("");
     const [url, setUrl] = useState('');
+    const [delId, setDelId] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,9 +33,11 @@ function ZipCodeList() {
         fetchData();
     }, [url]);
 
-    const handleDelete = (id) => {
-        setMyZipCodes(list => list.filter(obj => obj.id !== id));
-    }
+    useEffect(() => {
+        if (delId !== '') {
+            setMyZipCodes(list => list.filter(obj => obj.id !== delId));
+        }
+    }, [delId]);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -54,6 +57,10 @@ function ZipCodeList() {
         }
     };
 
+    const handleDelete = (id) => {
+        setDelId(id);
+    };
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -68,9 +75,9 @@ function ZipCodeList() {
                     />
                 </label>
             </form>
-            <div class="card">
-                <h5 class="card-header">My Zip Codes</h5>
-                <ul class="list-group list-group-flush">
+            <div className="card">
+                <h5 className="card-header">My Zip Codes</h5>
+                <ul className="list-group list-group-flush">
                     {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
                 </ul>
             </div>
