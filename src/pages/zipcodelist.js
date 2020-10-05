@@ -22,15 +22,17 @@ function ZipCodeList() {
                         {
                             id: result.data[0].zipcodes[0].zipcode,
                             zipcode: result.data[0].zipcodes[0].zipcode,
-                            state: result.data[0].zipcodes[0].state_abbreviation
+                            county_fips: result.data[0].zipcodes[0].county_fips,
+                            county_name: result.data[0].zipcodes[0].county_name,
+                            state_abbreviation: result.data[0].zipcodes[0].state_abbreviation,
+                            state: result.data[0].zipcodes[0].state,
+                            latitude: result.data[0].zipcodes[0].latitude,
+                            longitude: result.data[0].zipcodes[0].longitude
                         }
                     ]);
                     setZipCode("");
 
-                    //const result2 = await fetch(`https://api.covidtracking.com/v1/states/ar/info.json`)
-                    const result2 = await fetch(`https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${result.data[0].zipcodes[0].zipcode}&daysInPast=4`)
-                    const resultData = await result2.json()
-                    console.log(resultData);
+
                 }
             }
         };

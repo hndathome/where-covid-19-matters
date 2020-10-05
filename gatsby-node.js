@@ -8,4 +8,9 @@ exports.onCreatePage = async ({ page, actions }) => {
         page.matchPath = "/app/*"
         createPage(page)
     }
+
+    if (page.path.match(/^\/details/)) {
+        page.matchPath = "/details/*"
+        createPage(page)
+    }
 }
