@@ -21,16 +21,6 @@ function SummaryCard(props) {
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
 
-    // const exampleData = [
-    //     { date: "2019-12-10", volume: 16197 },
-    //     { date: "2019-12-9", volume: 32010 },
-    //     { date: "2019-12-8", volume: 26518 },
-    //     { date: "2019-12-7", volume: 18606 },
-    //     { date: "2019-12-6", volume: 16795 },
-    //     { date: "2019-12-5", volume: 28607 },
-    //     { date: "2019-12-4", volume: 23621 }
-    // ];
-
     const chartPalette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"]
 
     useEffect(() => {
@@ -66,7 +56,6 @@ function SummaryCard(props) {
                     style={{ tickLabels: { padding: 16, fontSize: 8 } }}
                 />
                 <VictoryAxis dependentAxis />
-                {/* <VictoryLine data={exampleData} x="date" y="volume" key={zip.id}/> */}
                 {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
                     data: { stroke: chartPalette[index] },
                     parent: { border: "1px solid #ccc" }
