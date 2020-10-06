@@ -86,10 +86,11 @@ function ZipCodeList() {
             <div className="card">
                 <h5 className="card-header">My Zip Codes</h5>
                 <ul className="list-group list-group-flush">
+                    {myZipCodes.length === 0 && <li class="list-group-item"><strong>Enter a zip to begin your search</strong></li>}
                     {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
                 </ul>
             </div>
-            <button onClick={event => {
+            <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={event => {
                 event.preventDefault()
                 navigate(
                     "/summary/",
