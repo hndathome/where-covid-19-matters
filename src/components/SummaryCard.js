@@ -65,7 +65,7 @@ function SummaryCard(props) {
                 />
                 <VictoryAxis dependentAxis />
                 {/* <VictoryLine data={exampleData} x="date" y="volume" key={zip.id}/> */}
-                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset} x="date" y="positiveCt" key={index} />)}
+                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} />)}
             </VictoryChart>
         );
     };
