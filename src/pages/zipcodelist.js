@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { navigate } from "gatsby"
 import axios from "axios"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 import ZipCode from "../components/ZipCode"
 import Layout from '../components/Layout';
@@ -10,6 +12,7 @@ function ZipCodeList() {
     const [zipCode, setZipCode] = useState("");
     const [url, setUrl] = useState('');
     const [delId, setDelId] = useState('');
+    const [delAll, setDelAll] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,6 +51,13 @@ function ZipCodeList() {
         }
     }, [delId]);
 
+    useEffect(() => {
+        if (delAll) {
+            setMyZipCodes([]);
+            setDelAll(false);
+        }
+    }, [delAll]);
+
     const handleSubmit = event => {
         event.preventDefault();
 
@@ -70,36 +80,67 @@ function ZipCodeList() {
         setDelId(id);
     };
 
+    const handleDeleteAll = event => {
+        event.preventDefault();
+        setDelAll(true);
+    }
+
     return (
         <Layout>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <input
-                        name="zipCode"
-                        type="text"
-                        value={zipCode}
-                        minLength={5}
-                        maxLength={5}
-                        onChange={e => setZipCode(e.target.value)}
-                    />
-                </label>
-            </form>
-            <div className="card">
-                <h5 className="card-header">My Zip Codes</h5>
-                <ul className="list-group list-group-flush">
-                    {myZipCodes.length === 0 && <li className="list-group-item"><strong>Enter a zip to begin your search</strong></li>}
-                    {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
-                </ul>
+            <div className="container zipcode-form">
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-row ">
+                                        <div className="col-auto">
+                                            <label className="sr-only" htmlFor="zipCode">Zip code</label>
+                                            <input
+                                                className="form-control mb-2"
+                                                name="zipCode"
+                                                type="text"
+                                                placeholder="Zip code"
+                                                value={zipCode}
+                                                minLength={5}
+                                                maxLength={5}
+                                                onChange={e => setZipCode(e.target.value)}
+                                            />
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-secondary mb-2" onClick={handleSubmit}><FontAwesomeIcon icon={faPlus} /> zip code</button>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-danger mb-2" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} /> all zip codes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="card">
+                                    <h5 className="card-header">My Zip Codes</h5>
+                                    <ul className="list-group list-group-flush">
+                                        {myZipCodes.length === 0 && <li className="list-group-item"><strong>Enter a zip to begin your search</strong></li>}
+                                        {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={event => {
+                    event.preventDefault()
+                    navigate(
+                        "/summary/",
+                        {
+                            state: { myZipCodes },
+                        }
+                    )
+                }}>Get data</button>
             </div>
-            <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={event => {
-                event.preventDefault()
-                navigate(
-                    "/summary/",
-                    {
-                        state: { myZipCodes },
-                    }
-                )
-            }}>Get data</button>
         </Layout>
     );
 }
