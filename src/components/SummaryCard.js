@@ -31,6 +31,8 @@ function SummaryCard(props) {
     //     { date: "2019-12-4", volume: 23621 }
     // ];
 
+    const chartPalette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"]
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(nytUrl, { headers: { 'Accept': 'application/json' } });
@@ -65,7 +67,10 @@ function SummaryCard(props) {
                 />
                 <VictoryAxis dependentAxis />
                 {/* <VictoryLine data={exampleData} x="date" y="volume" key={zip.id}/> */}
-                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} />)}
+                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
+                    data: { stroke: chartPalette[index] },
+                    parent: { border: "1px solid #ccc" }
+                }} />)}
             </VictoryChart>
         );
     };
