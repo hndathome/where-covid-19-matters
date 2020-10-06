@@ -90,43 +90,36 @@ function ZipCodeList() {
             <div className="container zipcode-form">
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <form onSubmit={handleSubmit}>
-                                    <div className="form-row ">
-                                        <div className="col-auto">
-                                            <label className="sr-only" htmlFor="zipCode">Zip code</label>
-                                            <input
-                                                className="form-control mb-2"
-                                                name="zipCode"
-                                                type="text"
-                                                placeholder="Zip code"
-                                                value={zipCode}
-                                                minLength={5}
-                                                maxLength={5}
-                                                onChange={e => setZipCode(e.target.value)}
-                                            />
+                        <div className="card">
+                            <h5 className="card-header">My Zip Codes</h5>
+                            <ul className="list-group list-group-flush">
+                                {/* {myZipCodes.length === 0 && <li className="list-group-item"><strong>Enter a zip to begin your search</strong></li>} */}
+                                {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
+                                <li className="list-group-item">
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="form-row ">
+                                            <div class="input-group">
+                                                <label className="sr-only" htmlFor="zipCode">Zip code</label>
+                                                <input
+                                                    className="form-control"
+                                                    name="zipCode"
+                                                    type="text"
+                                                    placeholder={"Zip code"}
+                                                    value={zipCode}
+                                                    minLength={5}
+                                                    maxLength={5}
+                                                    onChange={e => setZipCode(e.target.value)}
+                                                    aria-label="zip code"
+                                                />
+                                                <div class="input-group-append">
+                                                    <button className="btn btn-outline-secondary" onClick={handleSubmit}><FontAwesomeIcon icon={faPlus} /> zip code</button>
+                                                    <button className="btn btn-outline-danger" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} /> all</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-secondary mb-2" onClick={handleSubmit}><FontAwesomeIcon icon={faPlus} /> zip code</button>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button class="btn btn-danger mb-2" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} /> all zip codes</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="card">
-                                    <h5 className="card-header">My Zip Codes</h5>
-                                    <ul className="list-group list-group-flush">
-                                        {myZipCodes.length === 0 && <li className="list-group-item"><strong>Enter a zip to begin your search</strong></li>}
-                                        {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
-                                    </ul>
-                                </div>
-                            </div>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

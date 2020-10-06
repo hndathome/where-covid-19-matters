@@ -59,7 +59,7 @@ function SummaryCard(props) {
                                         state: { item },
                                     }
                                 )
-                            }}>View Details</button>
+                            }}>View details</button>
                         </div>
                     </div>
                 </div>
