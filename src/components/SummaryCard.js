@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from 'gatsby';
-import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis } from "victory";
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
 import axios from 'axios';
 
 //state data, below desired keys
@@ -40,7 +40,7 @@ function SummaryCard(props) {
         }
         const { counties } = data;
         const countyNames = counties.reduce((accumulator, current) => {
-            return [...accumulator, current.countyName]
+            return [...accumulator, { name: current.countyName }]
         }, []);
 
         const series = counties.reduce((accumulator, current) => {
@@ -50,17 +50,26 @@ function SummaryCard(props) {
         console.log(series);
 
         return (
-            <VictoryChart theme={VictoryTheme.material} domainPadding={0} padding={55}>
-                <VictoryAxis
-                    fixLabelOverlap
-                    style={{ tickLabels: { padding: 16, fontSize: 8 } }}
-                />
-                <VictoryAxis dependentAxis />
-                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
-                    data: { stroke: chartPalette[index] },
-                    parent: { border: "1px solid #ccc" }
-                }} />)}
-            </VictoryChart>
+            <>
+                <VictoryChart theme={VictoryTheme.material} domainPadding={0} padding={55}>
+                    <VictoryAxis
+                        fixLabelOverlap
+                        style={{ tickLabels: { padding: 16, fontSize: 8 } }}
+                    />
+                    <VictoryAxis dependentAxis />
+                    {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
+                        data: { stroke: chartPalette[index] },
+                        parent: { border: "1px solid #ccc" }
+                    }} />)}
+                    <VictoryLegend x={5} y={5}
+                        orientation="horizontal"
+                        gutter={10}
+                        colorScale={chartPalette}
+                        data={countyNames}
+                    />
+                </VictoryChart>
+
+            </>
         );
     };
 
