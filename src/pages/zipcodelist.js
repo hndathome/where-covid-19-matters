@@ -28,7 +28,6 @@ function ZipCodeList() {
                     let stateInfo;
                     if (!myStates.hasOwnProperty(zipcodes[0].state_abbreviation)) {
                         const stateInfoUrl = `https://api.covidtracking.com/v1/states/${zipcodes[0].state_abbreviation}/info.json`
-                        console.log(stateInfoUrl);
                         const responseStateInfo = await axios.get(stateInfoUrl, { headers: { 'Accept': 'application/json' } });
                         stateInfo = responseStateInfo.data;
                         setMyStates(obj => ({ ...obj, [zipcodes[0].state_abbreviation]: stateInfo }));

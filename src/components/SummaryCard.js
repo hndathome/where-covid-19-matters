@@ -3,11 +3,7 @@ import { navigate } from 'gatsby';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
 import axios from 'axios';
 
-//state data, below desired keys
-//notes
-//covid19Site
-//covid19SiteSecondary
-//twitter
+
 //`https://api.covidtracking.com/v1/states/ar/info.json`
 
 //covid-19 testing locations
@@ -17,8 +13,9 @@ import axios from 'axios';
 //`https://api.covidtracking.com/v1/states/ar/current.json`
 
 function SummaryCard(props) {
-    const { item, item: { zipcode } } = props;
-    console.log(item);
+    const { item, item: { zipcode, state_info }, } = props;
+    const { notes, covid19Site, covid19SiteSecondary, twitter } = state_info;
+
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
 
@@ -47,8 +44,6 @@ function SummaryCard(props) {
         const series = counties.reduce((accumulator, current) => {
             return [...accumulator, current.historicData]
         }, []);
-        console.log(countyNames);
-        console.log(series);
 
         return (
             <>
@@ -82,6 +77,12 @@ function SummaryCard(props) {
                 </div>
                 <div className="card-body">
                     <p className="card-text">{zipcode}</p>
+                    <ul>
+                        {/* <li>{notes}</li> */}
+                        <li>{covid19Site}</li>
+                        <li>{covid19SiteSecondary}</li>
+                        <li>{twitter}</li>
+                    </ul>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
                             <button className="btn btn-sm btn-outline-secondary" onClick={event => {
