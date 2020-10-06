@@ -8,7 +8,7 @@ export default function Summary({ location }) {
             <main role="main">
                 <section className="jumbotron text-center">
                     <div className="container">
-                        <h1>COVID-19 Summary Results</h1>
+                        <h1>Summary Results</h1>
                         {/* <p className="lead text-muted"></p> */}
                     </div>
                 </section>

@@ -10,8 +10,6 @@ export const ZipCodeDetail = (props) => {
 
     const [hereData, setHereData] = useState()
     useEffect(() => {
-        console.log("ZipCodeDetail.js")
-        console.log(item);
         let atLat = item.latitude.toString();
         let atLong = item.longitude.toString();
 

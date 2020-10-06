@@ -98,7 +98,7 @@ function ZipCodeList() {
                                 <li className="list-group-item">
                                     <form onSubmit={handleSubmit}>
                                         <div className="form-row ">
-                                            <div class="input-group">
+                                            <div className="input-group">
                                                 <label className="sr-only" htmlFor="zipCode">Zip code</label>
                                                 <input
                                                     className="form-control"
@@ -111,7 +111,7 @@ function ZipCodeList() {
                                                     onChange={e => setZipCode(e.target.value)}
                                                     aria-label="zip code"
                                                 />
-                                                <div class="input-group-append">
+                                                <div className="input-group-append">
                                                     <button className="btn btn-outline-secondary" onClick={handleSubmit}><FontAwesomeIcon icon={faPlus} /> zip code</button>
                                                     <button className="btn btn-outline-danger" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} /> all</button>
                                                 </div>

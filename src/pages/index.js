@@ -10,7 +10,7 @@ export default function Home() {
           <div className="jumbotron">
             <div className="container">
               <h1 className="display-3">Where COVID-19 Matters</h1>
-              <p>This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or to keep up to date with the latest information for family and friends living across the United States.</p>
+              <p>This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or for family and friends living across the United States.</p>
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
           </div>
