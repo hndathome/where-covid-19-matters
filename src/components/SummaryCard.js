@@ -19,19 +19,17 @@ import axios from 'axios';
 function SummaryCard(props) {
     const { item, item: { zipcode } } = props;
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
-
-
     const [nytData, setNYTData] = useState({});
 
-    const exampleData = [
-        { date: "2019-12-10", volume: 16197 },
-        { date: "2019-12-9", volume: 32010 },
-        { date: "2019-12-8", volume: 26518 },
-        { date: "2019-12-7", volume: 18606 },
-        { date: "2019-12-6", volume: 16795 },
-        { date: "2019-12-5", volume: 28607 },
-        { date: "2019-12-4", volume: 23621 }
-    ];
+    // const exampleData = [
+    //     { date: "2019-12-10", volume: 16197 },
+    //     { date: "2019-12-9", volume: 32010 },
+    //     { date: "2019-12-8", volume: 26518 },
+    //     { date: "2019-12-7", volume: 18606 },
+    //     { date: "2019-12-6", volume: 16795 },
+    //     { date: "2019-12-5", volume: 28607 },
+    //     { date: "2019-12-4", volume: 23621 }
+    // ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,16 +41,21 @@ function SummaryCard(props) {
 
     const Chart = (props) => {
         const { data } = props;
-
         if (data.zipCd === undefined) {
-            return (<></>);
+            return (
+                <h2 style={{ textAlign: "center" }}>Loading data ...</h2>
+            );
         }
-
         const { counties } = data;
         const countyNames = counties.reduce((accumulator, current) => {
             return [...accumulator, current.countyName]
         }, []);
+
+        const series = counties.reduce((accumulator, current) => {
+            return [...accumulator, current.historicData]
+        }, []);
         console.log(countyNames);
+        console.log(series);
 
         return (
             <VictoryChart theme={VictoryTheme.material} domainPadding={0} padding={55}>
@@ -61,7 +64,8 @@ function SummaryCard(props) {
                     style={{ tickLabels: { padding: 16, fontSize: 8 } }}
                 />
                 <VictoryAxis dependentAxis />
-                <VictoryLine data={exampleData} x="date" y="volume" />
+                {/* <VictoryLine data={exampleData} x="date" y="volume" key={zip.id}/> */}
+                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset} x="date" y="positiveCt" key={index} />)}
             </VictoryChart>
         );
     };
@@ -86,6 +90,7 @@ function SummaryCard(props) {
                                 )
                             }}>View details</button>
                         </div>
+                        <small className="text-muted">9 mins</small>
                     </div>
                 </div>
             </div>
