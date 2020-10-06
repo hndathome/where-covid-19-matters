@@ -33,6 +33,7 @@ function ZipCodeList() {
                     ]);
                     setZipCode("");
                 }
+                setUrl('');
             }
         };
 
@@ -42,6 +43,7 @@ function ZipCodeList() {
     useEffect(() => {
         if (delId !== '') {
             setMyZipCodes(list => list.filter(obj => obj.id !== delId));
+            setDelId('');
         }
     }, [delId]);
 
