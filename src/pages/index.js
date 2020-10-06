@@ -1,6 +1,7 @@
 import React from "react"
 //import { Link } from "@reach/router";
 
+//`https://api.covidtracking.com/v1/us/current.json`
 export default function Home() {
   return (
     <>
@@ -30,15 +31,12 @@ export default function Home() {
               {/* <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
             </div>
           </div>
-
           <hr />
-
         </div>
       </main>
       <footer class="container">
         {/* <p>&copy; Company 2017-2018</p> */}
       </footer>
-
     </>
   )
 }
