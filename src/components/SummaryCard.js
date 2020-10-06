@@ -3,12 +3,8 @@ import { navigate } from 'gatsby';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
 import axios from 'axios';
 
-
-//`https://api.covidtracking.com/v1/states/ar/info.json`
-
 //covid-19 testing locations
 //`https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=36.03,-94.15&limit=3`
-
 
 //`https://api.covidtracking.com/v1/states/ar/current.json`
 
@@ -64,7 +60,6 @@ function SummaryCard(props) {
                         data={countyNames}
                     />
                 </VictoryChart>
-
             </>
         );
     };

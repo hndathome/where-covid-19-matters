@@ -4,8 +4,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import ZipCode from "../components/ZipCode";
 import Layout from '../components/Layout';
+import ZipCode from "../components/ZipCode";
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
