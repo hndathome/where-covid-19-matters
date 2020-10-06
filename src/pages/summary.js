@@ -21,7 +21,7 @@ export default function Summary({ location }) {
             </section>
             <div className="album py-5 bg-light">
                 <div className="container">
-                    <div className="row">
+                    <div className={location.state.myZipCodes.length > 2 ? "row" : "row justify-content-around"}>
                         {location.state.myZipCodes.map(zip => <SummaryCard item={zip} key={zip.id} />)}
                     </div>
                 </div>
