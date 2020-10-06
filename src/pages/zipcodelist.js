@@ -1,48 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import { navigate } from "gatsby"
-import axios from "axios"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import React, { useState, useEffect } from 'react';
+import { navigate } from "gatsby";
+import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import ZipCode from "../components/ZipCode"
+import ZipCode from "../components/ZipCode";
 import Layout from '../components/Layout';
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
     const [zipCode, setZipCode] = useState("");
-    const [url, setUrl] = useState('');
+    const [smartyStreetUrl, setSmartyStreetUrl] = useState('');
     const [delId, setDelId] = useState('');
     const [delAll, setDelAll] = useState(false);
+    const [myStates, setMyStates] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
-            if (url !== '') {
-                const result = await axios.get(url, { headers: { 'Accept': 'application/json' } });
-                if (result.data[0].zipcodes === undefined) {
+            if (smartyStreetUrl !== '') {
+                const responseSmartyStreet = await axios.get(smartyStreetUrl, { headers: { 'Accept': 'application/json' } });
+                const { zipcodes } = responseSmartyStreet.data[0];
+
+                if (responseSmartyStreet.data[0].zipcodes === undefined) {
                     alert('Invalid zip code.');
                 }
                 else {
+                    let stateInfo;
+                    if (!myStates.hasOwnProperty(zipcodes[0].state_abbreviation)) {
+                        const stateInfoUrl = `https://api.covidtracking.com/v1/states/${zipcodes[0].state_abbreviation}/info.json`
+                        console.log(stateInfoUrl);
+                        const responseStateInfo = await axios.get(stateInfoUrl, { headers: { 'Accept': 'application/json' } });
+                        stateInfo = responseStateInfo.data;
+                        setMyStates(obj => ({ ...obj, [zipcodes[0].state_abbreviation]: stateInfo }));
+                    }
+                    else {
+                        stateInfo = myStates[zipcodes[0].state_abbreviation];
+                    }
                     setMyZipCodes(list => [
                         ...list,
                         {
-                            id: result.data[0].zipcodes[0].zipcode,
-                            zipcode: result.data[0].zipcodes[0].zipcode,
-                            county_fips: result.data[0].zipcodes[0].county_fips,
-                            county_name: result.data[0].zipcodes[0].county_name,
-                            state_abbreviation: result.data[0].zipcodes[0].state_abbreviation,
-                            state: result.data[0].zipcodes[0].state,
-                            latitude: result.data[0].zipcodes[0].latitude,
-                            longitude: result.data[0].zipcodes[0].longitude
+                            id: zipcodes[0].zipcode,
+                            zipcode: zipcodes[0].zipcode,
+                            county_fips: zipcodes[0].county_fips,
+                            county_name: zipcodes[0].county_name,
+                            state_abbreviation: zipcodes[0].state_abbreviation,
+                            state: zipcodes[0].state,
+                            latitude: zipcodes[0].latitude,
+                            longitude: zipcodes[0].longitude,
+                            state_info: stateInfo
                         }
                     ]);
                     setZipCode("");
                 }
-                setUrl('');
+                setSmartyStreetUrl('');
             }
         };
 
         fetchData();
-    }, [url]);
+    }, [smartyStreetUrl]);
 
     useEffect(() => {
         if (delId !== '') {
@@ -68,7 +83,7 @@ function ZipCodeList() {
                 alert('Zip code already included in list.');
             }
             else {
-                setUrl(`https://us-zipcode.api.smartystreets.com/lookup?key=${process.env.GATSBY_SS_KEY}&zipcode=${zipCode}`);
+                setSmartyStreetUrl(`https://us-zipcode.api.smartystreets.com/lookup?key=${process.env.GATSBY_SS_KEY}&zipcode=${zipCode}`);
             }
         }
         else {
@@ -83,6 +98,16 @@ function ZipCodeList() {
     const handleDeleteAll = event => {
         event.preventDefault();
         setDelAll(true);
+    }
+
+    const handleGetData = event => {
+        event.preventDefault()
+        navigate(
+            "/summary/",
+            {
+                state: { myZipCodes },
+            }
+        )
     }
 
     return (
@@ -124,15 +149,7 @@ function ZipCodeList() {
                     </div>
                 </div>
                 <br />
-                <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={event => {
-                    event.preventDefault()
-                    navigate(
-                        "/summary/",
-                        {
-                            state: { myZipCodes },
-                        }
-                    )
-                }}>Get data</button>
+                <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={handleGetData}>Get data</button>
             </div>
         </Layout>
     );

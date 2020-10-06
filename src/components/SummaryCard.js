@@ -18,6 +18,7 @@ import axios from 'axios';
 
 function SummaryCard(props) {
     const { item, item: { zipcode } } = props;
+    console.log(item);
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
 

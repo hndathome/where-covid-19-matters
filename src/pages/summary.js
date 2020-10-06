@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import SummaryCard from "../components/SummaryCard"
 
 export default function Summary({ location }) {
+    const { myZipCodes } = location.state;
     return (
         <Layout>
             <main role="main">
@@ -14,8 +15,8 @@ export default function Summary({ location }) {
                 </section>
                 <div className="album py-5 bg-light">
                     <div className="container">
-                        <div className={location.state.myZipCodes.length > 2 ? "row" : "row justify-content-around"}>
-                            {location.state.myZipCodes.map(zip => <SummaryCard item={zip} key={zip.id} />)}
+                        <div className={myZipCodes.length > 2 ? "row" : "row justify-content-around"}>
+                            {myZipCodes.map(zip => <SummaryCard item={zip} key={zip.id} />)}
                         </div>
                     </div>
                 </div>
