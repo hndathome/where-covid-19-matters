@@ -3,6 +3,7 @@ import { navigate } from "gatsby"
 import axios from "axios"
 
 import ZipCode from "../components/ZipCode"
+import Layout from '../components/Layout';
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
@@ -70,7 +71,7 @@ function ZipCodeList() {
     };
 
     return (
-        <>
+        <Layout>
             <form onSubmit={handleSubmit}>
                 <label>
                     <input
@@ -86,7 +87,7 @@ function ZipCodeList() {
             <div className="card">
                 <h5 className="card-header">My Zip Codes</h5>
                 <ul className="list-group list-group-flush">
-                    {myZipCodes.length === 0 && <li class="list-group-item"><strong>Enter a zip to begin your search</strong></li>}
+                    {myZipCodes.length === 0 && <li className="list-group-item"><strong>Enter a zip to begin your search</strong></li>}
                     {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
                 </ul>
             </div>
@@ -98,8 +99,8 @@ function ZipCodeList() {
                         state: { myZipCodes },
                     }
                 )
-            }}>get data</button>
-        </>
+            }}>Get data</button>
+        </Layout>
     );
 }
 

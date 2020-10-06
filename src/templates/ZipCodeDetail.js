@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react"
+import Layout from "../components/Layout";
 
 export const ZipCodeDetail = (props) => {
 
@@ -24,8 +25,10 @@ export const ZipCodeDetail = (props) => {
     }, [zipcode, item])
 
     return (
-        <div>
-            <pre>{JSON.stringify(hereData, null, 2)}</pre>
-        </div>
+        <Layout>
+            <div>
+                <pre>{JSON.stringify(hereData, null, 2)}</pre>
+            </div>
+        </Layout>
     )
 }
