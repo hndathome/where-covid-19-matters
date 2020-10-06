@@ -1,12 +1,17 @@
 import React from "react"
 import { navigate } from 'gatsby'
+import { VictoryChart, VictoryLine } from "victory";
 
 function SummaryCard(props) {
     const { item } = props;
     return (
         <div className="col-md-4">
             <div className="card mb-4 shadow-sm">
-                <img className="bd-placeholder-img card-img-top" width="100%" height="225" focusable="false" src="" alt="" />
+                <div width="100%" height="225" className="bd-placeholder-img card-img-top">
+                    <VictoryChart >
+                        <VictoryLine />
+                    </VictoryChart>
+                </div>
                 <div className="card-body">
                     <p className="card-text">{item.zipcode}</p>
                     <div className="d-flex justify-content-between align-items-center">
