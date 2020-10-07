@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { navigate } from 'gatsby';
+import { navigate, Link } from 'gatsby';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
 import axios from 'axios';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 //covid-19 testing locations
 //`https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=36.03,-94.15&limit=3`
@@ -9,18 +12,25 @@ import axios from 'axios';
 //`https://api.covidtracking.com/v1/states/ar/current.json`
 
 function SummaryCard(props) {
-    const { item, item: { zipcode, state_info }, } = props;
-    const { notes, covid19Site, covid19SiteSecondary, twitter } = state_info;
+    const { item, item: { zipcode, state_info, state: geoState }, } = props;
+    const { covid19Site, covid19SiteSecondary, twitter } = state_info;
 
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
+    const [lastUpdated, setLastUpdated] = useState('');
 
     const chartPalette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"]
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(nytUrl, { headers: { 'Accept': 'application/json' } });
-            setNYTData(response.data);
+            try {
+                const response = await axios.get(nytUrl, { headers: { 'Accept': 'application/json' } });
+                const respData = Object.keys(response.data).length === 0 ? { zipCd: "Empty" } : response.data;
+                setNYTData(respData);
+            } catch (error) {
+                setNYTData({ zipCd: "Empty" });
+                console.error(error);
+            }
         };
         fetchData();
     }, [nytUrl]);
@@ -32,6 +42,13 @@ function SummaryCard(props) {
                 <h2 style={{ textAlign: "center" }}>Loading data ...</h2>
             );
         }
+
+        if (data.zipCd === "Empty") {
+            return (
+                <h2 style={{ textAlign: "center" }}>No data available</h2>
+            );
+        }
+
         const { counties } = data;
         const countyNames = counties.reduce((accumulator, current) => {
             return [...accumulator, { name: current.countyName }]
@@ -72,16 +89,16 @@ function SummaryCard(props) {
                 </div>
                 <div className="card-body">
                     <p className="card-text">{zipcode}</p>
+                    <p>{geoState} Department of Health</p>
                     <ul>
-                        {/* <li>{notes}</li> */}
-                        <li>{covid19Site}</li>
-                        <li>{covid19SiteSecondary}</li>
-                        <li>{twitter}</li>
+                        <li><a href={covid19Site}>Covid19 Site</a></li>
+                        <li><a href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
+                        <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} /> </a></li>
                     </ul>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
-                            <button className="btn btn-sm btn-outline-secondary" onClick={event => {
-                                event.preventDefault()
+                            <button className="btn btn-sm btn-secondary" onClick={event => {
+                                event.preventDefault();
                                 navigate(
                                     `/details/${zipcode}`,
                                     {
@@ -90,7 +107,7 @@ function SummaryCard(props) {
                                 )
                             }}>View details</button>
                         </div>
-                        <small className="text-muted">9 mins</small>
+                        <small className="text-muted">{lastUpdated}</small>
                     </div>
                 </div>
             </div>
