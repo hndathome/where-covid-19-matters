@@ -4,8 +4,6 @@ import Layout from "../components/Layout";
 export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
     const [hereData, setHereData] = useState();
-    console.log(item);
-
     useEffect(() => {
         let atLat = item.latitude.toString();
         let atLong = item.longitude.toString();
