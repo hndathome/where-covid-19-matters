@@ -52,7 +52,7 @@ function SummaryCard(props) {
 
         if (data.zipCd === "Empty") {
             return (
-                <h2 style={{ textAlign: "center" }}>No data available</h2>
+                <h5 style={{ textAlign: "center" }}>No county data available</h5>
             );
         }
 
@@ -98,7 +98,7 @@ function SummaryCard(props) {
                     <ul>
                         <li><a href={covid19Site}>Covid19 Site</a></li>
                         <li><a href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
-                        <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} /></a></li>
+                        {twitter.startsWith('@') && <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} /></a></li>}
                     </ul>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
