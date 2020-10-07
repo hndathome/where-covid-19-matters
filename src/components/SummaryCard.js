@@ -12,7 +12,6 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState }, } = props;
     const { covid19Site, covid19SiteSecondary, twitter } = state_info;
-    console.log(item);
 
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
@@ -67,25 +66,23 @@ function SummaryCard(props) {
         }, []);
 
         return (
-            <>
-                <VictoryChart theme={VictoryTheme.material} domainPadding={1} padding={55}>
-                    <VictoryAxis
-                        fixLabelOverlap
-                        style={{ tickLabels: { padding: 16, fontSize: 8 } }}
-                    />
-                    <VictoryAxis dependentAxis />
-                    {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
-                        data: { stroke: chartPalette[index], strokeWidth: 3 },
-                        parent: { border: "1px solid #ccc" }
-                    }} />)}
-                    <VictoryLegend x={5} y={5}
-                        orientation="horizontal"
-                        gutter={10}
-                        colorScale={chartPalette}
-                        data={countyNames}
-                    />
-                </VictoryChart>
-            </>
+            <VictoryChart theme={VictoryTheme.material} domainPadding={1} padding={55}>
+                <VictoryAxis
+                    fixLabelOverlap
+                    style={{ tickLabels: { padding: 16, fontSize: 8 } }}
+                />
+                <VictoryAxis dependentAxis />
+                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
+                    data: { stroke: chartPalette[index], strokeWidth: 3 },
+                    parent: { border: "1px solid #ccc" }
+                }} />)}
+                <VictoryLegend x={5} y={5}
+                    orientation="horizontal"
+                    gutter={10}
+                    colorScale={chartPalette}
+                    data={countyNames}
+                />
+            </VictoryChart>
         );
     };
 
@@ -101,7 +98,7 @@ function SummaryCard(props) {
                     <ul>
                         <li><a href={covid19Site}>Covid19 Site</a></li>
                         <li><a href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
-                        <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} /> </a></li>
+                        <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} /></a></li>
                     </ul>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
