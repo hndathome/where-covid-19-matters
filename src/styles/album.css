@@ -92,3 +92,8 @@ padding-top: 1.5rem;
 .addclickdefault{
   color: unset;
 }
+
+.leaflet-container {
+  height: 400px;
+  width: 100%;
+}
