@@ -29,7 +29,8 @@ function SummaryCard(props) {
                 }
                 else {
                     respData = response.data;
-                    setLastUpdated(respData.counties[0].historicData[0].date);
+                    const myDate = respData.counties[0].historicData[0].date
+                    setLastUpdated(`${myDate.slice(5)}-${myDate.slice(0, 4)}`);
                 }
                 setUpdatedItem({ ...item, county_info: respData });
                 setNYTData(respData);
