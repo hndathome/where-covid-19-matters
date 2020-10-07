@@ -12,6 +12,7 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState }, } = props;
     const { covid19Site, covid19SiteSecondary, twitter } = state_info;
+    console.log(item);
 
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});

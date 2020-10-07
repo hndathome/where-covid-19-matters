@@ -29,18 +29,25 @@ function ZipCodeList() {
                     }
                     else {
                         let stateInfo;
+                        let stateCurrent;
                         if (!myStates.hasOwnProperty(zipcodes[0].state_abbreviation)) {
                             try {
                                 const stateInfoUrl = `https://api.covidtracking.com/v1/states/${zipcodes[0].state_abbreviation}/info.json`
                                 const responseStateInfo = await axios.get(stateInfoUrl, { headers: { 'Accept': 'application/json' } });
                                 stateInfo = responseStateInfo.data;
-                                setMyStates(obj => ({ ...obj, [zipcodes[0].state_abbreviation]: stateInfo }));
+
+                                const stateCurrentUrl = `https://api.covidtracking.com/v1/states/${zipcodes[0].state_abbreviation}/current.json`;
+                                const responseStateCurrent = await axios.get(stateCurrentUrl, { headers: { 'Accept': 'application/json' } });
+                                stateCurrent = responseStateCurrent.data;
+
+                                setMyStates(obj => ({ ...obj, [zipcodes[0].state_abbreviation]: { state_info: stateInfo, state_current: stateCurrent } }));
                             } catch (error) {
                                 console.error(error);
                             }
                         }
                         else {
-                            stateInfo = myStates[zipcodes[0].state_abbreviation];
+                            stateInfo = myStates[zipcodes[0].state_abbreviation].state_info;
+                            stateCurrent = myStates[zipcodes[0].state_abbreviation].state_current;
                         }
                         setMyZipCodes(list => [
                             ...list,
@@ -53,7 +60,8 @@ function ZipCodeList() {
                                 state: zipcodes[0].state,
                                 latitude: zipcodes[0].latitude,
                                 longitude: zipcodes[0].longitude,
-                                state_info: stateInfo
+                                state_info: stateInfo,
+                                state_current: stateCurrent
                             }
                         ]);
                         setZipCode("");
