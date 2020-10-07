@@ -24,7 +24,16 @@ function SummaryCard(props) {
         const fetchData = async () => {
             try {
                 const response = await axios.get(nytUrl, { headers: { 'Accept': 'application/json' } });
-                const respData = Object.keys(response.data).length === 0 ? { zipCd: "Empty" } : response.data;
+                let respData;
+
+                if (Object.keys(response.data).length === 0) {
+                    respData = { zipCd: "Empty" }
+                }
+                else {
+                    respData = response.data;
+                    setLastUpdated(respData.counties[0].historicData[0].date);
+                }
+
                 setNYTData(respData);
             } catch (error) {
                 setNYTData({ zipCd: "Empty" });
@@ -56,6 +65,8 @@ function SummaryCard(props) {
         const series = counties.reduce((accumulator, current) => {
             return [...accumulator, current.historicData]
         }, []);
+
+
 
         return (
             <>
