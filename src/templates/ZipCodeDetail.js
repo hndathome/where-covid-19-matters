@@ -56,9 +56,6 @@ export const ZipCodeDetail = (props) => {
                         markers={markers}
                     />
                 }
-                <div>
-                    <pre>{JSON.stringify(hereData, null, 2)}</pre>
-                </div>
             </Layout>
         </>
     )
