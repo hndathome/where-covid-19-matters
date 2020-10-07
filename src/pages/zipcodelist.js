@@ -154,8 +154,8 @@ function ZipCodeList() {
                                                     aria-label="zip code"
                                                 />
                                                 <div className="input-group-append">
-                                                    <button className="btn btn-outline-secondary" onClick={handleSubmit}><FontAwesomeIcon icon={addingZip ? faSpinner : faPlus} /> zip code</button>
-                                                    <button className="btn btn-outline-danger" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} /> all</button>
+                                                    <button className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code" onClick={handleSubmit}><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
+                                                    <button className="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} aria-label="delete all zip codes" /></button>
                                                 </div>
                                             </div>
                                         </div>

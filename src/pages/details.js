@@ -6,7 +6,7 @@ const Details = () => (
     <Location>
         {({ location }) => (
             <Router location={location}>
-                <ZipCodeDetail path="/details/:zipcode" item={location.state.item} />
+                <ZipCodeDetail path="/details/:zipcode" item={location.state.updatedItem} />
             </Router>
         )}
     </Location>

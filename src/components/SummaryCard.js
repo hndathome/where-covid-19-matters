@@ -6,8 +6,6 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
-//covid-19 testing locations
-//`https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=36.03,-94.15&limit=3`
 
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState }, } = props;
@@ -16,6 +14,7 @@ function SummaryCard(props) {
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
     const [lastUpdated, setLastUpdated] = useState('');
+    const [updatedItem, setUpdatedItem] = useState({});
 
     const chartPalette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"]
 
@@ -26,13 +25,13 @@ function SummaryCard(props) {
                 let respData;
 
                 if (Object.keys(response.data).length === 0) {
-                    respData = { zipCd: "Empty" }
+                    respData = { zipCd: "Empty" };
                 }
                 else {
                     respData = response.data;
                     setLastUpdated(respData.counties[0].historicData[0].date);
                 }
-
+                setUpdatedItem({ ...item, county_info: respData });
                 setNYTData(respData);
             } catch (error) {
                 setNYTData({ zipCd: "Empty" });
@@ -98,7 +97,7 @@ function SummaryCard(props) {
                     <ul>
                         <li><a href={covid19Site}>Covid19 Site</a></li>
                         <li><a href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
-                        {twitter.startsWith('@') && <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} /></a></li>}
+                        {twitter.startsWith('@') && <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
                     </ul>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
@@ -107,7 +106,7 @@ function SummaryCard(props) {
                                 navigate(
                                     `/details/${zipcode}`,
                                     {
-                                        state: { item },
+                                        state: { updatedItem },
                                     }
                                 )
                             }}>View details</button>
