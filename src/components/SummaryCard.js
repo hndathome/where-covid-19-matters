@@ -46,7 +46,7 @@ function SummaryCard(props) {
         const { data } = props;
         if (data.zipCd === undefined) {
             return (
-                <h2 style={{ textAlign: "center" }}>Loading data ...</h2>
+                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
             );
         }
 
