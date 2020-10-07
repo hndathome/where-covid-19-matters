@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Layout from "../components/Layout";
+import DisplayMap from "../components/DisplayMap"
+import { Helmet } from "react-helmet"
 
 export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
@@ -18,10 +20,19 @@ export const ZipCodeDetail = (props) => {
     }, [zipcode, item])
 
     return (
-        <Layout>
-            <div>
-                <pre>{JSON.stringify(hereData, null, 2)}</pre>
-            </div>
-        </Layout>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{zipcode} Details</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+            </Helmet>
+            <Layout>
+                <DisplayMap />
+                <div>
+                    <pre>{JSON.stringify(hereData, null, 2)}</pre>
+                </div>
+            </Layout>
+        </>
     )
 }
