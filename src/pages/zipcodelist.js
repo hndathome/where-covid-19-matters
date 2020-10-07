@@ -6,7 +6,6 @@ import { faPlus, faTrashAlt, faSpinner } from '@fortawesome/free-solid-svg-icons
 
 import Layout from '../components/Layout';
 import ZipCode from "../components/ZipCode";
-import { set } from 'd3';
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);

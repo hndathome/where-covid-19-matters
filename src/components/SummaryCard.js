@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { navigate, Link } from 'gatsby';
+import { navigate } from 'gatsby';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
 import axios from 'axios';
 
@@ -8,7 +8,6 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 //covid-19 testing locations
 //`https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=36.03,-94.15&limit=3`
-
 
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState }, } = props;
@@ -65,8 +64,6 @@ function SummaryCard(props) {
         const series = counties.reduce((accumulator, current) => {
             return [...accumulator, current.historicData]
         }, []);
-
-
 
         return (
             <>
