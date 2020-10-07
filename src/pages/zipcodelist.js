@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { navigate } from "gatsby";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrashAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '../components/Layout';
 import ZipCode from "../components/ZipCode";
+import { set } from 'd3';
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
@@ -14,10 +15,12 @@ function ZipCodeList() {
     const [delId, setDelId] = useState('');
     const [delAll, setDelAll] = useState(false);
     const [myStates, setMyStates] = useState({});
+    const [addingZip, setAddingZip] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             if (smartyStreetUrl !== '') {
+                setAddingZip(true);
                 try {
                     const responseSmartyStreet = await axios.get(smartyStreetUrl, { headers: { 'Accept': 'application/json' } });
                     const { zipcodes } = responseSmartyStreet.data[0];
@@ -60,6 +63,7 @@ function ZipCodeList() {
                 } catch (error) {
                     console.error(error);
                 }
+                setAddingZip(false);
             }
         };
 
@@ -144,7 +148,7 @@ function ZipCodeList() {
                                                     aria-label="zip code"
                                                 />
                                                 <div className="input-group-append">
-                                                    <button className="btn btn-outline-secondary" onClick={handleSubmit}><FontAwesomeIcon icon={faPlus} /> zip code</button>
+                                                    <button className="btn btn-outline-secondary" onClick={handleSubmit}><FontAwesomeIcon icon={addingZip ? faSpinner : faPlus} /> zip code</button>
                                                     <button className="btn btn-outline-danger" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} /> all</button>
                                                 </div>
                                             </div>
