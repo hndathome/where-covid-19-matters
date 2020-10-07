@@ -9,7 +9,6 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 //covid-19 testing locations
 //`https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=36.03,-94.15&limit=3`
 
-//`https://api.covidtracking.com/v1/states/ar/current.json`
 
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState }, } = props;
@@ -60,14 +59,14 @@ function SummaryCard(props) {
 
         return (
             <>
-                <VictoryChart theme={VictoryTheme.material} domainPadding={0} padding={55}>
+                <VictoryChart theme={VictoryTheme.material} domainPadding={1} padding={55}>
                     <VictoryAxis
                         fixLabelOverlap
                         style={{ tickLabels: { padding: 16, fontSize: 8 } }}
                     />
                     <VictoryAxis dependentAxis />
                     {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
-                        data: { stroke: chartPalette[index] },
+                        data: { stroke: chartPalette[index], strokeWidth: 3 },
                         parent: { border: "1px solid #ccc" }
                     }} />)}
                     <VictoryLegend x={5} y={5}
@@ -88,7 +87,7 @@ function SummaryCard(props) {
                     <Chart data={nytData} />
                 </div>
                 <div className="card-body">
-                    <p className="card-text">{zipcode}</p>
+                    <h5 className="card-text">{zipcode}</h5>
                     <p>{geoState} Department of Health</p>
                     <ul>
                         <li><a href={covid19Site}>Covid19 Site</a></li>
