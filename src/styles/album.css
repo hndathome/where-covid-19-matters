@@ -199,3 +199,8 @@ padding-top: 1.5rem;
 .bottom-caption-title{
   padding-bottom: 0 !important;
 }
+
+.my-zipcodes-body{
+  background-image: url('../assets/covid-4962359_1280.png');
+  background-position: center; 
+}

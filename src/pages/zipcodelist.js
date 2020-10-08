@@ -3,6 +3,7 @@ import { navigate } from "gatsby";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Helmet } from "react-helmet"
 
 import Layout from '../components/Layout';
 import ZipCode from "../components/ZipCode";
@@ -129,46 +130,55 @@ function ZipCodeList() {
     }
 
     return (
-        <Layout>
-            <div className="container zipcode-form">
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <h5 className="card-header">My Zip Codes</h5>
-                            <ul className="list-group list-group-flush">
-                                {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
-                                <li className="list-group-item">
-                                    <form onSubmit={handleSubmit}>
-                                        <div className="form-row ">
-                                            <div className="input-group">
-                                                <label className="sr-only" htmlFor="zipCode">Zip code</label>
-                                                <input
-                                                    className="form-control"
-                                                    name="zipCode"
-                                                    type="text"
-                                                    placeholder={"Zip code"}
-                                                    value={zipCode}
-                                                    minLength={5}
-                                                    maxLength={5}
-                                                    onChange={e => setZipCode(e.target.value)}
-                                                    aria-label="zip code"
-                                                />
-                                                <div className="input-group-append">
-                                                    <button className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code" onClick={handleSubmit}><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
-                                                    <button className="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} aria-label="delete all zip codes" /></button>
+        <>
+            <Helmet
+                bodyAttributes={{
+                    class: 'my-zipcodes-body'
+                }}
+            />
+            <Layout>
+                <div className="container zipcode-form">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="card">
+                                <h5 className="card-header">My Zip Codes</h5>
+                                <ul className="list-group list-group-flush">
+                                    {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}
+                                    <li className="list-group-item">
+                                        <form onSubmit={handleSubmit}>
+                                            <div className="form-row ">
+                                                <div className="input-group">
+                                                    <label className="sr-only" htmlFor="zipCode">Zip code</label>
+                                                    <input
+                                                        className="form-control"
+                                                        name="zipCode"
+                                                        type="text"
+                                                        placeholder={"Zip code"}
+                                                        value={zipCode}
+                                                        minLength={5}
+                                                        maxLength={5}
+                                                        onChange={e => setZipCode(e.target.value)}
+                                                        aria-label="zip code"
+                                                    />
+                                                    <div className="input-group-append">
+                                                        <button className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code" onClick={handleSubmit}><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
+                                                        <button className="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={handleDeleteAll}><FontAwesomeIcon icon={faTrashAlt} aria-label="delete all zip codes" /></button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
+                                            <br />
+                                            <div>
+                                                <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={handleGetData}>Get data</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <br />
-                <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={handleGetData}>Get data</button>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 }
 
