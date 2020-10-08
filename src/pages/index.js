@@ -7,21 +7,14 @@ export default function Home() {
     <Layout>
       <main>
         <div className="container">
-          {/* <div className="jumbotron">
-            <div className="container">
-              <h1 className="display-3">Where COVID-19 Matters</h1>
-              <p>This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or for family and friends living across the United States.</p>
-              <p></p>
-            </div>
-          </div> */}
           <div className="row featurette first-featurette">
-            <div className="col-md-5" style={{ backgroundColor: "blueviolet" }}>
-              <img className="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="placeholder for us stats" />
-            </div>
             <div className="col-md-7">
               <h2 className="featurette-heading">Where COVID-19 Matters</h2>
               <p className="lead">This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or for family and friends living across the United States.</p>
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
+            </div>
+            <div className="col-md-5" style={{ backgroundColor: "blueviolet" }}>
+              <img className="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="placeholder for us stats" />
             </div>
           </div>
           <hr className="featurette-divider"></hr>
