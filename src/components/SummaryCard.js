@@ -107,7 +107,7 @@ function SummaryCard(props) {
                                 navigate(
                                     `/details/${zipcode}`,
                                     {
-                                        state: { updatedItem },
+                                        state: { updatedItem: updatedItem },
                                     }
                                 )
                             }}>View details</button>
