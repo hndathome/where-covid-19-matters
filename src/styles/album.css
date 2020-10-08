@@ -210,3 +210,7 @@ body {
 .covid19-links {
   color: #fff;
 }
+
+.carousel-indicators li {
+  background-color: #007bff; 
+}

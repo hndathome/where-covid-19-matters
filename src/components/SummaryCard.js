@@ -4,6 +4,7 @@ import axios from 'axios';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { Carousel } from 'react-bootstrap';
 import LeafletMap from "../components/LeafletMap"
 
 function SummaryCard(props) {
@@ -24,21 +25,6 @@ function SummaryCard(props) {
     const [lastUpdated, setLastUpdated] = useState('');
 
     const [keyMap, setKeyMap] = useState(Math.random());
-
-    useEffect(() => {
-        const listItemMap = document.getElementById(`listItemMap${zipcode}`);
-
-        const isActive = () => {
-            if (listItemMap !== null && listItemMap.classList.contains('active')) {
-                setKeyMap(Math.random())
-            }
-        }
-
-        if (listItemMap !== null) {
-            listItemMap.addEventListener('click', () => isActive());
-            setKeyMap(Math.random());
-        }
-    }, [zipcode])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,10 +58,8 @@ function SummaryCard(props) {
                     const myDate = respData.counties[0].historicData[0].date
                     setLastUpdated(`${myDate.slice(5)}-${myDate.slice(0, 4)}`);
                 }
-                //setUpdatedItem({ ...item, county_info: respData });
                 setNYTData(respData);
             } catch (error) {
-                //setUpdatedItem({ ...item, county_info: { zipCd: "Empty" } });
                 setNYTData({ zipCd: "Empty" });
                 console.error(error);
             }
@@ -128,60 +112,48 @@ function SummaryCard(props) {
         );
     };
 
+    const [index, setIndex] = useState(0);
+
+    const handleSelect = (selectedIndex, e) => {
+        setIndex(selectedIndex);
+        if (selectedIndex === 1) {
+            setKeyMap(Math.random());
+        }
+    };
+
     return (
         <div className="col-md-4">
             <div className="card mb-4 shadow-sm">
                 <div width="100%" height="225" className="bd-placeholder-img card-img-top">
-                    {/*  */}
-                    <div id={`myCarousel${zipcode}`} className="carousel slide" data-ride="carousel" style={{ marginBottom: 0 }}>
-                        <ol className="carousel-indicators">
-                            <li style={{ backgroundColor: "#007bff" }} data-target={`#myCarousel${zipcode}`} data-slide-to="0" className="active"></li>
-                            <li id={`listItemMap${zipcode}`} style={{ backgroundColor: "#007bff" }} data-target={`#myCarousel${zipcode}`} data-slide-to="1" ></li>
-                            <li style={{ backgroundColor: "#007bff" }} data-target={`#myCarousel${zipcode}`} data-slide-to="2"></li>
-                        </ol>
-                        <div className="carousel-inner">
-                            <div className="carousel-item active">
-                                <Chart data={nytData} />
-                                {/*<div className="container">
-                                    <div className="carousel-caption text-left">
-                                        <h1>Example headline.</h1>
-                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                        <p><a className="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-                                    </div> 
-                                </div>*/}
+                    <Carousel controls={false} interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide" data-ride="carousel" style={{ marginBottom: 0 }}>
+                        <Carousel.Item className="carousel-item">
+                            <Chart data={nytData} />
+                        </Carousel.Item>
+                        <Carousel.Item className="carousel-item">
+                            {typeof window !== 'undefined' &&
+                                <LeafletMap
+                                    position={[item.latitude, item.longitude]}
+                                    zoom={9}
+                                    markers={markers}
+                                    key={keyMap}
+                                />
+                            }
+                            <p style={{ textAlign: "center", marginTop: "1rem" }}>Covid-19 Testing Locations</p>
+                        </Carousel.Item>
+                        <Carousel.Item className="carousel-item">
+                            <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
+                            <div className="container">
+                                <Carousel.Caption className="carousel-caption">
+                                    <p>{geoState} Department of Health</p>
+                                    <ul>
+                                        <li><a className="covid19-links" href={covid19Site}>Covid19 Site</a></li>
+                                        <li><a className="covid19-links" href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
+                                        {twitter.startsWith('@') && <li><a className="covid19-links" href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                    </ul>
+                                </Carousel.Caption>
                             </div>
-                            <div className="carousel-item">
-                                {typeof window !== 'undefined' &&
-                                    <LeafletMap
-                                        position={[item.latitude, item.longitude]}
-                                        zoom={9}
-                                        markers={markers}
-                                        key={keyMap}
-                                    />
-                                }
-                                <p style={{ textAlign: "center", marginTop: "1rem" }}>Covid-19 Testing Locations</p>
-                                {/* <div className="container">
-                                    <div className="carousel-caption text-center">
-                                        <p>Covid-19 Testing Locations</p>
-                                    </div>
-                                </div> */}
-                            </div>
-
-                            <div className="carousel-item">
-                                <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
-                                <div className="container">
-                                    <div className="carousel-caption">
-                                        <p>{geoState} Department of Health</p>
-                                        <ul>
-                                            <li><a className="covid19-links" href={covid19Site}>Covid19 Site</a></li>
-                                            <li><a className="covid19-links" href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
-                                            {twitter.startsWith('@') && <li><a className="covid19-links" href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </Carousel.Item>
+                    </Carousel>
                 </div>
                 <div className="card-body">
                     <h5 className="card-text">{zipcode}</h5>
