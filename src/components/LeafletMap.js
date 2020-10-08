@@ -3,12 +3,9 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 // class LeafletMap extends React.Component {
 function LeafletMap(props) {
-    const { position, zoom, markers } = props;
-    console.log("leafletmap");
-    console.log(position);
-    console.log(markers);
+    const { position, zoom, markers, keyMap } = props;
     return (
-        <Map center={position} zoom={zoom}>
+        <Map center={position} zoom={zoom} key={keyMap}>
             <TileLayer
                 url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"

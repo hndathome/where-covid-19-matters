@@ -1,39 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
+import { Helmet } from "react-helmet"
+
 import Layout from "../components/Layout";
 import LeafletMap from "../components/LeafletMap"
-import { Helmet } from "react-helmet"
-import axios from 'axios'
 
 export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
-    const [hereData, setHereData] = useState();
-    const [markers, setMarkers] = useState();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let atLat = item.latitude.toString();
-                let atLong = item.longitude.toString();
-
-                atLat = (atLat.startsWith("-")) ? atLat.substring(0, 5) : atLat.substring(0, 4);
-                atLong = (atLong.startsWith("-")) ? atLong.substring(0, 5) : atLong.substring(0, 4);
-                const gps = `${atLat},${atLong}`
-
-                const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=3`
-
-                const response = await axios.get(hereapiUrl, { headers: { 'Accept': 'application/json' } });
-                const { items } = response.data;
-                const dataMarkers = items.reduce((accumulator, current) => {
-                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng] }]
-                }, []);
-                setMarkers(dataMarkers);
-                setHereData(response.hereData);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        fetchData();
-    }, [zipcode, item])
 
     return (
         <>
@@ -53,7 +25,7 @@ export const ZipCodeDetail = (props) => {
                     <LeafletMap
                         position={[item.latitude, item.longitude]}
                         zoom={9}
-                        markers={markers}
+                        markers={item.markers}
                     />
                 }
             </Layout>
