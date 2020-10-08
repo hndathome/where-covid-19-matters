@@ -128,6 +128,11 @@ function SummaryCard(props) {
                     <Carousel controls={false} interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide" data-ride="carousel" style={{ marginBottom: 0 }}>
                         <Carousel.Item className="carousel-item">
                             <Chart data={nytData} />
+                            <div className="container">
+                                <Carousel.Caption className="bottom-caption-title">
+                                    <p style={{ color: "black" }}>Covid-19 Positive Count</p>
+                                </Carousel.Caption>
+                            </div>
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             {typeof window !== 'undefined' &&
@@ -138,7 +143,12 @@ function SummaryCard(props) {
                                     key={keyMap}
                                 />
                             }
-                            <p style={{ textAlign: "center", marginTop: "1rem" }}>Covid-19 Testing Locations</p>
+                            <div className="container">
+                                <Carousel.Caption className="bottom-caption-title">
+                                    <p style={{ color: "black" }}>Covid-19 Testing Locations</p>
+                                </Carousel.Caption>
+                            </div>
+                            {/* <p style={{ textAlign: "center", marginTop: "1rem" }}>Covid-19 Testing Locations</p> */}
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
