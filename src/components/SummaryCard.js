@@ -35,6 +35,7 @@ function SummaryCard(props) {
                 setUpdatedItem({ ...item, county_info: respData });
                 setNYTData(respData);
             } catch (error) {
+                setUpdatedItem({ ...item, county_info: { zipCd: "Empty" } });
                 setNYTData({ zipCd: "Empty" });
                 console.error(error);
             }
@@ -62,7 +63,7 @@ function SummaryCard(props) {
         }, []);
 
         const series = counties.reduce((accumulator, current) => {
-            return [...accumulator, current.historicData]
+            return [...accumulator, current.historicData.reverse()]
         }, []);
 
         return (
@@ -72,7 +73,7 @@ function SummaryCard(props) {
                     style={{ tickLabels: { padding: 16, fontSize: 8 } }}
                 />
                 <VictoryAxis dependentAxis />
-                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset.reverse()} x="date" y="positiveCt" key={index} style={{
+                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset} x="date" y="positiveCt" key={index} style={{
                     data: { stroke: chartPalette[index], strokeWidth: 3 },
                     parent: { border: "1px solid #ccc" }
                 }} />)}
