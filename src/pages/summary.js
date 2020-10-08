@@ -3,7 +3,10 @@ import Layout from "../components/Layout"
 import SummaryCard from "../components/SummaryCard"
 
 export default function Summary({ location }) {
-    const { myZipCodes } = location.state;
+    let myZipCodes = [];
+    if (location.state) {
+        myZipCodes = location.state.myZipCodes;
+    }
     return (
         <Layout>
             <main role="main">

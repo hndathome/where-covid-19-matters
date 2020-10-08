@@ -11,12 +11,12 @@ exports.onCreatePage = async ({ page, actions }) => {
 }
 
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
-    if (stage === 'build-html') {
+    if (stage === "build-html") {
         actions.setWebpackConfig({
             module: {
                 rules: [
                     {
-                        test: /react-leaflet|leaflet/,
+                        test: /leaflet/,
                         use: loaders.null(),
                     },
                 ],

@@ -123,7 +123,7 @@ function ZipCodeList() {
         navigate(
             "/summary/",
             {
-                state: { myZipCodes },
+                state: { myZipCodes: myZipCodes },
             }
         )
     }
