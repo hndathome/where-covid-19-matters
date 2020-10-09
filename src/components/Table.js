@@ -56,8 +56,8 @@ function Table(props) {
                         </div>
                     </td>
                 </tr>
-                <tr fixedWidth data-toggle="collapse" data-target="#trDeaths" >
-                    <td><FontAwesomeIcon className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
+                <tr data-toggle="collapse" data-target="#trDeaths" >
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
                     <td>{currentUSValues.death && currentUSValues.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td><FontAwesomeIcon className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
@@ -75,8 +75,8 @@ function Table(props) {
                         </div>
                     </td>
                 </tr>
-                <tr fixedWidth data-toggle="collapse" data-target="#trRecovered">
-                    <td><FontAwesomeIcon className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Recovered" /> Recovered</td>
+                <tr data-toggle="collapse" data-target="#trRecovered">
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter Recovered" /> Recovered</td>
                     <td>{currentUSValues.recovered && currentUSValues.recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td>Not Applicable</td>
                 </tr>
