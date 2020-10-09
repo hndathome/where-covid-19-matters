@@ -24,7 +24,7 @@ function Table(props) {
                 <tr className="definition">
                     <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth data-toggle="collapse" data-target="#trPositives" icon={faInfoCircle} aria-label="information on Parameter Positives" /> Positives</td>
                     <td>{currentUSValues.positive && currentUSValues.positive.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" />{currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td><FontAwesomeIcon className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
                     <td colspan="99999" class="hiddenRow">
