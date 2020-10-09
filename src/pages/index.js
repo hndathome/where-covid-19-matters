@@ -5,6 +5,7 @@ import Table from "../components/Table"
 
 export default function Home() {
   const [currentUSValues, setCurrentUSValues] = useState({});
+  const [lastUpdateET, setlastUpdateET] = useState('');
   const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
 
   useEffect(() => {
@@ -12,6 +13,8 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(covidTrackingUrl, { headers: { 'Accept': 'application/json' } });
+        let last = new Date(response.data[0].lastUpdateET || response.data[0].lastModified || response.data[0].datechecked);
+        setlastUpdateET(last.toLocaleString());
         setCurrentUSValues(response.data[0]);
       } catch (error) {
         console.error(error);
@@ -32,7 +35,7 @@ export default function Home() {
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
             <div className="col-md-5">
-              <h3 style={{ textAlign: "center" }}>Current US Numbers</h3>
+              <h4 style={{ textAlign: "center" }}>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
               <div className="table-responsive">
                 <Table currentUSValues={currentUSValues} />
               </div>
