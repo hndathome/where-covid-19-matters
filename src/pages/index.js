@@ -37,7 +37,7 @@ export default function Home() {
             <div className="col-md-5">
               {Object.keys(currentUSValues).length !== 0 &&
                 <>
-                  <h4 style={{ textAlign: "center" }}>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
+                  <h4>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
                   <div className="table-responsive">
                     <Table currentUSValues={currentUSValues} />
                   </div>
