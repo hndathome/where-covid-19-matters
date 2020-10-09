@@ -27,7 +27,7 @@ function Table(props) {
                     <td colspan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trPositives">
                             <div>
-                                <p><strong>Positives: Cases (confirmed plus probable)</strong></p>
+                                <p><strong>Cases (confirmed plus probable)</strong></p>
                                 <p>Total number of <strong>confirmed plus probable cases</strong> of COVID-19 reported by the state or territory, ideally per the <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/08/05/">August 5, 2020 CSTE case definition</a>. Some states are following the older <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">April 5th, 2020 CSTE case definition</a> or using their own custom definitions. Not all states and territories report probable cases. If a state is not reporting probable cases, this field will just represent confirmed cases. </p>
                             </div>
                             <div>
@@ -46,12 +46,57 @@ function Table(props) {
                     <td colspan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trHospitalizations">
                             <div>
-                                <p><strong>Hospitalizations: Cumulative hospitalized/Ever hospitalized</strong></p>
+                                <p><strong>Cumulative hospitalized/Ever hospitalized</strong></p>
                                 <p>Total number of individuals who have <strong>ever been hospitalized with COVID-19</strong>. Definitions vary by state / territory. Where possible, we report hospitalizations with confirmed or probable COVID-19 cases per the expanded <a href="https://cdn.ymaws.com/www.cste.org/resource/resmgr/2020ps/Interim-20-ID-01_COVID-19.pdf">CSTE case definition</a> of April 5th, 2020 <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">approved by the CDC</a>.</p>
                             </div>
                             <div>
                                 <p><strong>Change: New total hospitalizations</strong></p>
                                 <p>Daily increase in <em>Hospitalizations</em>, calculated from the previous day’s value.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-toggle="collapse" data-target="#trHospitalizedCurrently">
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter HospitalizedCurrently" /> Hospitalized Currently</td>
+                    <td>{currentUSValues.hospitalizedCurrently && currentUSValues.hospitalizedCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td colspan="99999" className="hiddenRow">
+                        <div className="accordian-body collapse" id="trHospitalizedCurrently">
+                            <div>
+                                <p><strong>Currently hospitalized/Now hospitalized</strong></p>
+                                <p>Individuals who are <strong>currently hospitalized with COVID-19</strong>. Definitions vary by state / territory. Where possible, we report hospitalizations with confirmed or probable COVID-19 cases per the expanded <a href="https://cdn.ymaws.com/www.cste.org/resource/resmgr/2020ps/Interim-20-ID-01_COVID-19.pdf">CSTE case definition</a> of April 5th, 2020 <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">approved by the CDC</a>.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-toggle="collapse" data-target="#trInIcuCurrently">
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter InIcuCurrently" /> In Icu Currently</td>
+                    <td>{currentUSValues.inIcuCurrently && currentUSValues.inIcuCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td colspan="99999" className="hiddenRow">
+                        <div className="accordian-body collapse" id="trInIcuCurrently">
+                            <div>
+                                <p><strong>Currently in ICU/Now in ICU</strong></p>
+                                <p>Individuals who are <strong>currently hospitalized in the Intensive Care Unit with COVID-19</strong>. Definitions vary by state / territory. Where possible, we report patients in the ICU with confirmed or probable COVID-19 cases per the expanded <a href="https://cdn.ymaws.com/www.cste.org/resource/resmgr/2020ps/Interim-20-ID-01_COVID-19.pdf">CSTE case definition</a> of April 5th, 2020 <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">approved by the CDC</a>.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-toggle="collapse" data-target="#trOnVentilatorCurrently">
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter OnVentilatorCurrently" /> On Ventilator Currently</td>
+                    <td>{currentUSValues.onVentilatorCurrently && currentUSValues.onVentilatorCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td colspan="99999" className="hiddenRow">
+                        <div className="accordian-body collapse" id="trOnVentilatorCurrently">
+                            <div>
+                                <p><strong>Currently on ventilator/Now on ventilator</strong></p>
+                                <p>Individuals who are <strong>currently hospitalized under advanced ventilation with COVID-19</strong>. Definitions vary by state / territory. Where possible, we report patients on ventilation with confirmed or probable COVID-19 cases per the expanded <a href="https://cdn.ymaws.com/www.cste.org/resource/resmgr/2020ps/Interim-20-ID-01_COVID-19.pdf">CSTE case definition</a> of April 5th, 2020 <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">approved by the CDC</a>.</p>
                             </div>
                         </div>
                     </td>
@@ -65,7 +110,7 @@ function Table(props) {
                     <td colspan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trDeaths">
                             <div>
-                                <p><strong>Deaths: Deaths (confirmed and probable)</strong></p>
+                                <p><strong>Deaths (confirmed and probable)</strong></p>
                                 <p>Total <strong>fatalities with confirmed OR probable COVID-19 case diagnosis</strong> (per the expanded <a href="https://cdn.ymaws.com/www.cste.org/resource/resmgr/2020ps/Interim-20-ID-01_COVID-19.pdf">CSTE case definition</a> of April 5th, 2020 <a href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">approved by the CDC</a>). In states where the information is available, it only tracks fatalities with confirmed OR probable COVID-19 case diagnosis where on the death certificate, <strong>COVID-19 is listed as an underlying cause of death</strong> according to <a href="https://www.who.int/classifications/icd/Guidelines_Cause_of_Death_COVID-19.pdf?ua=1">WHO guidelines</a>.</p>
                             </div>
                             <div>
