@@ -107,3 +107,11 @@
   .decrease{
        color: #00cc00;
   }
+
+  .hiddenRow {
+    padding: 0 !important;
+}
+
+.accordian-body{
+  padding: 20px;
+}
