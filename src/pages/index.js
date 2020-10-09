@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import Layout from "../components/Layout"
+import Table from "../components/Table"
 
 export default function Home() {
   const [currentUSValues, setCurrentUSValues] = useState({});
+  const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
 
   useEffect(() => {
-    const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
+
     const fetchData = async () => {
       try {
         const response = await axios.get(covidTrackingUrl, { headers: { 'Accept': 'application/json' } });
-        setCurrentUSValues(response.data);
+        setCurrentUSValues(response.data[0]);
       } catch (error) {
         console.error(error);
       }
@@ -29,11 +31,10 @@ export default function Home() {
               <p className="lead">This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or for family and friends living across the United States.</p>
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
-            <div className="col-md-5" style={{ backgroundColor: "blueviolet" }}>
+            <div className="col-md-5">
+              <h3 style={{ textAlign: "center" }}>Current US Numbers</h3>
               <div className="table-responsive">
-                <table>
-                  <tr></tr>
-                </table>
+                <Table currentUSValues={currentUSValues} />
               </div>
             </div>
           </div>

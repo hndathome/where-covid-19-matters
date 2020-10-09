@@ -99,3 +99,11 @@
   .bottom-caption-title{
     padding-bottom: 0 !important;
   }
+
+  .increaseGreen{
+    color: #00cc00;
+  }
+  
+  .decreaseRed{
+    color: red;
+  }
