@@ -200,9 +200,16 @@ padding-top: 1.5rem;
   padding-bottom: 0 !important;
 }
 
-.my-zipcodes-body{
-  /* <a href="https://www.vecteezy.com/free-vector/amoeba">Amoeba Vectors by Vecteezy</a>*/
+ /* .my-zipcodes-body{
+ <a href="https://www.vecteezy.com/free-vector/amoeba">Amoeba Vectors by Vecteezy</a>
   background-image: url('../assets/bacteriavirus-03.jpg');
   background-position: center; 
   background-size: cover;
+}*/
+
+.attribution{
+  position:absolute;
+  bottom:0;
+  right:0;
+  font-size:0.5em
 }
