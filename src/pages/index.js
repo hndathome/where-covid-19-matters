@@ -35,10 +35,14 @@ export default function Home() {
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
             <div className="col-md-5">
-              <h4 style={{ textAlign: "center" }}>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
-              <div className="table-responsive">
-                <Table currentUSValues={currentUSValues} />
-              </div>
+              {Object.keys(currentUSValues).length !== 0 &&
+                <>
+                  <h4 style={{ textAlign: "center" }}>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
+                  <div className="table-responsive">
+                    <Table currentUSValues={currentUSValues} />
+                  </div>
+                </>
+              }
             </div>
           </div>
           <hr className="featurette-divider"></hr>
