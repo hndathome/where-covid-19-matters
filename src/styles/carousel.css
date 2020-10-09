@@ -100,10 +100,10 @@
     padding-bottom: 0 !important;
   }
 
-  .increaseGreen{
-    color: #00cc00;
+  .increase{
+    color: red; 
   }
   
-  .decreaseRed{
-    color: red;
+  .decrease{
+       color: #00cc00;
   }
