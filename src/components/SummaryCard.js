@@ -125,7 +125,7 @@ function SummaryCard(props) {
         <div className="col-md-4">
             <div className="card mb-4 shadow-sm">
                 <div width="100%" height="225" className="bd-placeholder-img card-img-top">
-                    <Carousel controls={false} interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide" data-ride="carousel" style={{ marginBottom: 0 }}>
+                    <Carousel controls={false} interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide" style={{ marginBottom: 0 }}>
                         <Carousel.Item className="carousel-item">
                             <Chart data={nytData} />
                             <div className="container">

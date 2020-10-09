@@ -57,7 +57,7 @@ function ZipCodeList() {
                                 zipcode: zipcodes[0].zipcode,
                                 county_fips: zipcodes[0].county_fips,
                                 county_name: zipcodes[0].county_name,
-                                state_abbreviation: zipcodes[0].state_abbreviation,
+                                state_abbreviation: zipcodes[0].state_abbreviation.toLowerCase(),
                                 state: zipcodes[0].state,
                                 latitude: zipcodes[0].latitude,
                                 longitude: zipcodes[0].longitude,
