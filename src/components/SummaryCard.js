@@ -130,7 +130,7 @@ function SummaryCard(props) {
                             <Chart data={nytData} />
                             <div className="container">
                                 <Carousel.Caption className="bottom-caption-title">
-                                    <p style={{ color: "black" }}>Covid-19 Positive Count</p>
+                                    <p style={{ color: "black", textAlign: "center" }}>Covid-19 Positive Count</p>
                                 </Carousel.Caption>
                             </div>
                         </Carousel.Item>
@@ -145,7 +145,7 @@ function SummaryCard(props) {
                             }
                             <div className="container">
                                 <Carousel.Caption className="bottom-caption-title">
-                                    <p style={{ color: "black" }}>Covid-19 Testing Locations</p>
+                                    <p style={{ color: "black", textAlign: "center" }}>Covid-19 Testing Locations</p>
                                 </Carousel.Caption>
                             </div>
                             {/* <p style={{ textAlign: "center", marginTop: "1rem" }}>Covid-19 Testing Locations</p> */}
