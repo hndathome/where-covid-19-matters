@@ -1,8 +1,24 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import axios from 'axios'
 import Layout from "../components/Layout"
 
-//`https://api.covidtracking.com/v1/us/current.json`
 export default function Home() {
+  const [currentUSValues, setCurrentUSValues] = useState({});
+
+  useEffect(() => {
+    const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(covidTrackingUrl, { headers: { 'Accept': 'application/json' } });
+        setCurrentUSValues(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Layout>
       <main>
@@ -14,7 +30,11 @@ export default function Home() {
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
             <div className="col-md-5" style={{ backgroundColor: "blueviolet" }}>
-              <img className="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="placeholder for us stats" />
+              <div className="table-responsive">
+                <table>
+                  <tr></tr>
+                </table>
+              </div>
             </div>
           </div>
           <hr className="featurette-divider"></hr>
