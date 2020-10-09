@@ -162,13 +162,13 @@ function ZipCodeList() {
                                                     />
                                                     <div className="input-group-append">
                                                         <button className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code" onClick={handleSubmit}><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
-                                                        <button className="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={(e) => { if (window.confirm('Delete all zip codes?')) handleDeleteAll(e) }}><FontAwesomeIcon icon={faTrashAlt} aria-label="delete all zip codes" /></button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <br />
                                             <div>
                                                 <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={handleGetData}>Get data</button>
+                                                <button style={{ float: "right" }} className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={(e) => { if (window.confirm('Delete all zip codes?')) handleDeleteAll(e) }}><FontAwesomeIcon icon={faTrashAlt} aria-label="delete all zip codes" /></button>
                                             </div>
                                         </form>
                                     </li>
