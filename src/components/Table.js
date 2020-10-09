@@ -41,7 +41,7 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr className="definition">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth data-toggle="collapse" data-target="#trHospitalizations" icon={faInfoCircle} aria-label="information on Parameter Hospitalizations" />Hospitalizations</td>
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth data-toggle="collapse" data-target="#trHospitalizations" icon={faInfoCircle} aria-label="information on Parameter Hospitalizations" /> Hospitalizations</td>
                     <td>{currentUSValues.hospitalizedCumulative && currentUSValues.hospitalizedCumulative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td><FontAwesomeIcon className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
@@ -60,7 +60,7 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr className="definition">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth data-toggle="collapse" data-target="#trDeaths" icon={faInfoCircle} aria-label="information on Parameter Deaths" />Deaths</td>
+                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth data-toggle="collapse" data-target="#trDeaths" icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
                     <td>{currentUSValues.death && currentUSValues.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td><FontAwesomeIcon className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
