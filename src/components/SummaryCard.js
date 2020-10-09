@@ -112,10 +112,7 @@ function SummaryCard(props) {
         );
     };
 
-    const [index, setIndex] = useState(0);
-
     const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
         if (selectedIndex === 1) {
             setKeyMap(Math.random());
         }
@@ -156,8 +153,8 @@ function SummaryCard(props) {
                                 <Carousel.Caption className="carousel-caption">
                                     <p>{geoState} Department of Health</p>
                                     <ul>
-                                        <li><a className="covid19-links" href={covid19Site}>Covid19 Site</a></li>
-                                        <li><a className="covid19-links" href={covid19SiteSecondary}>Covid19 Secondary Site</a></li>
+                                        <li><a className="covid19-links" href={covid19Site}>Covid-19 Site</a></li>
+                                        <li><a className="covid19-links" href={covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
                                         {twitter.startsWith('@') && <li><a className="covid19-links" href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
                                     </ul>
                                 </Carousel.Caption>

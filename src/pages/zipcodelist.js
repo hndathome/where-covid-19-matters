@@ -14,8 +14,26 @@ function ZipCodeList() {
     const [smartyStreetUrl, setSmartyStreetUrl] = useState('');
     const [delId, setDelId] = useState('');
     const [delAll, setDelAll] = useState(false);
-    const [myStates, setMyStates] = useState({});
     const [addingZip, setAddingZip] = useState(false);
+    const [allStatesInfo, setAllStatesInfo] = useState([]);
+    const [allStatesCurrent, setAllStatesCurrent] = useState([]);
+    useEffect(() => {
+        try {
+            const fetchData = async () => {
+                const allStatesInfoUrl = "https://api.covidtracking.com/v1/states/info.json"
+                const responseAllStatesInfo = await axios.get(allStatesInfoUrl, { headers: { 'Accept': 'application/json' } });
+                setAllStatesInfo(responseAllStatesInfo.data);
+
+                const allStatesCurrentUrl = "https://api.covidtracking.com/v1/states/current.json"
+                const responseAllStatesCurrent = await axios.get(allStatesCurrentUrl, { headers: { 'Accept': 'application/json' } });
+                setAllStatesCurrent(responseAllStatesCurrent.data);
+            };
+
+            fetchData();
+        } catch (error) {
+            console.error(error);
+        }
+    }, [])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,27 +47,6 @@ function ZipCodeList() {
                         alert('Invalid zip code.');
                     }
                     else {
-                        let stateInfo;
-                        let stateCurrent;
-                        if (!myStates.hasOwnProperty(zipcodes[0].state_abbreviation)) {
-                            try {
-                                const stateInfoUrl = `https://api.covidtracking.com/v1/states/${zipcodes[0].state_abbreviation}/info.json`
-                                const responseStateInfo = await axios.get(stateInfoUrl, { headers: { 'Accept': 'application/json' } });
-                                stateInfo = responseStateInfo.data;
-
-                                const stateCurrentUrl = `https://api.covidtracking.com/v1/states/${zipcodes[0].state_abbreviation}/current.json`;
-                                const responseStateCurrent = await axios.get(stateCurrentUrl, { headers: { 'Accept': 'application/json' } });
-                                stateCurrent = responseStateCurrent.data;
-
-                                setMyStates(obj => ({ ...obj, [zipcodes[0].state_abbreviation]: { state_info: stateInfo, state_current: stateCurrent } }));
-                            } catch (error) {
-                                console.error(error);
-                            }
-                        }
-                        else {
-                            stateInfo = myStates[zipcodes[0].state_abbreviation].state_info;
-                            stateCurrent = myStates[zipcodes[0].state_abbreviation].state_current;
-                        }
                         setMyZipCodes(list => [
                             ...list,
                             {
@@ -61,8 +58,8 @@ function ZipCodeList() {
                                 state: zipcodes[0].state,
                                 latitude: zipcodes[0].latitude,
                                 longitude: zipcodes[0].longitude,
-                                state_info: stateInfo,
-                                state_current: stateCurrent
+                                state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
+                                state_current: allStatesCurrent.find(({ state }) => state === zipcodes[0].state_abbreviation)
                             }
                         ]);
                         setZipCode("");
@@ -76,7 +73,7 @@ function ZipCodeList() {
         };
 
         fetchData();
-    }, [smartyStreetUrl]);
+    }, [smartyStreetUrl, allStatesInfo, allStatesCurrent]);
 
     useEffect(() => {
         if (delId !== '') {
@@ -124,7 +121,7 @@ function ZipCodeList() {
         navigate(
             "/summary/",
             {
-                state: { myZipCodes: myZipCodes },
+                state: { myZipCodes: myZipCodes, allStatesCurrent: allStatesCurrent, allStatesInfo: allStatesInfo },
             }
         )
     }
@@ -140,6 +137,7 @@ function ZipCodeList() {
                 <div className="container zipcode-form">
                     <div className="row">
                         <div className="col-md-6">
+
                             <div className="card">
                                 <h5 className="card-header">My Zip Codes</h5>
                                 <ul className="list-group list-group-flush">

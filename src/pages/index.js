@@ -6,12 +6,12 @@ import Table from "../components/Table"
 export default function Home() {
   const [currentUSValues, setCurrentUSValues] = useState({});
   const [lastUpdateET, setlastUpdateET] = useState('');
-  const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
+
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
+        const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
         const response = await axios.get(covidTrackingUrl, { headers: { 'Accept': 'application/json' } });
         let last = new Date(response.data[0].lastUpdateET || response.data[0].lastModified || response.data[0].datechecked);
         setlastUpdateET(last.toLocaleString());
