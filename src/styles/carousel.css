@@ -115,3 +115,7 @@
 .accordian-body{
   padding: 20px;
 }
+
+td.hiddenRow {
+  background-color: aliceblue;
+}
