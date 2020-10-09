@@ -201,6 +201,8 @@ padding-top: 1.5rem;
 }
 
 .my-zipcodes-body{
-  background-image: url('../assets/covid-4962359_1280.png');
+  /* <a href="https://www.vecteezy.com/free-vector/amoeba">Amoeba Vectors by Vecteezy</a>*/
+  background-image: url('../assets/bacteriavirus-03.jpg');
   background-position: center; 
+  background-size: cover;
 }
