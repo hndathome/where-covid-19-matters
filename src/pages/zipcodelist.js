@@ -121,7 +121,7 @@ function ZipCodeList() {
         navigate(
             "/summary/",
             {
-                state: { myZipCodes: myZipCodes, allStatesCurrent: allStatesCurrent, allStatesInfo: allStatesInfo },
+                state: { myZipCodes: myZipCodes },
             }
         )
     }
