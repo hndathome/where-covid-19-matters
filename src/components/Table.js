@@ -8,7 +8,7 @@ function Table(props) {
         <table className="table table-sm" data={currentUSValues}>
             <caption>
                 <p>The most recent COVID data for the US. The most recent data may not be from today.</p>
-                <p>Source: <a href="https://covidtracking.com/data/api">The COVID Tracking Project</a></p>
+                <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
             </caption>
             <thead>
                 <tr className="table-primary">
