@@ -16,7 +16,7 @@ function SummaryCard(props) {
     atLat = (atLat.startsWith("-")) ? atLat.substring(0, 5) : atLat.substring(0, 4);
     atLong = (atLong.startsWith("-")) ? atLong.substring(0, 5) : atLong.substring(0, 4);
     const gps = `${atLat},${atLong}`
-    const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=3`
+    const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=10`
     const [hereData, setHereData] = useState({});
     const [markers, setMarkers] = useState([]);
 
@@ -31,7 +31,7 @@ function SummaryCard(props) {
             try {
                 const response = await axios.get(hereapiUrl, { headers: { 'Accept': 'application/json' } });
                 const { items } = response.data;
-                const dataMarkers = items.reduce((accumulator, current) => {
+                const dataMarkers = items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
                     return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng] }]
                 }, []);
                 setMarkers(dataMarkers);
