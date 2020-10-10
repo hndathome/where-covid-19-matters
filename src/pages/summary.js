@@ -27,7 +27,7 @@ export default function Summary({ location }) {
                         <div className="container">
                             <h1>Summary Results</h1>
                             <p className="lead text-muted">&#34;Covid-19 Positive Count&#34; is sourced from <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a>.</p>
-                            <p className="lead text-muted">&#34;Covid-19 Testing Locations&#34; are sourced from <strong><em><a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></em></strong>.</p>
+                            <p className="lead text-muted">&#34;Testing Locations&#34; are sourced from <strong><em><a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></em></strong>.</p>
                             <p className="lead text-muted">State Health Department links are provided by <strong><em><a href="https://covidtracking.com/">The COVID Tracking Project</a></em></strong>.</p>
                         </div>
                     </section>

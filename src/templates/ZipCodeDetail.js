@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet"
 import Layout from "../components/Layout";
 import LeafletMap from "../components/LeafletMap"
 
+//https://localcoviddata.com/covid19/v1/cases/covidTracking?state=CA&daysInPast=7
+
 export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
 

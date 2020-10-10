@@ -142,10 +142,11 @@ function SummaryCard(props) {
                             }
                             <div className="container">
                                 <Carousel.Caption className="bottom-caption-title">
-                                    <p style={{ color: "black", textAlign: "center" }}>Covid-19 Testing Locations</p>
+                                    <p style={{ color: "black", textAlign: "center" }}>{`Testing Locations: ${markers.length}`}</p>
                                 </Carousel.Caption>
                             </div>
-                            {/* <p style={{ textAlign: "center", marginTop: "1rem" }}>Covid-19 Testing Locations</p> */}
+
+
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
