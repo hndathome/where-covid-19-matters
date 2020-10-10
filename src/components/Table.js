@@ -21,7 +21,7 @@ function Table(props) {
                 <tr data-toggle="collapse" data-target="#trPositives">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Positives" /> Positives</td>
                     <td>{currentUSValues.positive && currentUSValues.positive.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon fixedWidth className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
                     <td colspan="99999" className="hiddenRow">
@@ -37,10 +37,29 @@ function Table(props) {
                         </div>
                     </td>
                 </tr>
+                <tr data-toggle="collapse" data-target="#trNegatives">
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Negatives" /> Negatives</td>
+                    <td>{currentUSValues.negative && currentUSValues.negative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.negativeIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase negative cases" /> {currentUSValues.negativeIncrease && currentUSValues.negativeIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                </tr>
+                <tr >
+                    <td colspan="99999" className="hiddenRow">
+                        <div className="accordian-body collapse" id="trNegatives">
+                            <div>
+                                <p><strong>Negative PCR tests (people)</strong></p>
+                                <p>Total number of <strong>unique people with a completed PCR test that returns negative</strong>. For states / territories that do not report this number directly, we compute it using one of several methods, depending on which data points the state provides. Due to complex reporting procedures, this number might be mixing units and therefore, at best, it should only be considered an estimate of the number of people with a completed PCR test that return negative. </p>
+                            </div>
+                            <div>
+                                <p><strong>Change</strong></p>
+                                <p>Increase in <em>Negatives</em> computed by subtracting the value of <em>Negatives</em> for the previous day from the value for <em>Negatives</em> from the current day.</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                 <tr data-toggle="collapse" data-target="#trTotalTestResults">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Total Test Results" /> Total Test Results</td>
                     <td>{currentUSValues.totalTestResults && currentUSValues.totalTestResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.totalTestResultsIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase totalTestResults cases" /> {currentUSValues.totalTestResultsIncrease && currentUSValues.totalTestResultsIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.totalTestResultsIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase totalTestResults cases" /> {currentUSValues.totalTestResultsIncrease && currentUSValues.totalTestResultsIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
                     <td colspan="99999" className="hiddenRow">
@@ -58,7 +77,7 @@ function Table(props) {
                 <tr data-toggle="collapse" data-target="#trHospitalizations" >
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Hospitalizations" /> Hospitalizations</td>
                     <td>{currentUSValues.hospitalizedCumulative && currentUSValues.hospitalizedCumulative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon fixedWidth className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr>
                     <td colspan="99999" className="hiddenRow">
@@ -122,7 +141,7 @@ function Table(props) {
                 <tr data-toggle="collapse" data-target="#trDeaths" >
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
                     <td>{currentUSValues.death && currentUSValues.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon fixedWidth className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr>
                     <td colspan="99999" className="hiddenRow">
