@@ -26,7 +26,7 @@ export const ZipCodeDetail = (props) => {
                 {typeof window !== 'undefined' &&
                     <LeafletMap
                         position={[item.latitude, item.longitude]}
-                        zoom={9}
+                        zoom={8}
                         markers={item.markers}
                     />
                 }

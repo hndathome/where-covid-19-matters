@@ -24,7 +24,7 @@ function Table(props) {
                     <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trPositives">
                             <div>
                                 <p><strong>Cases (confirmed plus probable)</strong></p>
@@ -43,7 +43,7 @@ function Table(props) {
                     <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.negativeIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase negative cases" /> {currentUSValues.negativeIncrease && currentUSValues.negativeIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trNegatives">
                             <div>
                                 <p><strong>Negative PCR tests (people)</strong></p>
@@ -62,7 +62,7 @@ function Table(props) {
                     <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.totalTestResultsIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase totalTestResults cases" /> {currentUSValues.totalTestResultsIncrease && currentUSValues.totalTestResultsIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trTotalTestResults">
                             <div>
                                 <p><strong>Total test results</strong></p>
@@ -80,7 +80,7 @@ function Table(props) {
                     <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr>
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trHospitalizations">
                             <div>
                                 <p><strong>Cumulative hospitalized/Ever hospitalized</strong></p>
@@ -99,7 +99,7 @@ function Table(props) {
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trHospitalizedCurrently">
                             <div>
                                 <p><strong>Currently hospitalized/Now hospitalized</strong></p>
@@ -114,7 +114,7 @@ function Table(props) {
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trInIcuCurrently">
                             <div>
                                 <p><strong>Currently in ICU/Now in ICU</strong></p>
@@ -129,7 +129,7 @@ function Table(props) {
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trOnVentilatorCurrently">
                             <div>
                                 <p><strong>Currently on ventilator/Now on ventilator</strong></p>
@@ -144,7 +144,7 @@ function Table(props) {
                     <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr>
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trDeaths">
                             <div>
                                 <p><strong>Deaths (confirmed and probable)</strong></p>
@@ -163,7 +163,7 @@ function Table(props) {
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
-                    <td colspan="99999" className="hiddenRow">
+                    <td colSpan="99999" className="hiddenRow">
                         <div className="accordian-body collapse" id="trRecovered">
                             <div>
                                 <p><strong>Recovered</strong></p>
