@@ -140,9 +140,9 @@ function SummaryCard(props) {
                                     key={keyMap}
                                 />
                             }
-                            <div className="container">
-                                <Carousel.Caption className="bottom-caption-title">
-                                    <p style={{ color: "black", textAlign: "center" }}>{`Testing Locations: ${markers.length}`}</p>
+                            <div className="container" style={{ width: "100%" }}>
+                                <Carousel.Caption className="bottom-caption-title" style={{ width: "100%" }}>
+                                    <p style={{ color: "black" }}>{`Covid-19 Testing Locations: ${markers.length}`}</p>
                                 </Carousel.Caption>
                             </div>
 
