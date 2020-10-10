@@ -1,6 +1,6 @@
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMinus, faInfoCircle, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 function Table(props) {
     const { currentUSValues } = props;
@@ -19,9 +19,9 @@ function Table(props) {
             </thead>
             <tbody>
                 <tr data-toggle="collapse" data-target="#trPositives">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter Positives" /> Positives</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Positives" /> Positives</td>
                     <td>{currentUSValues.positive && currentUSValues.positive.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td><FontAwesomeIcon fixedWidth className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr >
                     <td colspan="99999" className="hiddenRow">
@@ -37,10 +37,28 @@ function Table(props) {
                         </div>
                     </td>
                 </tr>
+                <tr data-toggle="collapse" data-target="#trTotalTestResults">
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Total Test Results" /> Total Test Results</td>
+                    <td>{currentUSValues.totalTestResults && currentUSValues.totalTestResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.totalTestResultsIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase totalTestResults cases" /> {currentUSValues.totalTestResultsIncrease && currentUSValues.totalTestResultsIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                </tr>
+                <tr >
+                    <td colspan="99999" className="hiddenRow">
+                        <div className="accordian-body collapse" id="trTotalTestResults">
+                            <div>
+                                <p><strong>Total test results</strong></p>
+                                <p>In most states, the totalTestResults field is currently computed by adding positive and negative values because, historically, some states do not report totals, and to work around different reporting cadences for cases and tests. In Colorado, the District of Columbia, Hawaii, Minnesota, North Dakota, Rhode Island, Virginia, and Washington, where reliable testing encounters figures are available with a complete time series, we directly report those figures in this field. In Alabama, Alaska, Arkansas, Georgia, Idaho, Kentucky, Massachusetts, Missouri, and New Hampshire, where reliable specimens figures are available with a complete time series, we directly report those figures in this field. In Arizona and South Dakota, where reliable unique people figures are available with a complete time series, we directly report those figures in this field. We are in the process of switching all states over to use directly reported total figures, using a policy of preferring testing encounters, specimens, and people, in that order.</p>
+                            </div>
+                            <div>
+                                <p><strong>Change: New tests</strong></p>
+                                <p>Daily increase in <em>Total Test Results</em>, calculated from the previous day’s value. This calculation includes all the caveats associated with Total tests/<em>Total Test Results</em>, and we recommend against using it at the state/territory level.</p>                            </div>
+                        </div>
+                    </td>
+                </tr>
                 <tr data-toggle="collapse" data-target="#trHospitalizations" >
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter Hospitalizations" /> Hospitalizations</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Hospitalizations" /> Hospitalizations</td>
                     <td>{currentUSValues.hospitalizedCumulative && currentUSValues.hospitalizedCumulative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td><FontAwesomeIcon fixedWidth className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr>
                     <td colspan="99999" className="hiddenRow">
@@ -57,7 +75,7 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr data-toggle="collapse" data-target="#trHospitalizedCurrently">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter HospitalizedCurrently" /> Hospitalized Currently</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Hospitalized Currently" /> Hospitalized Currently</td>
                     <td>{currentUSValues.hospitalizedCurrently && currentUSValues.hospitalizedCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td>Not Applicable</td>
                 </tr>
@@ -72,7 +90,7 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr data-toggle="collapse" data-target="#trInIcuCurrently">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter InIcuCurrently" /> In Icu Currently</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter In Icu Currently" /> In Icu Currently</td>
                     <td>{currentUSValues.inIcuCurrently && currentUSValues.inIcuCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td>Not Applicable</td>
                 </tr>
@@ -87,7 +105,7 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr data-toggle="collapse" data-target="#trOnVentilatorCurrently">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter OnVentilatorCurrently" /> On Ventilator Currently</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter On Ventilator Currently" /> On Ventilator Currently</td>
                     <td>{currentUSValues.onVentilatorCurrently && currentUSValues.onVentilatorCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td>Not Applicable</td>
                 </tr>
@@ -102,9 +120,9 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr data-toggle="collapse" data-target="#trDeaths" >
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
                     <td>{currentUSValues.death && currentUSValues.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td><FontAwesomeIcon className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td><FontAwesomeIcon fixedWidth className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </tr>
                 <tr>
                     <td colspan="99999" className="hiddenRow">
@@ -121,7 +139,7 @@ function Table(props) {
                     </td>
                 </tr>
                 <tr data-toggle="collapse" data-target="#trRecovered">
-                    <td><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faInfoCircle} aria-label="information on Parameter Recovered" /> Recovered</td>
+                    <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Recovered" /> Recovered</td>
                     <td>{currentUSValues.recovered && currentUSValues.recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     <td>Not Applicable</td>
                 </tr>
