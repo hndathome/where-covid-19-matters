@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus, faInfoCircle, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 function Table(props) {
-    const { currentUSValues } = props;
+    const { currentValues, caption } = props;
     return (
-        <table className="table table-sm" data={currentUSValues}>
+        <table className="table table-sm" data={currentValues}>
             <caption>
-                <p>The most recent COVID data for the US. The most recent data may not be from today.</p>
+                <p>{caption}</p>
                 <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
             </caption>
             <thead>
@@ -20,8 +20,17 @@ function Table(props) {
             <tbody>
                 <tr data-toggle="collapse" data-target="#trPositives">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Positives" /> Positives</td>
-                    <td>{currentUSValues.positive && currentUSValues.positive.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" /> {currentUSValues.positiveIncrease && currentUSValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.positive === null && "no data is available"}
+                        {currentValues.positive && currentValues.positive.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                    <td style={{ whiteSpace: "nowrap" }}>
+                        {currentValues.positiveIncrease !== 0 &&
+                            <FontAwesomeIcon fixedWidth className={currentValues.positiveIncrease > 0 ? "increase" : "decrease"} icon={currentValues.positiveIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase positive cases" />
+                        }
+                        {currentValues.positiveIncrease === null && "no data is available"}
+                        {currentValues.positiveIncrease && currentValues.positiveIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                 </tr>
                 <tr >
                     <td colSpan="99999" className="hiddenRow">
@@ -39,8 +48,17 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trNegatives">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Negatives" /> Negatives</td>
-                    <td>{currentUSValues.negative && currentUSValues.negative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.negativeIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase negative cases" /> {currentUSValues.negativeIncrease && currentUSValues.negativeIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.negative === null && "no data is available"}
+                        {currentValues.negative && currentValues.negative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                    <td style={{ whiteSpace: "nowrap" }}>
+                        {currentValues.negativeIncrease !== 0 &&
+                            <FontAwesomeIcon fixedWidth className="decrease" icon={currentValues.negativeIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase negative cases" />
+                        }
+                        {currentValues.negativeIncrease === null && "no data is available"}
+                        {currentValues.negativeIncrease && currentValues.negativeIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                 </tr>
                 <tr >
                     <td colSpan="99999" className="hiddenRow">
@@ -58,8 +76,17 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trTotalTestResults">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Total Test Results" /> Total Test Results</td>
-                    <td>{currentUSValues.totalTestResults && currentUSValues.totalTestResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className="decrease" icon={currentUSValues.totalTestResultsIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase totalTestResults cases" /> {currentUSValues.totalTestResultsIncrease && currentUSValues.totalTestResultsIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.totalTestResults === null && "no data is available"}
+                        {currentValues.totalTestResults && currentValues.totalTestResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                    <td style={{ whiteSpace: "nowrap" }}>
+                        {currentValues.totalTestResultsIncrease !== 0 &&
+                            <FontAwesomeIcon fixedWidth className="decrease" icon={currentValues.totalTestResultsIncrease > 0 ? faPlus : faMinus} aria-label="decrease or increase totalTestResults cases" />
+                        }
+                        {currentValues.totalTestResultsIncrease === null && "no data is available"}
+                        {currentValues.totalTestResultsIncrease && currentValues.totalTestResultsIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                 </tr>
                 <tr >
                     <td colSpan="99999" className="hiddenRow">
@@ -76,8 +103,17 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trHospitalizations" >
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Hospitalizations" /> Hospitalizations</td>
-                    <td>{currentUSValues.hospitalizedCumulative && currentUSValues.hospitalizedCumulative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" /> {currentUSValues.hospitalizedIncrease && currentUSValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.hospitalizedCumulative === null && "no data is available"}
+                        {currentValues.hospitalizedCumulative && currentValues.hospitalizedCumulative.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                    <td style={{ whiteSpace: "nowrap" }}>
+                        {currentValues.hospitalizedIncrease !== 0 &&
+                            < FontAwesomeIcon fixedWidth className={currentValues.hospitalizedIncrease > 0 ? "increase" : "decrease"} icon={currentValues.hospitalizedIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase hospitalizations" />
+                        }
+                        {currentValues.hospitalizedIncrease === null && "no data is available"}
+                        {currentValues.hospitalizedIncrease && currentValues.hospitalizedIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                 </tr>
                 <tr>
                     <td colSpan="99999" className="hiddenRow">
@@ -95,7 +131,10 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trHospitalizedCurrently">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Hospitalized Currently" /> Hospitalized Currently</td>
-                    <td>{currentUSValues.hospitalizedCurrently && currentUSValues.hospitalizedCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.hospitalizedCurrently === null && "no data is available"}
+                        {currentValues.hospitalizedCurrently && currentValues.hospitalizedCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
@@ -110,7 +149,10 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trInIcuCurrently">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter In Icu Currently" /> In Icu Currently</td>
-                    <td>{currentUSValues.inIcuCurrently && currentUSValues.inIcuCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.inIcuCurrently === null && "no data is available"}
+                        {currentValues.inIcuCurrently && currentValues.inIcuCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
@@ -125,7 +167,10 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trOnVentilatorCurrently">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter On Ventilator Currently" /> On Ventilator Currently</td>
-                    <td>{currentUSValues.onVentilatorCurrently && currentUSValues.onVentilatorCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.onVentilatorCurrently === null && "no data is available"}
+                        {currentValues.onVentilatorCurrently && currentValues.onVentilatorCurrently.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                     <td>Not Applicable</td>
                 </tr>
                 <tr>
@@ -140,8 +185,17 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trDeaths" >
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Deaths" /> Deaths</td>
-                    <td>{currentUSValues.death && currentUSValues.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                    <td style={{ whiteSpace: "nowrap" }}><FontAwesomeIcon fixedWidth className={currentUSValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentUSValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" /> {currentUSValues.deathIncrease && currentUSValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.death === null && "no data is available"}
+                        {currentValues.death && currentValues.death.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                    <td style={{ whiteSpace: "nowrap" }}>
+                        {currentValues.deathIncrease !== 0 &&
+                            <FontAwesomeIcon fixedWidth className={currentValues.deathIncrease > 0 ? "increase" : "decrease"} icon={currentValues.deathIncrease > 0 ? faCaretUp : faCaretDown} aria-label="decrease or increase deaths" />
+                        }
+                        {currentValues.deathIncrease === null && "no data is available"}
+                        {currentValues.deathIncrease && currentValues.deathIncrease.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                 </tr>
                 <tr>
                     <td colSpan="99999" className="hiddenRow">
@@ -159,7 +213,10 @@ function Table(props) {
                 </tr>
                 <tr data-toggle="collapse" data-target="#trRecovered">
                     <td><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="information on Parameter Recovered" /> Recovered</td>
-                    <td>{currentUSValues.recovered && currentUSValues.recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td>
+                        {currentValues.recovered === null && "no data is available"}
+                        {currentValues.recovered && currentValues.recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
                     <td>Not Applicable</td>
                 </tr>
                 <tr>

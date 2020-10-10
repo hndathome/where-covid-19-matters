@@ -39,7 +39,7 @@ export default function Home() {
                 <>
                   <h4>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
                   <div className="table-responsive">
-                    <Table currentUSValues={currentUSValues} />
+                    <Table currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
                   </div>
                 </>
               }

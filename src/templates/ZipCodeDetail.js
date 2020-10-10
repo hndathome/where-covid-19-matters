@@ -4,10 +4,16 @@ import { Helmet } from "react-helmet"
 import Layout from "../components/Layout";
 import LeafletMap from "../components/LeafletMap"
 
+import Table from "../components/Table"
+
 //https://localcoviddata.com/covid19/v1/cases/covidTracking?state=CA&daysInPast=7
 
 export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
+    console.log(item.state_current)
+    console.log(item.state_current.lastUpdateEt)
+    let lastUpdateEt = new Date(item.state_current.lastUpdateEt || item.state_current.lastModified || item.state_current.datechecked)
+    lastUpdateEt = lastUpdateEt.toLocaleString();
 
     return (
         <>
@@ -23,13 +29,23 @@ export const ZipCodeDetail = (props) => {
                     crossorigin=""></script>
             </Helmet>
             <Layout>
-                {typeof window !== 'undefined' &&
-                    <LeafletMap
-                        position={[item.latitude, item.longitude]}
-                        zoom={8}
-                        markers={item.markers}
-                    />
-                }
+                <main role="main">
+                    {Object.keys(item.state_current).length !== 0 &&
+                        <>
+                            <h4>{`Current ${item.state} Numbers`}<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
+                            <div className="table-responsive">
+                                <Table currentValues={item.state_current} caption={`The most recent COVID data for ${item.state}. The current value may be different than today.`} />
+                            </div>
+                        </>
+                    }
+                    {typeof window !== 'undefined' &&
+                        <LeafletMap
+                            position={[item.latitude, item.longitude]}
+                            zoom={8}
+                            markers={item.markers}
+                        />
+                    }
+                </main>
             </Layout>
         </>
     )
