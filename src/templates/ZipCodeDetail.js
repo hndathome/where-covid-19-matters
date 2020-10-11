@@ -12,6 +12,7 @@ export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
     let lastUpdateEt = new Date(item.state_current.lastUpdateEt || item.state_current.lastModified || item.state_current.datechecked)
     lastUpdateEt = lastUpdateEt.toLocaleString();
+    console.log(item);
 
     return (
         <>

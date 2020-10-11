@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from 'gatsby';
 import axios from 'axios';
-import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { Carousel } from 'react-bootstrap';
 import LeafletMap from "../components/LeafletMap"
+import Chart from "../components/Chart"
 
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState, default_city, state_abbreviation } } = props;
@@ -23,6 +23,8 @@ function SummaryCard(props) {
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
     const [lastUpdated, setLastUpdated] = useState('');
+    const [seriesNames, setSeriesNames] = useState([]);
+    const [series, setSeries] = useState([]);
 
     const [keyMap, setKeyMap] = useState(Math.random());
 
@@ -55,8 +57,22 @@ function SummaryCard(props) {
                 }
                 else {
                     respData = response.data;
-                    const myDate = respData.counties[0].historicData[0].date
+
+                    const myDate = respData.counties[0].historicData[0].date;
                     setLastUpdated(`${myDate.slice(5)}-${myDate.slice(0, 4)}`);
+
+                    const { counties } = response.data;
+                    setSeriesNames(counties.reduce((accumulator, current) => {
+                        return [...accumulator, { name: current.countyName }]
+                    }, []))
+
+                    setSeries(counties.reduce((accumulator, current) => {
+                        return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(item => {
+                            var temp = Object.assign({}, item);
+                            temp.date = `${item.date.slice(5)}-${item.date.slice(0, 4)}`
+                            return temp;
+                        })];
+                    }, []));
                 }
                 setNYTData(respData);
             } catch (error) {
@@ -67,100 +83,8 @@ function SummaryCard(props) {
         fetchData();
     }, [nytUrl]);
 
-    const chartPalette = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"]
-    const Chart = (props) => {
-        const { data } = props;
-        if (data.zipCd === undefined) {
-            return (
-                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
-            );
-        }
 
-        if (data.zipCd === "Empty") {
-            return (
-                <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
-            );
-        }
 
-        const { counties } = data;
-
-        const countyNames = counties.reduce((accumulator, current) => {
-            return [...accumulator, { name: current.countyName }]
-        }, []);
-
-        const series = counties.reduce((accumulator, current) => {
-            return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(item => {
-                var temp = Object.assign({}, item);
-                temp.date = `${item.date.slice(5)}-${item.date.slice(0, 4)}`
-                return temp;
-            })];
-        }, []);
-
-        const maxima = series.map(
-            (dataset) => Math.max(...dataset.map((d) => d.positiveCt))
-        );
-
-        const xOffsets = [50, 200, 350];
-        const tickPadding = [-7, 0, -15];
-        const anchors = ["end", "end", "start"];
-        const colors = chartPalette;
-
-        return (
-            <VictoryChart
-                theme={VictoryTheme.material}
-                width={400} height={400}
-                domain={{ y: [0, 1] }}
-                padding={50}
-                containerComponent={
-                    <VictoryVoronoiContainer
-                        voronoiDimension="x"
-                        labels={({ datum }) => `y: ${datum.positiveCt}`}
-                        labelComponent={
-                            <VictoryTooltip
-                                cornerRadius={0}
-                                flyoutStyle={{ fill: "white" }}
-                            />}
-                    />}
-            >
-                <VictoryAxis
-                    fixLabelOverlap
-                    style={{ tickLabels: { padding: 16, fontSize: 12 } }}
-                />
-                {series.map((d, i) => (
-                    <VictoryAxis dependentAxis
-                        key={i}
-                        offsetX={xOffsets[i]}
-                        style={{
-                            axis: { stroke: colors[i] },
-                            ticks: { padding: tickPadding[i] },
-                            tickLabels: { fill: colors[i], textAnchor: anchors[i] }
-                        }}
-                        // Use normalized tickValues (0 - 1)
-                        tickValues={[0.25, 0.5, 0.75, 1]}
-                        // Re-scale ticks by multiplying by correct maxima
-                        tickFormat={(t) => Math.round(t * maxima[i])}
-                    />
-                ))}
-
-                {series.map((d, i) => (
-                    <VictoryLine
-                        key={i}
-                        data={d}
-                        style={{ data: { stroke: colors[i], strokeWidth: ({ active }) => active ? 4 : 2 }, labels: { fontSize: 15, fill: colors[i] } }}
-                        x="date"
-                        y={(datum) => datum.positiveCt / maxima[i]}
-                    />
-                ))}
-
-                <VictoryLegend x={5} y={5}
-                    orientation="horizontal"
-                    gutter={10}
-                    colorScale={chartPalette}
-                    data={countyNames}
-                />
-            </VictoryChart>
-        );
-    };
 
     const handleSelect = (selectedIndex, e) => {
         if (selectedIndex === 1) {
@@ -174,7 +98,13 @@ function SummaryCard(props) {
                 <div width="100%" height="225" className="bd-placeholder-img card-img-top">
                     <Carousel controls={false} interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide">
                         <Carousel.Item className="carousel-item">
-                            <Chart data={nytData} />
+                            {nytData.zipCd === undefined &&
+                                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
+                            }
+                            {nytData.zipCd === "Empty" &&
+                                <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                            }
+                            <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
                             <div className="container">
                                 <Carousel.Caption className="bottom-caption-title">
                                     <p style={{ color: "black", textAlign: "center" }}>Covid-19 Positive Count</p>
@@ -195,8 +125,6 @@ function SummaryCard(props) {
                                     <p style={{ color: "black" }}>{`Covid-19 Testing Locations: ${markers.length}`}</p>
                                 </Carousel.Caption>
                             </div>
-
-
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
