@@ -83,13 +83,22 @@ function SummaryCard(props) {
         }
 
         const { counties } = data;
+
         const countyNames = counties.reduce((accumulator, current) => {
             return [...accumulator, { name: current.countyName }]
         }, []);
+        console.log(counties);
+        console.log(countyNames);
 
         const series = counties.reduce((accumulator, current) => {
-            return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date))]
+            return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(item => {
+                var temp = Object.assign({}, item);
+                temp.date = `${item.date.slice(5)}-${item.date.slice(0, 4)}`
+                return temp;
+            })];
         }, []);
+
+        console.log(series)
 
         const maxima = series.map(
             (dataset) => Math.max(...dataset.map((d) => d.positiveCt))
