@@ -87,8 +87,6 @@ function SummaryCard(props) {
         const countyNames = counties.reduce((accumulator, current) => {
             return [...accumulator, { name: current.countyName }]
         }, []);
-        console.log(counties);
-        console.log(countyNames);
 
         const series = counties.reduce((accumulator, current) => {
             return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(item => {
@@ -97,8 +95,6 @@ function SummaryCard(props) {
                 return temp;
             })];
         }, []);
-
-        console.log(series)
 
         const maxima = series.map(
             (dataset) => Math.max(...dataset.map((d) => d.positiveCt))
