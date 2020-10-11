@@ -17,6 +17,8 @@ function ZipCodeList() {
     const [addingZip, setAddingZip] = useState(false);
     const [allStatesInfo, setAllStatesInfo] = useState([]);
     const [allStatesCurrent, setAllStatesCurrent] = useState([]);
+    const [allStatesDaily, setAllStatesDaily] = useState([]);
+
     useEffect(() => {
         try {
             const fetchData = async () => {
@@ -27,6 +29,10 @@ function ZipCodeList() {
                 const allStatesCurrentUrl = "https://api.covidtracking.com/v1/states/current.json"
                 const responseAllStatesCurrent = await axios.get(allStatesCurrentUrl, { headers: { 'Accept': 'application/json' } });
                 setAllStatesCurrent(responseAllStatesCurrent.data);
+
+                const allStatesDailyUrl = "https://api.covidtracking.com/v1/states/daily.json"
+                const responseAllStatesDaily = await axios.get(allStatesDailyUrl, { headers: { 'Accept': 'application/json' } });
+                setAllStatesDaily(responseAllStatesDaily.data);
             };
 
             fetchData();
@@ -60,6 +66,7 @@ function ZipCodeList() {
                                 longitude: zipcodes[0].longitude,
                                 state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
                                 state_current: allStatesCurrent.find(({ state }) => state === zipcodes[0].state_abbreviation),
+                                state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
                                 default_city: zipcodes[0].default_city
                             }
                         ]);
@@ -74,7 +81,7 @@ function ZipCodeList() {
         };
 
         fetchData();
-    }, [smartyStreetUrl, allStatesInfo, allStatesCurrent]);
+    }, [smartyStreetUrl, allStatesInfo, allStatesCurrent, allStatesDaily]);
 
     useEffect(() => {
         if (delId !== '') {

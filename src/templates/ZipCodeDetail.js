@@ -7,8 +7,6 @@ import LeafletMap from "../components/LeafletMap"
 import Table from "../components/Table"
 import Chart from "../components/Chart"
 
-//https://localcoviddata.com/covid19/v1/cases/covidTracking?state=CA&daysInPast=7
-
 export const ZipCodeDetail = (props) => {
     const { zipcode, item, item: { latitude, longitude, markers, nytData, state_current, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames } } = props;
     let lastUpdateEt = new Date(state_current.lastUpdateEt || state_current.lastModified || state_current.datechecked)
@@ -30,7 +28,7 @@ export const ZipCodeDetail = (props) => {
             <Layout>
                 <main role="main">
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-md-4">
                             {Object.keys(state_current).length !== 0 &&
                                 <>
                                     <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
@@ -41,7 +39,7 @@ export const ZipCodeDetail = (props) => {
                             }
 
                         </div>
-                        <div className="col-4">
+                        <div className="col-md-4">
 
                             {nytData.zipCd === "Empty" &&
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
@@ -52,7 +50,7 @@ export const ZipCodeDetail = (props) => {
 
 
                         </div>
-                        <div className="col-4">
+                        <div className="col-md-4">
                             {nytData.zipCd === "Empty" &&
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
                             }
