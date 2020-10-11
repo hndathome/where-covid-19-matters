@@ -9,5 +9,5 @@ require("dotenv").config({
 
 module.exports = {
   /* Your site config here */
-  plugins: [`gatsby-plugin-fontawesome-css`, `gatsby-plugin-react-helmet`],
+  plugins: [`gatsby-plugin-fontawesome-css`, `gatsby-plugin-react-helmet`, `gatsby-plugin-netlify`],
 }
