@@ -83,9 +83,6 @@ function SummaryCard(props) {
         fetchData();
     }, [nytUrl]);
 
-
-
-
     const handleSelect = (selectedIndex, e) => {
         if (selectedIndex === 1) {
             setKeyMap(Math.random());
@@ -104,7 +101,9 @@ function SummaryCard(props) {
                             {nytData.zipCd === "Empty" &&
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
                             }
-                            <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
+                            {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
+                                <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
+                            }
                             <div className="container">
                                 <Carousel.Caption className="bottom-caption-title">
                                     <p style={{ color: "black", textAlign: "center" }}>Covid-19 Positive Count</p>
