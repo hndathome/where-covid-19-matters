@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from 'gatsby';
 import axios from 'axios';
-import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend } from "victory";
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { Carousel } from 'react-bootstrap';
@@ -107,6 +107,16 @@ function SummaryCard(props) {
                 domain={{ y: [0, 1] }}
                 scale={{ x: "time" }}
                 padding={50}
+                containerComponent={
+                    <VictoryVoronoiContainer
+                        voronoiDimension="x"
+                        labels={({ datum }) => `y: ${datum.positiveCt}`}
+                        labelComponent={
+                            <VictoryTooltip
+                                cornerRadius={0}
+                                flyoutStyle={{ fill: "white" }}
+                            />}
+                    />}
             >
                 <VictoryAxis
                     fixLabelOverlap
@@ -131,10 +141,11 @@ function SummaryCard(props) {
                     <VictoryLine
                         key={i}
                         data={d}
-                        style={{ data: { stroke: colors[i], strokeWidth: 3 } }}
+                        style={{ data: { stroke: colors[i], strokeWidth: ({ active }) => active ? 4 : 2 }, labels: { fontSize: 15, fill: colors[i] } }}
                         // normalize data
                         x="date"
                         y={(datum) => datum.positiveCt / maxima[i]}
+
                     />
                 ))}
 
