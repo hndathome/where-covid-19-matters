@@ -105,7 +105,6 @@ function SummaryCard(props) {
                 theme={VictoryTheme.material}
                 width={400} height={400}
                 domain={{ y: [0, 1] }}
-                scale={{ x: "time" }}
                 padding={50}
                 containerComponent={
                     <VictoryVoronoiContainer
@@ -137,15 +136,14 @@ function SummaryCard(props) {
                         tickFormat={(t) => Math.round(t * maxima[i])}
                     />
                 ))}
+
                 {series.map((d, i) => (
                     <VictoryLine
                         key={i}
                         data={d}
                         style={{ data: { stroke: colors[i], strokeWidth: ({ active }) => active ? 4 : 2 }, labels: { fontSize: 15, fill: colors[i] } }}
-                        // normalize data
                         x="date"
                         y={(datum) => datum.positiveCt / maxima[i]}
-
                     />
                 ))}
 
@@ -155,25 +153,7 @@ function SummaryCard(props) {
                     colorScale={chartPalette}
                     data={countyNames}
                 />
-
             </VictoryChart>
-            // <VictoryChart theme={VictoryTheme.material} domainPadding={1} padding={55} domain={{ y: [0, 1] }}>
-            //     <VictoryAxis
-            //         fixLabelOverlap
-            //         style={{ tickLabels: { padding: 16, fontSize: 8 } }}
-            //     />
-            //     <VictoryAxis dependentAxis />
-            //     {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset} x="date" y={(datum) => datum.positiveCt / maxima[index]} key={index} style={{
-            //         data: { stroke: chartPalette[index], strokeWidth: 3 },
-            //         parent: { border: "1px solid #ccc" }
-            //     }} />)}
-            //     <VictoryLegend x={5} y={5}
-            //         orientation="horizontal"
-            //         gutter={10}
-            //         colorScale={chartPalette}
-            //         data={countyNames}
-            //     />
-            // </VictoryChart>
         );
     };
 
