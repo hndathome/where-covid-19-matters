@@ -96,7 +96,7 @@ function SummaryCard(props) {
         );
 
         const xOffsets = [50, 200, 350];
-        const tickPadding = [-8, 0, -15];
+        const tickPadding = [-7, 0, -15];
         const anchors = ["end", "end", "start"];
         const colors = chartPalette;
 
