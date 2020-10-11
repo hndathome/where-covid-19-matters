@@ -168,7 +168,7 @@ function ZipCodeList() {
                                             <br />
                                             <div>
                                                 <button className="btn btn-primary" disabled={myZipCodes.length > 0 ? false : true} onClick={handleGetData}>Get data</button>
-                                                <button style={{ float: "right" }} className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={(e) => window.confirm("Are you sure you wish to delete all zip codes?") ? handleDeleteAll(e) : e.preventDefault()}
+                                                <button style={{ float: "right" }} disabled={myZipCodes.length > 0 ? false : true} className="btn btn-danger" data-toggle="tooltip" data-placement="top" title="delete all zip codes" onClick={(e) => window.confirm("Are you sure you wish to delete all zip codes?") ? handleDeleteAll(e) : e.preventDefault()}
                                                 ><FontAwesomeIcon icon={faTrashAlt} aria-label="delete all zip codes" /></button>
                                             </div>
                                         </form>
