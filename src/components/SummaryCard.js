@@ -8,7 +8,7 @@ import { Carousel } from 'react-bootstrap';
 import LeafletMap from "../components/LeafletMap"
 
 function SummaryCard(props) {
-    const { item, item: { zipcode, state_info, state: geoState } } = props;
+    const { item, item: { zipcode, state_info, state: geoState, default_city, state_abbreviation } } = props;
     const { covid19Site, covid19SiteSecondary, twitter } = state_info;
 
     let atLat = item.latitude.toString();
@@ -214,7 +214,7 @@ function SummaryCard(props) {
                     </Carousel>
                 </div>
                 <div className="card-body">
-                    <h5 className="card-text">{zipcode}</h5>
+                    <h5 className="card-text">{default_city}, {state_abbreviation.toUpperCase()} {zipcode}</h5>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
                             <button className="btn btn-sm btn-secondary" onClick={event => {

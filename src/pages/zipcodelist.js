@@ -59,7 +59,8 @@ function ZipCodeList() {
                                 latitude: zipcodes[0].latitude,
                                 longitude: zipcodes[0].longitude,
                                 state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
-                                state_current: allStatesCurrent.find(({ state }) => state === zipcodes[0].state_abbreviation)
+                                state_current: allStatesCurrent.find(({ state }) => state === zipcodes[0].state_abbreviation),
+                                default_city: zipcodes[0].default_city
                             }
                         ]);
                         setZipCode("");
