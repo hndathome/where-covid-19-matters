@@ -145,8 +145,6 @@ function SummaryCard(props) {
                                     <p style={{ color: "black" }}>{`Covid-19 Testing Locations: ${markers.length}`}</p>
                                 </Carousel.Caption>
                             </div>
-
-
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />

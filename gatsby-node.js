@@ -8,6 +8,13 @@ exports.onCreatePage = async ({ page, actions }) => {
         page.matchPath = "/details/*"
         createPage(page)
     }
+
+    const { createRedirect } = actions;
+    createRedirect({
+        fromPath: '/details/*',
+        toPath: '/summary/',
+        isPermanent: true
+    });
 }
 
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
