@@ -37,7 +37,7 @@ function SummaryCard(props) {
                     return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng] }]
                 }, []);
                 setMarkers(dataMarkers);
-                setHereData(response.hereData);
+                setHereData(response.data);
             } catch (error) {
                 console.error(error);
             }
@@ -146,7 +146,7 @@ function SummaryCard(props) {
                         <div className="btn-group">
                             <button className="btn btn-sm btn-secondary" onClick={event => {
                                 event.preventDefault();
-                                const updatedItem = { ...item, county_info: nytData, markers: markers, hereData: hereData };
+                                const updatedItem = { ...item, nytData: nytData, markers: markers, hereData: hereData, county_series: series, county_seriesNames: seriesNames };
                                 navigate(
                                     `/details/${zipcode}`,
                                     {

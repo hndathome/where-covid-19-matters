@@ -5,14 +5,14 @@ import Layout from "../components/Layout";
 import LeafletMap from "../components/LeafletMap"
 
 import Table from "../components/Table"
+import Chart from "../components/Chart"
 
 //https://localcoviddata.com/covid19/v1/cases/covidTracking?state=CA&daysInPast=7
 
 export const ZipCodeDetail = (props) => {
-    const { zipcode, item } = props;
-    let lastUpdateEt = new Date(item.state_current.lastUpdateEt || item.state_current.lastModified || item.state_current.datechecked)
+    const { zipcode, item, item: { latitude, longitude, markers, nytData, state_current, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames } } = props;
+    let lastUpdateEt = new Date(state_current.lastUpdateEt || state_current.lastModified || state_current.datechecked)
     lastUpdateEt = lastUpdateEt.toLocaleString();
-    console.log(item);
 
     return (
         <>
@@ -29,19 +29,45 @@ export const ZipCodeDetail = (props) => {
             </Helmet>
             <Layout>
                 <main role="main">
-                    {Object.keys(item.state_current).length !== 0 &&
-                        <>
-                            <h4>Current {item.state} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
-                            <div className="table-responsive">
-                                <Table currentValues={item.state_current} caption={`The most recent COVID data for ${item.state}. The current value may be different than today.`} />
-                            </div>
-                        </>
-                    }
+                    <div className="row">
+                        <div className="col-4">
+                            {Object.keys(state_current).length !== 0 &&
+                                <>
+                                    <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
+                                    <div className="table-responsive">
+                                        <Table currentValues={state_current} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
+                                    </div>
+                                </>
+                            }
+
+                        </div>
+                        <div className="col-4">
+
+                            {nytData.zipCd === "Empty" &&
+                                <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                            }
+                            {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
+                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="positiveCt" />
+                            }
+
+
+                        </div>
+                        <div className="col-4">
+                            {nytData.zipCd === "Empty" &&
+                                <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                            }
+                            {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
+                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="deathCt" />
+                            }
+
+                        </div>
+                    </div>
+
                     {typeof window !== 'undefined' &&
                         <LeafletMap
-                            position={[item.latitude, item.longitude]}
+                            position={[latitude, longitude]}
                             zoom={8}
-                            markers={item.markers}
+                            markers={markers}
                         />
                     }
                 </main>
