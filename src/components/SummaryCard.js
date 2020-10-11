@@ -96,7 +96,7 @@ function SummaryCard(props) {
         );
 
         const xOffsets = [50, 200, 350];
-        const tickPadding = [0, 0, -15];
+        const tickPadding = [-8, 0, -15];
         const anchors = ["end", "end", "start"];
         const colors = chartPalette;
 
@@ -134,7 +134,7 @@ function SummaryCard(props) {
                         // Use normalized tickValues (0 - 1)
                         tickValues={[0.25, 0.5, 0.75, 1]}
                         // Re-scale ticks by multiplying by correct maxima
-                        tickFormat={(t) => t * maxima[i]}
+                        tickFormat={(t) => Math.round(t * maxima[i])}
                     />
                 ))}
                 {series.map((d, i) => (
