@@ -17,7 +17,7 @@ function Chart(props) {
         <VictoryChart
             theme={VictoryTheme.material}
             width={400} height={400}
-            domain={{ y: [0, 1] }}
+            domain={{ y: [0, 1.05] }}
             padding={50}
             containerComponent={
                 <VictoryVoronoiContainer
