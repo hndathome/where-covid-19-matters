@@ -115,3 +115,7 @@ padding-top: 1.5rem;
 .bootstrap-primary{
   color: #007bff; 
 }
+
+.VictoryContainer {
+  padding-left: 12px;
+}

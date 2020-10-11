@@ -10,8 +10,6 @@ import Table from "../components/Table"
 
 export const ZipCodeDetail = (props) => {
     const { zipcode, item } = props;
-    console.log(item.state_current)
-    console.log(item.state_current.lastUpdateEt)
     let lastUpdateEt = new Date(item.state_current.lastUpdateEt || item.state_current.lastModified || item.state_current.datechecked)
     lastUpdateEt = lastUpdateEt.toLocaleString();
 

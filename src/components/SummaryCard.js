@@ -91,24 +91,78 @@ function SummaryCard(props) {
             return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date))]
         }, []);
 
+        const maxima = series.map(
+            (dataset) => Math.max(...dataset.map((d) => d.positiveCt))
+        );
+
+        const xOffsets = [50, 200, 350];
+        const tickPadding = [0, 0, -15];
+        const anchors = ["end", "end", "start"];
+        const colors = chartPalette;
+
         return (
-            <VictoryChart theme={VictoryTheme.material} domainPadding={1} padding={55}>
+            <VictoryChart
+                theme={VictoryTheme.material}
+                width={400} height={400}
+                domain={{ y: [0, 1] }}
+                scale={{ x: "time" }}
+                padding={50}
+            >
                 <VictoryAxis
                     fixLabelOverlap
-                    style={{ tickLabels: { padding: 16, fontSize: 8 } }}
+                    style={{ tickLabels: { padding: 16, fontSize: 12 } }}
                 />
-                <VictoryAxis dependentAxis />
-                {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset} x="date" y="positiveCt" key={index} style={{
-                    data: { stroke: chartPalette[index], strokeWidth: 3 },
-                    parent: { border: "1px solid #ccc" }
-                }} />)}
+                {series.map((d, i) => (
+                    <VictoryAxis dependentAxis
+                        key={i}
+                        offsetX={xOffsets[i]}
+                        style={{
+                            axis: { stroke: colors[i] },
+                            ticks: { padding: tickPadding[i] },
+                            tickLabels: { fill: colors[i], textAnchor: anchors[i] }
+                        }}
+                        // Use normalized tickValues (0 - 1)
+                        tickValues={[0.25, 0.5, 0.75, 1]}
+                        // Re-scale ticks by multiplying by correct maxima
+                        tickFormat={(t) => t * maxima[i]}
+                    />
+                ))}
+                {series.map((d, i) => (
+                    <VictoryLine
+                        key={i}
+                        data={d}
+                        style={{ data: { stroke: colors[i], strokeWidth: 3 } }}
+                        // normalize data
+                        x="date"
+                        y={(datum) => datum.positiveCt / maxima[i]}
+                    />
+                ))}
+
                 <VictoryLegend x={5} y={5}
                     orientation="horizontal"
                     gutter={10}
                     colorScale={chartPalette}
                     data={countyNames}
                 />
+
             </VictoryChart>
+            // <VictoryChart theme={VictoryTheme.material} domainPadding={1} padding={55} domain={{ y: [0, 1] }}>
+            //     <VictoryAxis
+            //         fixLabelOverlap
+            //         style={{ tickLabels: { padding: 16, fontSize: 8 } }}
+            //     />
+            //     <VictoryAxis dependentAxis />
+            //     {series.length > 0 && series.map((dataset, index) => <VictoryLine data={dataset} x="date" y={(datum) => datum.positiveCt / maxima[index]} key={index} style={{
+            //         data: { stroke: chartPalette[index], strokeWidth: 3 },
+            //         parent: { border: "1px solid #ccc" }
+            //     }} />)}
+            //     <VictoryLegend x={5} y={5}
+            //         orientation="horizontal"
+            //         gutter={10}
+            //         colorScale={chartPalette}
+            //         data={countyNames}
+            //     />
+            // </VictoryChart>
         );
     };
 
