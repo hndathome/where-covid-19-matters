@@ -147,6 +147,7 @@ function SummaryCard(props) {
                             <button className="btn btn-sm btn-secondary" onClick={event => {
                                 event.preventDefault();
                                 const updatedItem = { ...item, nytData: nytData, markers: markers, hereData: hereData, county_series: series, county_seriesNames: seriesNames };
+
                                 navigate(
                                     `/details/${zipcode}`,
                                     {
