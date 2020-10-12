@@ -48,7 +48,7 @@ function Chart(props) {
             containerComponent={
                 <VictoryVoronoiContainer
                     voronoiDimension="x"
-                    labels={({ datum }) => `${datum[xValue]}: ${datum[yValue]}`}
+                    labels={({ datum }) => `y: ${datum[yValue]}`}
                     labelComponent={
                         <VictoryTooltip
                             cornerRadius={0}
