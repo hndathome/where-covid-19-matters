@@ -11,6 +11,12 @@ function Chart(props) {
 
     const [maxima, setMaxima] = useState([]);
 
+    //TO DO dynamic anchors
+    //TO DO dynamic offsets 300 to share 
+    //50,200,350  incrementer 150
+    //50,150,250,350 incrementer 100
+    //50,125,200,275,350 incrementer 75
+
     useEffect(() => {
         setMaxima(series.map(
             (dataset) => Math.max(...dataset.map((d) => d[yValue]))

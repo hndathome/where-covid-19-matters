@@ -2,19 +2,31 @@ import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import Layout from "../components/Layout"
 import Table from "../components/Table"
+import Chart from "../components/Chart"
 
 export default function Home() {
+  const [historicUSValues, setHistoricUSValues] = useState([]);
   const [currentUSValues, setCurrentUSValues] = useState({});
   const [lastUpdateET, setlastUpdateET] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const covidTrackingUrl = `https://api.covidtracking.com/v1/us/current.json`
+        const covidTrackingUrl = `https://api.covidtracking.com/v1/us/daily.json`
         const response = await axios.get(covidTrackingUrl, { headers: { 'Accept': 'application/json' } });
         let last = new Date(response.data[0].lastUpdateET || response.data[0].lastModified || response.data[0].datechecked);
         setlastUpdateET(last.toLocaleString());
         setCurrentUSValues(response.data[0]);
+
+        let usDaily = response.data.map(obj => {
+          var temp = Object.assign({}, obj);
+          var tempDate = obj.date.toString();
+          temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
+          return temp;
+        });
+        usDaily.reverse();
+        console.log(usDaily);
+        setHistoricUSValues(usDaily);
       } catch (error) {
         console.error(error);
       }
@@ -34,6 +46,9 @@ export default function Home() {
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
             <div className="col-md-5">
+              {Object.keys(currentUSValues).length === 0 &&
+                <h4 className="loading">Loading<span>.</span><span>.</span><span>.</span></h4>
+              }
               {Object.keys(currentUSValues).length > 0 &&
                 <>
                   <h4>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
@@ -52,14 +67,26 @@ export default function Home() {
               {/* <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
             </div>
             <div className="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              {/* <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
+              <h2>US Positive Count</h2>
+              {historicUSValues.length === 0 &&
+                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
+              }
+              {historicUSValues.length > 0 &&
+                <Chart series={[historicUSValues]} seriesNames={[{
+                  "name": `Positives`
+                }]} xValue="date" yValue="positive" />
+              }
             </div>
             <div className="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-              {/* <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
+              <h2>US Deaths</h2>
+              {historicUSValues.length === 0 &&
+                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
+              }
+              {historicUSValues.length > 0 &&
+                <Chart series={[historicUSValues]} seriesNames={[{
+                  "name": `Deaths`
+                }]} xValue="date" yValue="death" />
+              }
             </div>
           </div>
           {/* <hr className="featurette-divider"></hr> */}

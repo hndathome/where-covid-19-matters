@@ -75,22 +75,6 @@ export const ZipCodeDetail = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            {Object.keys(stateCurrent).length !== 0 &&
-                                <>
-                                    <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
-                                    <div className="table-responsive">
-                                        <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
-                                    </div>
-                                    <p>{geoState} Department of Health</p>
-                                    <ul>
-                                        <li><a href={state_info.covid19Site}>Covid-19 Site</a></li>
-                                        <li><a href={state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                        {state_info.twitter.startsWith('@') && <li><a href={`https://twitter.com/${state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                    </ul>
-                                </>
-                            }
-                        </div>
-                        <div className="col-md-4">
                             {allDays.length === 0 &&
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
                             }
@@ -108,6 +92,22 @@ export const ZipCodeDetail = (props) => {
                                 <Chart series={allDays} seriesNames={[{
                                     "name": `Deaths`
                                 }]} xValue="date" yValue="death" />
+                            }
+                        </div>
+                        <div className="col-md-4">
+                            {Object.keys(stateCurrent).length !== 0 &&
+                                <>
+                                    <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
+                                    <div className="table-responsive">
+                                        <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
+                                    </div>
+                                    <p>{geoState} Department of Health</p>
+                                    <ul>
+                                        <li><a href={state_info.covid19Site}>Covid-19 Site</a></li>
+                                        <li><a href={state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                        {state_info.twitter.startsWith('@') && <li><a href={`https://twitter.com/${state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                    </ul>
+                                </>
                             }
                         </div>
                     </div>
