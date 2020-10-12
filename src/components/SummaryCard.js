@@ -11,7 +11,6 @@ function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState, default_city, state_abbreviation } } = props;
     const { covid19Site, covid19SiteSecondary, twitter } = state_info;
 
-    const [hereData, setHereData] = useState({});
     const [markers, setMarkers] = useState([]);
 
     const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
@@ -35,10 +34,9 @@ function SummaryCard(props) {
                 const response = await axios.get(hereapiUrl, { headers: { 'Accept': 'application/json' } });
                 const { items } = response.data;
                 const dataMarkers = items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
-                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng] }]
+                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng], contacts: current.contacts, address: current.address }]
                 }, []);
                 setMarkers(dataMarkers);
-                setHereData(response.data);
             } catch (error) {
                 console.error(error);
             }
@@ -147,7 +145,7 @@ function SummaryCard(props) {
                         <div className="btn-group">
                             <button className="btn btn-sm btn-secondary" onClick={event => {
                                 event.preventDefault();
-                                const updatedItem = { ...item, nytData: nytData, markers: markers, hereData: hereData, county_series: series, county_seriesNames: seriesNames };
+                                const updatedItem = { ...item, nytData: nytData, markers: markers, county_series: series, county_seriesNames: seriesNames };
 
                                 navigate(
                                     `/details/${zipcode}`,
