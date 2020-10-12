@@ -101,6 +101,14 @@ export const ZipCodeDetail = (props) => {
                             }
                         </div>
                         <div className="col-md-4">
+                            {allDays.length === 0 &&
+                                <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
+                            }
+                            {(allDays.length > 0) &&
+                                <Chart series={allDays} seriesNames={[{
+                                    "name": `Deaths`
+                                }]} xValue="date" yValue="death" />
+                            }
                         </div>
                     </div>
                 </main>
