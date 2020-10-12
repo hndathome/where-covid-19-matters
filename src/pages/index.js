@@ -67,14 +67,17 @@ export default function Home() {
               {/* <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
             </div>
             <div className="col-md-4">
-              <h2>US Positive Count</h2>
+              <h2>US Positives</h2>
               {historicUSValues.length === 0 &&
                 <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
               }
               {historicUSValues.length > 0 &&
-                <Chart series={[historicUSValues]} seriesNames={[{
-                  "name": `Positives`
-                }]} xValue="date" yValue="positive" />
+                <>
+                  <Chart series={[historicUSValues]} seriesNames={[{
+                    "name": `Positives`
+                  }]} xValue="date" yValue="positive" />
+                  <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                </>
               }
             </div>
             <div className="col-md-4">
@@ -83,9 +86,12 @@ export default function Home() {
                 <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
               }
               {historicUSValues.length > 0 &&
-                <Chart series={[historicUSValues]} seriesNames={[{
-                  "name": `Deaths`
-                }]} xValue="date" yValue="death" />
+                <>
+                  <Chart series={[historicUSValues]} seriesNames={[{
+                    "name": `Deaths`
+                  }]} xValue="date" yValue="death" />
+                  <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                </>
               }
             </div>
           </div>
