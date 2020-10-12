@@ -8,15 +8,19 @@ import Table from "../components/Table"
 import Chart from "../components/Chart"
 
 export const ZipCodeDetail = (props) => {
-    const { zipcode, item, item: { latitude, longitude, markers, nytData, state_current, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames } } = props;
+    const { zipcode, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
+
+    const state_current = state_daily[0];
     let lastUpdateEt = new Date(state_current.lastUpdateEt || state_current.lastModified || state_current.datechecked)
     lastUpdateEt = lastUpdateEt.toLocaleString();
-    const last30days = [item.state_daily.slice(0, 30).reverse().map(obj => {
+
+    const last30days = [state_daily.slice(0, 30).reverse().map(obj => {
         var temp = Object.assign({}, obj);
         var tempDate = obj.date.toString();
         temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
         return temp;
     })];
+
     return (
         <>
             <Helmet>
@@ -81,11 +85,8 @@ export const ZipCodeDetail = (props) => {
                             }
                         </div>
                         <div className="col-md-4">
-
                         </div>
                     </div>
-
-
                 </main>
             </Layout>
         </>

@@ -16,7 +16,6 @@ function ZipCodeList() {
     const [delAll, setDelAll] = useState(false);
     const [addingZip, setAddingZip] = useState(false);
     const [allStatesInfo, setAllStatesInfo] = useState([]);
-    const [allStatesCurrent, setAllStatesCurrent] = useState([]);
     const [allStatesDaily, setAllStatesDaily] = useState([]);
 
     useEffect(() => {
@@ -25,10 +24,6 @@ function ZipCodeList() {
                 const allStatesInfoUrl = "https://api.covidtracking.com/v1/states/info.json"
                 const responseAllStatesInfo = await axios.get(allStatesInfoUrl, { headers: { 'Accept': 'application/json' } });
                 setAllStatesInfo(responseAllStatesInfo.data);
-
-                const allStatesCurrentUrl = "https://api.covidtracking.com/v1/states/current.json"
-                const responseAllStatesCurrent = await axios.get(allStatesCurrentUrl, { headers: { 'Accept': 'application/json' } });
-                setAllStatesCurrent(responseAllStatesCurrent.data);
 
                 const allStatesDailyUrl = "https://api.covidtracking.com/v1/states/daily.json"
                 const responseAllStatesDaily = await axios.get(allStatesDailyUrl, { headers: { 'Accept': 'application/json' } });
@@ -65,7 +60,6 @@ function ZipCodeList() {
                                 latitude: zipcodes[0].latitude,
                                 longitude: zipcodes[0].longitude,
                                 state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
-                                state_current: allStatesCurrent.find(({ state }) => state === zipcodes[0].state_abbreviation),
                                 state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
                                 default_city: zipcodes[0].default_city
                             }
@@ -81,7 +75,7 @@ function ZipCodeList() {
         };
 
         fetchData();
-    }, [smartyStreetUrl, allStatesInfo, allStatesCurrent, allStatesDaily]);
+    }, [smartyStreetUrl, allStatesInfo, allStatesDaily]);
 
     useEffect(() => {
         if (delId !== '') {
