@@ -4,23 +4,39 @@ import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend, Vi
 function Chart(props) {
     const { series, seriesNames, xValue, yValue } = props;
 
-    const xOffsets = [50, 200, 350];
-    const tickPadding = [-7, 0, -15];
-    const anchors = ["end", "end", "start"];
+    const [xOffsets, setXOffsets] = useState([50, 200, 350])
+    const [tickPadding, setTickPadding] = useState([-7, 0, -15])
+    const [anchors, setAnchors] = useState(["end", "end", "start"])
+    const [maxima, setMaxima] = useState([]);
     const colors = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
 
-    const [maxima, setMaxima] = useState([]);
-
-    //TO DO dynamic anchors
-    //TO DO dynamic offsets 300 to share 
-    //50,200,350  incrementer 150
-    //50,150,250,350 incrementer 100
-    //50,125,200,275,350 incrementer 75
-
     useEffect(() => {
-        setMaxima(series.map(
+        const localMaxima = series.map(
             (dataset) => Math.max(...dataset.map((d) => d[yValue]))
-        ));
+        )
+        const tickPadding0 = localMaxima[0] > 999999 ? -15 : -7;
+        const anchor0 = localMaxima[0] > 999999 ? "start" : "end";
+        //dynamic offsets 300 to share 
+        //50,200,350  incrementer 150
+        //50,150,250,350 incrementer 100
+        //50,125,200,275,350 incrementer 75
+        if (series.length < 4) {
+            setXOffsets([50, 200, 350]);
+            setTickPadding([tickPadding0, 0, -15]);
+            setAnchors([anchor0, "end", "start"]);
+        }
+        else if (series.length > 4) {
+            setXOffsets([50, 125, 200, 275, 350])
+            setTickPadding([tickPadding0, 0, 0, 0 - 15]);
+            setAnchors([anchor0, "end", "end", "end", "start"]);
+        }
+        else {
+            setXOffsets([50, 150, 250, 350]);
+            setTickPadding([tickPadding0, 0, 0, -15]);
+            setAnchors([anchor0, "end", "end", "start"]);
+        }
+
+        setMaxima(localMaxima);
     }, [series, yValue]);
 
     return (

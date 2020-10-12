@@ -48,22 +48,26 @@ function ZipCodeList() {
                         alert('Invalid zip code.');
                     }
                     else {
-                        setMyZipCodes(list => [
-                            ...list,
-                            {
-                                id: zipcodes[0].zipcode,
-                                zipcode: zipcodes[0].zipcode,
-                                county_fips: zipcodes[0].county_fips,
-                                county_name: zipcodes[0].county_name,
-                                state_abbreviation: zipcodes[0].state_abbreviation.toLowerCase(),
-                                state: zipcodes[0].state,
-                                latitude: zipcodes[0].latitude,
-                                longitude: zipcodes[0].longitude,
-                                state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
-                                state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
-                                default_city: zipcodes[0].default_city
-                            }
-                        ]);
+                        //just double check since during testing was able to enter zip code twice
+                        if (myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
+                            setMyZipCodes(list => [
+                                ...list,
+                                {
+                                    id: zipcodes[0].zipcode,
+                                    zipcode: zipcodes[0].zipcode,
+                                    county_fips: zipcodes[0].county_fips,
+                                    county_name: zipcodes[0].county_name,
+                                    state_abbreviation: zipcodes[0].state_abbreviation.toLowerCase(),
+                                    state: zipcodes[0].state,
+                                    latitude: zipcodes[0].latitude,
+                                    longitude: zipcodes[0].longitude,
+                                    state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
+                                    state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
+                                    default_city: zipcodes[0].default_city
+                                }
+                            ]);
+                        }
+
                         setZipCode("");
                     }
                     setSmartyStreetUrl('');
