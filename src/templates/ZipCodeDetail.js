@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -12,16 +12,23 @@ import Chart from "../components/Chart"
 export const ZipCodeDetail = (props) => {
     const { zipcode, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
 
-    const state_current = state_daily[0];
-    let lastUpdateEt = new Date(state_current.lastUpdateEt || state_current.lastModified || state_current.datechecked)
-    lastUpdateEt = lastUpdateEt.toLocaleString();
+    const [allDays, setAllDays] = useState([]);
+    const [stateCurrent, setStateCurrent] = useState({})
+    const [lastUpdateEt, setLastUpdateEt] = useState('')
 
-    const last30days = [state_daily.slice(0, 30).reverse().map(obj => {
-        var temp = Object.assign({}, obj);
-        var tempDate = obj.date.toString();
-        temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
-        return temp;
-    })];
+    useEffect(() => {
+        setStateCurrent(state_daily[0]);
+        let newDate = new Date(state_daily[0].lastUpdateEt || state_daily[0].lastModified || state_daily[0].datechecked)
+        setLastUpdateEt(newDate.toLocaleString());
+        let stateDaily = state_daily.map(obj => {
+            var temp = Object.assign({}, obj);
+            var tempDate = obj.date.toString();
+            temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
+            return temp;
+        });
+        stateDaily.reverse();
+        setAllDays([stateDaily]);
+    }, [state_daily]);
 
     return (
         <>
@@ -68,11 +75,11 @@ export const ZipCodeDetail = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            {Object.keys(state_current).length !== 0 &&
+                            {Object.keys(stateCurrent).length !== 0 &&
                                 <>
                                     <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
                                     <div className="table-responsive">
-                                        <Table currentValues={state_current} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
+                                        <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
                                     </div>
                                     <p>{geoState} Department of Health</p>
                                     <ul>
@@ -84,12 +91,12 @@ export const ZipCodeDetail = (props) => {
                             }
                         </div>
                         <div className="col-md-4">
-                            {last30days.length === 0 &&
+                            {allDays.length === 0 &&
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
                             }
-                            {(last30days.length > 0) &&
-                                <Chart series={last30days} seriesNames={[{
-                                    "name": `${geoState}: Positives`
+                            {(allDays.length > 0) &&
+                                <Chart series={allDays} seriesNames={[{
+                                    "name": `Positives`
                                 }]} xValue="date" yValue="positive" />
                             }
                         </div>

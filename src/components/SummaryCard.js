@@ -11,12 +11,6 @@ function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState, default_city, state_abbreviation } } = props;
     const { covid19Site, covid19SiteSecondary, twitter } = state_info;
 
-    let atLat = item.latitude.toString();
-    let atLong = item.longitude.toString();
-    atLat = (atLat.startsWith("-")) ? atLat.substring(0, 5) : atLat.substring(0, 4);
-    atLong = (atLong.startsWith("-")) ? atLong.substring(0, 5) : atLong.substring(0, 4);
-    const gps = `${atLat},${atLong}`
-    const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=10`
     const [hereData, setHereData] = useState({});
     const [markers, setMarkers] = useState([]);
 
@@ -31,6 +25,13 @@ function SummaryCard(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                let atLat = item.latitude.toString();
+                let atLong = item.longitude.toString();
+                atLat = (atLat.startsWith("-")) ? atLat.substring(0, 5) : atLat.substring(0, 4);
+                atLong = (atLong.startsWith("-")) ? atLong.substring(0, 5) : atLong.substring(0, 4);
+                const gps = `${atLat},${atLong}`
+                const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=10`
+
                 const response = await axios.get(hereapiUrl, { headers: { 'Accept': 'application/json' } });
                 const { items } = response.data;
                 const dataMarkers = items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
@@ -44,7 +45,7 @@ function SummaryCard(props) {
         }
 
         fetchData();
-    }, [hereapiUrl])
+    }, [item.latitude, item.longitude])
 
     useEffect(() => {
         const fetchData = async () => {

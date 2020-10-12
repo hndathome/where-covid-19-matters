@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 
 function Chart(props) {
     const { series, seriesNames, xValue, yValue } = props;
 
-    const maxima = series.map(
-        (dataset) => Math.max(...dataset.map((d) => d[yValue]))
-    );
-
     const xOffsets = [50, 200, 350];
     const tickPadding = [-7, 0, -15];
     const anchors = ["end", "end", "start"];
     const colors = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
+
+    const [maxima, setMaxima] = useState([]);
+
+    useEffect(() => {
+        setMaxima(series.map(
+            (dataset) => Math.max(...dataset.map((d) => d[yValue]))
+        ));
+    }, [series, yValue]);
 
     return (
         <VictoryChart
