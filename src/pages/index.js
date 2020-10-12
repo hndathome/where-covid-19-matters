@@ -7,7 +7,6 @@ export default function Home() {
   const [currentUSValues, setCurrentUSValues] = useState({});
   const [lastUpdateET, setlastUpdateET] = useState('');
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,7 +34,7 @@ export default function Home() {
               <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
             <div className="col-md-5">
-              {Object.keys(currentUSValues).length !== 0 &&
+              {Object.keys(currentUSValues).length > 0 &&
                 <>
                   <h4>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
                   <div className="table-responsive">

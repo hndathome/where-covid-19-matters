@@ -1,5 +1,7 @@
 import React from "react"
 import { Helmet } from "react-helmet"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 import Layout from "../components/Layout";
 import LeafletMap from "../components/LeafletMap"
@@ -36,6 +38,7 @@ export const ZipCodeDetail = (props) => {
             </Helmet>
             <Layout>
                 <main role="main">
+                    <h1>{default_city}, {state_abbreviation.toUpperCase()} {zipcode}</h1>
                     <div className="row">
                         <div className="col-md-4">
                             {nytData.zipCd === "Empty" &&
@@ -71,6 +74,12 @@ export const ZipCodeDetail = (props) => {
                                     <div className="table-responsive">
                                         <Table currentValues={state_current} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
                                     </div>
+                                    <p>{geoState} Department of Health</p>
+                                    <ul>
+                                        <li><a href={state_info.covid19Site}>Covid-19 Site</a></li>
+                                        <li><a href={state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                        {state_info.twitter.startsWith('@') && <li><a href={`https://twitter.com/${state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                    </ul>
                                 </>
                             }
                         </div>
