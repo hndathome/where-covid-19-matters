@@ -52,7 +52,10 @@ export const ZipCodeDetail = (props) => {
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
                             }
                             {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
-                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="positiveCt" />
+                                <>
+                                    <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="positiveCt" />
+                                    <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                </>
                             }
                         </div>
                         <div className="col-md-4">
@@ -60,16 +63,22 @@ export const ZipCodeDetail = (props) => {
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
                             }
                             {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
-                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="deathCt" />
+                                <>
+                                    <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="deathCt" />
+                                    <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                </>
                             }
                         </div>
                         <div className="col-md-4">
                             {typeof window !== 'undefined' &&
-                                <LeafletMap
-                                    position={[latitude, longitude]}
-                                    zoom={8}
-                                    markers={markers}
-                                />
+                                <>
+                                    <LeafletMap
+                                        position={[latitude, longitude]}
+                                        zoom={8}
+                                        markers={markers}
+                                    />
+                                    <p>Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></p>
+                                </>
                             }
                         </div>
                     </div>
@@ -79,9 +88,12 @@ export const ZipCodeDetail = (props) => {
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
                             }
                             {(allDays.length > 0) &&
-                                <Chart series={allDays} seriesNames={[{
-                                    "name": `Positives`
-                                }]} xValue="date" yValue="positive" />
+                                <>
+                                    <Chart series={allDays} seriesNames={[{
+                                        "name": `Positives`
+                                    }]} xValue="date" yValue="positive" />
+                                    <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                                </>
                             }
                         </div>
                         <div className="col-md-4">
@@ -89,9 +101,12 @@ export const ZipCodeDetail = (props) => {
                                 <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
                             }
                             {(allDays.length > 0) &&
-                                <Chart series={allDays} seriesNames={[{
-                                    "name": `Deaths`
-                                }]} xValue="date" yValue="death" />
+                                <>
+                                    <Chart series={allDays} seriesNames={[{
+                                        "name": `Deaths`
+                                    }]} xValue="date" yValue="death" />
+                                    <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                                </>
                             }
                         </div>
                         <div className="col-md-4">
@@ -107,6 +122,7 @@ export const ZipCodeDetail = (props) => {
                                         <li><a href={state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
                                         {state_info.twitter.startsWith('@') && <li><a href={`https://twitter.com/${state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
                                     </ul>
+                                    <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
                                 </>
                             }
                         </div>
