@@ -74,9 +74,9 @@ function ZipCodeList() {
                 setAddingZip(false);
             }
         };
-        if (myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
-            fetchData();
-        }
+        //if (myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
+        fetchData();
+        //}, myZipCodes
     }, [smartyStreetUrl, allStatesInfo, allStatesDaily]);
 
     useEffect(() => {
@@ -121,7 +121,7 @@ function ZipCodeList() {
     }
 
     const handleGetData = event => {
-        event.preventDefault()
+        event.preventDefault();
         navigate(
             "/summary/",
             {
@@ -164,7 +164,7 @@ function ZipCodeList() {
                                                         aria-label="zip code"
                                                     />
                                                     <div className="input-group-append">
-                                                        <button className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code" onClick={handleSubmit}><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
+                                                        <button type="submit" className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code"><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
                                                     </div>
                                                 </div>
                                             </div>

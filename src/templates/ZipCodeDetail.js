@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
 
 import Layout from "../components/Layout";
 import LeafletMap from "../components/LeafletMap"
 
 import Table from "../components/Table"
 import Chart from "../components/Chart"
+import TestLocation from "../components/TestLocation"
 
 export const ZipCodeDetail = (props) => {
     const { zipcode, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
-
     const [allDays, setAllDays] = useState([]);
     const [stateCurrent, setStateCurrent] = useState({})
     const [lastUpdateEt, setLastUpdateEt] = useState('')
@@ -72,12 +73,24 @@ export const ZipCodeDetail = (props) => {
                         <div className="col-md-4">
                             {typeof window !== 'undefined' &&
                                 <>
-                                    <LeafletMap
-                                        position={[latitude, longitude]}
-                                        zoom={8}
-                                        markers={markers}
-                                    />
-                                    <p>Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></p>
+                                    <div className="card mb-4 box-shadow">
+                                        <LeafletMap
+                                            className="card-img-top"
+                                            position={[latitude, longitude]}
+                                            zoom={8}
+                                            markers={markers}
+                                        />
+                                        <div className="card-body">
+                                            <p>Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></p>
+                                            <p data-toggle="collapse" data-target="#divLocations"><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faExpandArrowsAlt} aria-label="show list of Covid-19 locations" />Covid-19 Testing Locations</p>
+                                            <div className="accordian-body collapse" id="divLocations">
+                                                <ul className="list-group list-group-flush">
+                                                    {markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
+                                                    {markers.length > 0 && markers.map(location => <TestLocation datapoint={location} />)}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </>
                             }
                         </div>

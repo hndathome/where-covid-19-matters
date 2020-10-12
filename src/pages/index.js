@@ -25,7 +25,6 @@ export default function Home() {
           return temp;
         });
         usDaily.reverse();
-        console.log(usDaily);
         setHistoricUSValues(usDaily);
       } catch (error) {
         console.error(error);
