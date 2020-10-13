@@ -13,13 +13,24 @@ function SummaryCard(props) {
 
     const [markers, setMarkers] = useState([]);
 
-    const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
+    //const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
+    const nytUrl = `https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
     const [lastUpdated, setLastUpdated] = useState('');
     const [seriesNames, setSeriesNames] = useState([]);
     const [series, setSeries] = useState([]);
 
     const [keyMap, setKeyMap] = useState(Math.random());
+
+    const formatPhoneNumber = (phoneNumberString) => {
+        let cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+        var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+        if (match) {
+            var intlCode = (match[1] ? '+1 ' : '')
+            return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
+        }
+        return null
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,7 +45,7 @@ function SummaryCard(props) {
                 const response = await axios.get(hereapiUrl, { headers: { 'Accept': 'application/json' } });
                 const { items } = response.data;
                 const dataMarkers = items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
-                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng], contacts: current.contacts, address: current.address }]
+                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng], phone: current.contacts[0].phone[0].value, formatPhone: formatPhoneNumber(current.contacts[0].phone[0].value), address: current.address }]
                 }, []);
                 setMarkers(dataMarkers);
             } catch (error) {
@@ -66,9 +77,9 @@ function SummaryCard(props) {
                     }, []))
 
                     setSeries(counties.reduce((accumulator, current) => {
-                        return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(item => {
-                            var temp = Object.assign({}, item);
-                            temp.date = `${item.date.slice(5)}-${item.date.slice(0, 4)}`
+                        return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(obj => {
+                            var temp = Object.assign({}, obj);
+                            temp.date = `${obj.date.slice(5)}-${obj.date.slice(0, 4)}`
                             return temp;
                         })];
                     }, []));
@@ -146,12 +157,10 @@ function SummaryCard(props) {
                             <div className="btn-group">
                                 <button className="btn btn-sm btn-secondary" onClick={event => {
                                     event.preventDefault();
-                                    const updatedItem = { ...item, nytData: nytData, markers: markers, county_series: series, county_seriesNames: seriesNames };
-
                                     navigate(
                                         `/details/${zipcode}`,
                                         {
-                                            state: { updatedItem: updatedItem },
+                                            state: { updatedItem: { ...item, nytData: nytData, markers: markers, county_series: series, county_seriesNames: seriesNames } },
                                         }
                                     )
                                 }}>View details</button>
