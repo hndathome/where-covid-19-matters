@@ -12,14 +12,15 @@ import Chart from "../components/Chart"
 import TestLocation from "../components/TestLocation"
 
 export const ZipCodeDetail = (props) => {
-    const { zipcode, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
+    const { zipcode, item, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
+    console.log(item);
     const [allDays, setAllDays] = useState([]);
     const [stateCurrent, setStateCurrent] = useState({})
     const [lastUpdateEt, setLastUpdateEt] = useState('')
 
     useEffect(() => {
         if (state_daily[0]) {
-            setStateCurrent();
+            setStateCurrent(state_daily[0]);
             let newDate = new Date(state_daily[0].lastUpdateEt || state_daily[0].lastModified || state_daily[0].datechecked)
             setLastUpdateEt(newDate.toLocaleString());
             let stateDaily = state_daily.map(obj => {
