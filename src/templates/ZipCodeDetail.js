@@ -18,17 +18,19 @@ export const ZipCodeDetail = (props) => {
     const [lastUpdateEt, setLastUpdateEt] = useState('')
 
     useEffect(() => {
-        setStateCurrent(state_daily[0]);
-        let newDate = new Date(state_daily[0].lastUpdateEt || state_daily[0].lastModified || state_daily[0].datechecked)
-        setLastUpdateEt(newDate.toLocaleString());
-        let stateDaily = state_daily.map(obj => {
-            var temp = Object.assign({}, obj);
-            var tempDate = obj.date.toString();
-            temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
-            return temp;
-        });
-        stateDaily.reverse();
-        setAllDays([stateDaily]);
+        if (state_daily[0]) {
+            setStateCurrent();
+            let newDate = new Date(state_daily[0].lastUpdateEt || state_daily[0].lastModified || state_daily[0].datechecked)
+            setLastUpdateEt(newDate.toLocaleString());
+            let stateDaily = state_daily.map(obj => {
+                var temp = Object.assign({}, obj);
+                var tempDate = obj.date.toString();
+                temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
+                return temp;
+            });
+            stateDaily.reverse();
+            setAllDays([stateDaily]);
+        }
     }, [state_daily]);
 
     return (
@@ -86,7 +88,7 @@ export const ZipCodeDetail = (props) => {
                                             <div className="accordian-body collapse" id="divLocations">
                                                 <ul className="list-group list-group-flush">
                                                     {markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
-                                                    {markers.length > 0 && markers.map(location => <TestLocation datapoint={location} />)}
+                                                    {markers.length > 0 && markers.map((location, index) => <TestLocation datapoint={location} key={index} />)}
                                                 </ul>
                                             </div>
                                         </div>
@@ -123,7 +125,7 @@ export const ZipCodeDetail = (props) => {
                             }
                         </div>
                         <div className="col-md-4">
-                            {Object.keys(stateCurrent).length !== 0 &&
+                            {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
                                 <>
                                     <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
                                     <div className="table-responsive">

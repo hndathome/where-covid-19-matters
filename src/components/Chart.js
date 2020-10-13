@@ -54,6 +54,9 @@ function Chart(props) {
                             cornerRadius={0}
                             flyoutStyle={{ fill: "white" }}
                         />}
+                    style={{
+                        touchAction: "auto"
+                    }}
                 />}
         >
             <VictoryAxis
