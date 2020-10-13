@@ -13,7 +13,6 @@ import TestLocation from "../components/TestLocation"
 
 export const ZipCodeDetail = (props) => {
     const { zipcode, item, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
-    console.log(item);
     const [allDays, setAllDays] = useState([]);
     const [stateCurrent, setStateCurrent] = useState({})
     const [lastUpdateEt, setLastUpdateEt] = useState('')

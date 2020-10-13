@@ -142,20 +142,22 @@ function SummaryCard(props) {
                 <div className="card-body">
                     <h5 className="card-text">{default_city}, {state_abbreviation.toUpperCase()} {zipcode}</h5>
                     <div className="d-flex justify-content-between align-items-center">
-                        <div className="btn-group">
-                            <button className="btn btn-sm btn-secondary" onClick={event => {
-                                event.preventDefault();
-                                const updatedItem = { ...item, nytData: nytData, markers: markers, county_series: series, county_seriesNames: seriesNames };
+                        {nytData.zipCd !== undefined && <>
+                            <div className="btn-group">
+                                <button className="btn btn-sm btn-secondary" onClick={event => {
+                                    event.preventDefault();
+                                    const updatedItem = { ...item, nytData: nytData, markers: markers, county_series: series, county_seriesNames: seriesNames };
 
-                                navigate(
-                                    `/details/${zipcode}`,
-                                    {
-                                        state: { updatedItem: updatedItem },
-                                    }
-                                )
-                            }}>View details</button>
-                        </div>
-                        <small className="text-muted">{lastUpdated}</small>
+                                    navigate(
+                                        `/details/${zipcode}`,
+                                        {
+                                            state: { updatedItem: updatedItem },
+                                        }
+                                    )
+                                }}>View details</button>
+                            </div>
+                            <small className="text-muted">{lastUpdated}</small>
+                        </>}
                     </div>
                 </div>
             </div>
