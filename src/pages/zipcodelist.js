@@ -74,9 +74,9 @@ function ZipCodeList() {
                 setAddingZip(false);
             }
         };
-        //if (myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
-        fetchData();
-        //}, myZipCodes
+        if (myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
+            fetchData();
+        }
     }, [smartyStreetUrl, allStatesInfo, allStatesDaily]);
 
     useEffect(() => {
