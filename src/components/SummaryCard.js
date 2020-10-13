@@ -13,8 +13,7 @@ function SummaryCard(props) {
 
     const [markers, setMarkers] = useState([]);
 
-    //const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
-    const nytUrl = `https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
+    const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
     const [lastUpdated, setLastUpdated] = useState('');
     const [seriesNames, setSeriesNames] = useState([]);
