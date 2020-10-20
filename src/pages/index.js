@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
-import axios from 'axios'
 import Layout from "../components/Layout"
 import Table from "../components/Table"
 import Chart from "../components/Chart"
+import covidTracking from "../covidtracking.api"
 
 export default function Home() {
   const [historicUSValues, setHistoricUSValues] = useState([]);
@@ -12,13 +12,13 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const covidTrackingUrl = `https://api.covidtracking.com/v1/us/daily.json`
-        const response = await axios.get(covidTrackingUrl, { headers: { 'Accept': 'application/json' } });
-        let last = new Date(response.data[0].lastUpdateET || response.data[0].lastModified || response.data[0].datechecked);
+        //const covidTrackingUrl = `https://api.covidtracking.com/v1/us/daily.json`
+        const response = await covidTracking.getHistoricUSData();
+        let last = new Date(response[0].lastUpdateET || response[0].lastModified || response[0].datechecked);
         setlastUpdateET(last.toLocaleString());
-        setCurrentUSValues(response.data[0]);
+        setCurrentUSValues(response[0]);
 
-        let usDaily = response.data.map(obj => {
+        let usDaily = response.map(obj => {
           var temp = Object.assign({}, obj);
           var tempDate = obj.date.toString();
           temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
