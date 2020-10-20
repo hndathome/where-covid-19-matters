@@ -36,8 +36,6 @@ function SummaryCard(props) {
             try {
                 let atLat = item.latitude.toString();
                 let atLong = item.longitude.toString();
-                atLat = (atLat.startsWith("-")) ? atLat.substring(0, 5) : atLat.substring(0, 4);
-                atLong = (atLong.startsWith("-")) ? atLong.substring(0, 5) : atLong.substring(0, 4);
                 const gps = `${atLat},${atLong}`
                 const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=10`
 
