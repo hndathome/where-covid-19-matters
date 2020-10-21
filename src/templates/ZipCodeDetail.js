@@ -77,24 +77,28 @@ export const ZipCodeDetail = (props) => {
                                 }
                             </div>
                             <div className="col-md-4">
-                                <>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <p style={{ textAlign: "right" }}><strong>Covid-19 Deaths</strong></p>
+                                {nytData.zipCd === "Empty" &&
+                                    <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                                }
+                                {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
+                                    <>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <p style={{ textAlign: "right" }}><strong>Covid-19 Deaths</strong></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="deathCt" />
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="deathCt" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </>
-
+                                    </>
+                                }
                             </div>
                             <div className="col-md-4">
                                 <div className="row">
