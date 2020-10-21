@@ -39,32 +39,34 @@ export default function Home() {
         <div className="container">
           <div className="row featurette first-featurette">
             <div className="col-md-7">
+              <img className="featurette-image img-fluid mx-auto" alt="covid-19 virus" data-holder-rendered="true" />
+            </div>
+            <div className="col-md-5" style={{ color: "white" }}>
               <h2 className="featurette-heading">Where COVID-19 Matters</h2>
               <p className="lead">This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or for family and friends living across the United States.</p>
-              <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
-            </div>
-            <div className="col-md-5">
-              {Object.keys(currentUSValues).length === 0 &&
-                <h4 className="loading">Loading<span>.</span><span>.</span><span>.</span></h4>
-              }
-              {Object.keys(currentUSValues).length > 0 &&
-                <>
-                  <h4>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h4>
-                  <div className="table-responsive">
-                    <Table currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
-                  </div>
-                </>
-              }
+              <p style={{ marginBottom: "6rem" }}><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
           </div>
           <hr className="featurette-divider"></hr>
           <div className="row">
-            <div className="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              {/* <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
+            <div className="col-lg-4">
+              <div className="row">
+                <div className="col-12">
+                  {Object.keys(currentUSValues).length === 0 &&
+                    <h2 className="loading">Loading<span>.</span><span>.</span><span>.</span></h2>
+                  }
+                  {Object.keys(currentUSValues).length > 0 &&
+                    <>
+                      <h2 style={{ textAlign: "right" }}>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h2>
+                      <div className="table-responsive">
+                        <Table currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
+                      </div>
+                    </>
+                  }
+                </div>
+              </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-lg-4">
               <div className="row">
                 <div className="col-12">
                   <h2 style={{ textAlign: "right" }}>US Positives</h2>
@@ -90,7 +92,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-lg-4">
               <div className="row">
                 <div className="col-12">
                   <h2 style={{ textAlign: "right" }}>US Deaths</h2>

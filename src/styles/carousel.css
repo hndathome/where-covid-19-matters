@@ -44,7 +44,6 @@
   
   /* Featurettes
   ------------------------- */
-  
   .featurette-divider {
     margin: 3rem 0; /* Space out the Bootstrap <hr> more */
   }
@@ -75,13 +74,37 @@
   
   @media (min-width: 62em) {
     .featurette-heading {
-      margin-top: 7rem;
+      margin-top: 1rem;
     }
   }
-  
+  @media 
+   (min-width: 801px)  {
   .first-featurette{
     margin-top: 3rem;
+    background-image: url("../assets/cdc-w9KEokhajKw-unsplash1.jpg");   
+      background-size: cover;
+      background-repeat: no-repeat;
   }
+}
+  @media 
+  (max-width: 800px) and (min-width: 415px)  {
+    .first-featurette {
+    background-image: url("../assets/cdc-w9KEokhajKw-unsplash2.jpg");
+    background-position-y: top;
+    background-position-x: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+  @media
+  (max-width: 414px) {
+    .first-featurette {
+    background-image: url("../assets/cdc-w9KEokhajKw-unsplash3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+  }
+}
   
   .carousel-caption {
     text-align: unset;
