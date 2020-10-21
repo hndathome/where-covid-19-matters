@@ -81,7 +81,7 @@
    (min-width: 801px)  {
   .first-featurette{
     margin-top: 3rem;
-    background-image: url("../assets/cdc-w9KEokhajKw-unsplash1.jpg");   
+    background-image: url("../assets/cdc-coronavirus-covid-19-1.jpg");   
       background-size: cover;
       background-repeat: no-repeat;
   }
@@ -89,7 +89,7 @@
   @media 
   (max-width: 800px) and (min-width: 415px)  {
     .first-featurette {
-    background-image: url("../assets/cdc-w9KEokhajKw-unsplash2.jpg");
+    background-image: url("../assets/cdc-coronavirus-covid-19-2.jpg");
     background-position-y: top;
     background-position-x: right;
     background-size: cover;
@@ -99,7 +99,7 @@
   @media
   (max-width: 415px) {
     .first-featurette {
-    background-image: url("../assets/cdc-w9KEokhajKw-unsplash3.jpg");
+    background-image: url("../assets/cdc-coronavirus-covid-19-3.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
