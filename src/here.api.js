@@ -11,7 +11,7 @@ const formatPhoneNumber = (phoneNumberString) => {
         var intlCode = (match[1] ? '+1 ' : '')
         return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
     }
-    return null
+    return ""
 }
 
 const hereAPI = {
@@ -28,8 +28,8 @@ const hereAPI = {
                 const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
 
                 const { items } = response.data;
-                const dataMarkers = items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
-                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng], phone: current.contacts[0].phone[0].value, formatPhone: formatPhoneNumber(current.contacts[0].phone[0].value), address: current.address }]
+                const dataMarkers = items && items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
+                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng], phone: current.contacts.phone ? current.contacts[0].phone[0].value : "", formatPhone: formatPhoneNumber(current.contacts.phone ? current.contacts[0].phone[0].value : ""), address: current.address }]
                 }, []);
                 gpsMarkers = dataMarkers;
             }
@@ -49,7 +49,7 @@ const hereAPI = {
             hereArray[indexFound].lastDay = todayString;
         }
 
-        return gpsMarkers;
+        return (gpsMarkers || []);
     }
 }
 
