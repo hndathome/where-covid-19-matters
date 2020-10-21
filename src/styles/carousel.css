@@ -74,7 +74,7 @@
   
   @media (min-width: 62em) {
     .featurette-heading {
-      margin-top: 1rem;
+      margin-top: 7rem;
     }
   }
   @media 
@@ -97,7 +97,7 @@
   }
 }
   @media
-  (max-width: 414px) {
+  (max-width: 415px) {
     .first-featurette {
     background-image: url("../assets/cdc-w9KEokhajKw-unsplash3.jpg");
     background-size: cover;

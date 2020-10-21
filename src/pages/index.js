@@ -38,13 +38,10 @@ export default function Home() {
       <main>
         <div className="container">
           <div className="row featurette first-featurette">
-            <div className="col-md-7">
-              <img className="featurette-image img-fluid mx-auto" alt="covid-19 virus" data-holder-rendered="true" />
-            </div>
-            <div className="col-md-5" style={{ color: "white" }}>
+            <div className="col-md-5 offset-md-7" style={{ color: "white" }}>
               <h2 className="featurette-heading">Where COVID-19 Matters</h2>
               <p className="lead">This Gatsby built website allows you to enter multiple zip codes and returns COVID-19 statistics, links to state COVID-19 websites, and if available where to get COVID-19 testing. Find out COVID-19 facts where it matters to you, whether for travel or for family and friends living across the United States.</p>
-              <p style={{ marginBottom: "6rem" }}><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
+              <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
             </div>
           </div>
           <hr className="featurette-divider"></hr>
