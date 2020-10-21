@@ -11,14 +11,12 @@ const smartyStreets = {
             indexFound = zipCodeArray.findIndex(obj => obj.zipCode === zipCode);
 
             if (zipCodeArray.length === 0 || indexFound === -1) {
-                const url = `https://us-zipcode.api.smartystreets.com/lookup?auth-id=${process.env.SS_AUTH_ID}&auth-token=${process.env.SS_AUTH_TOKEN}&zipcode=${zipCode}`;
+                const url = `https://us-zipcode.api.smartystreets.com/lookup?key=${process.env.GATSBY_SS_KEY}&zipcode=${zipCode}`;
                 const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
                 zipCodeData = response.data[0];
-                console.log("new")
             }
             else {
                 zipCodeData = { ...zipCodeArray[indexFound].zipCodeData };
-                console.log("old")
             }
         } catch (error) {
             zipCodeData = undefined;

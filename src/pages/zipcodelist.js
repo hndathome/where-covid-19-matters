@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { navigate } from "gatsby";
-import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Helmet } from "react-helmet"
 
 import Layout from '../components/Layout';
 import ZipCode from "../components/ZipCode";
+import covidTracking from "../covidtracking.api";
+import smartyStreets from "../smartystreets.api";
 
 function ZipCodeList() {
     const [myZipCodes, setMyZipCodes] = useState([]);
-    const [zipCode, setZipCode] = useState("");
-    const [smartyStreetUrl, setSmartyStreetUrl] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [lookUpZipCode, setLookUpZipCode] = useState(false);
     const [delId, setDelId] = useState('');
     const [delAll, setDelAll] = useState(false);
     const [addingZip, setAddingZip] = useState(false);
@@ -21,13 +22,11 @@ function ZipCodeList() {
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const allStatesInfoUrl = "https://api.covidtracking.com/v1/states/info.json"
-                const responseAllStatesInfo = await axios.get(allStatesInfoUrl, { headers: { 'Accept': 'application/json' } });
-                setAllStatesInfo(responseAllStatesInfo.data);
+                const responseAllStatesInfo = await covidTracking.getStatesInfo();
+                setAllStatesInfo(responseAllStatesInfo);
 
-                const allStatesDailyUrl = "https://api.covidtracking.com/v1/states/daily.json"
-                const responseAllStatesDaily = await axios.get(allStatesDailyUrl, { headers: { 'Accept': 'application/json' } });
-                setAllStatesDaily(responseAllStatesDaily.data);
+                const responseAllStatesDaily = await covidTracking.getHistoricStatesData();
+                setAllStatesDaily(responseAllStatesDaily);
             };
 
             fetchData();
@@ -38,46 +37,44 @@ function ZipCodeList() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (smartyStreetUrl !== '') {
-                setAddingZip(true);
-                try {
-                    const responseSmartyStreet = await axios.get(smartyStreetUrl, { headers: { 'Accept': 'application/json' } });
-                    const { zipcodes } = responseSmartyStreet.data[0];
+            setAddingZip(true);
+            try {
+                const responseSmartyStreet = await smartyStreets.lookupZipCode(zipCode);
 
-                    if (responseSmartyStreet.data[0].zipcodes === undefined) {
-                        alert('Invalid zip code.');
-                    }
-                    else {
-                        setMyZipCodes(list => [
-                            ...list,
-                            {
-                                id: zipcodes[0].zipcode,
-                                zipcode: zipcodes[0].zipcode,
-                                county_fips: zipcodes[0].county_fips,
-                                county_name: zipcodes[0].county_name,
-                                state_abbreviation: zipcodes[0].state_abbreviation.toLowerCase(),
-                                state: zipcodes[0].state,
-                                latitude: zipcodes[0].latitude,
-                                longitude: zipcodes[0].longitude,
-                                state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
-                                state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
-                                default_city: zipcodes[0].default_city
-                            }
-                        ]);
-
-                        setZipCode("");
-                    }
-                    setSmartyStreetUrl('');
-                } catch (error) {
-                    console.error(error);
+                if (responseSmartyStreet.zipcodes === undefined) {
+                    alert('Invalid zip code.');
                 }
-                setAddingZip(false);
+                else {
+                    const { zipcodes } = responseSmartyStreet;
+                    setMyZipCodes(list => [
+                        ...list,
+                        {
+                            id: zipcodes[0].zipcode,
+                            zipcode: zipcodes[0].zipcode,
+                            county_fips: zipcodes[0].county_fips,
+                            county_name: zipcodes[0].county_name,
+                            state_abbreviation: zipcodes[0].state_abbreviation.toLowerCase(),
+                            state: zipcodes[0].state,
+                            latitude: zipcodes[0].latitude,
+                            longitude: zipcodes[0].longitude,
+                            state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
+                            state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
+                            default_city: zipcodes[0].default_city
+                        }
+                    ]);
+                    setZipCode("");
+                }
+            } catch (error) {
+                console.error(error);
             }
+            setAddingZip(false);
         };
-        if (myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
+
+        if (lookUpZipCode && myZipCodes.filter(obj => obj.zipcode === zipCode).length === 0) {
             fetchData();
+            setLookUpZipCode(false);
         }
-    }, [smartyStreetUrl, allStatesInfo, allStatesDaily]);
+    }, [lookUpZipCode, allStatesInfo, allStatesDaily, zipCode, myZipCodes]);
 
     useEffect(() => {
         if (delId !== '') {
@@ -103,7 +100,7 @@ function ZipCodeList() {
                 alert('Zip code already included in list.');
             }
             else {
-                setSmartyStreetUrl(`https://us-zipcode.api.smartystreets.com/lookup?key=${process.env.GATSBY_SS_KEY}&zipcode=${zipCode}`);
+                setLookUpZipCode(true);
             }
         }
         else {
@@ -141,7 +138,6 @@ function ZipCodeList() {
                 <div className="container zipcode-form">
                     <div className="row">
                         <div className="col-md-6">
-
                             <div className="card">
                                 <h5 className="card-header">My Zip Codes</h5>
                                 <ul className="list-group list-group-flush">

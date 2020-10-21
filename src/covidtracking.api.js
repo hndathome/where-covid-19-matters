@@ -11,6 +11,9 @@ let lastGetHistoricUSData;
 let StatesInfo;
 let lastGetStatesInfo;
 
+let historicStatesData;
+let lastGetHistoricStatesData;
+
 let historicStateData;
 let historicStateArray = [];
 
@@ -76,6 +79,22 @@ const covidTracking = {
         }
         lastGetStatesInfo = todayString;
         return StatesInfo;
+    },
+    getHistoricStatesData: async function () {
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let todayString = today.toString();
+        try {
+            if (!historicStatesData || lastGetHistoricStatesData === undefined || todayString !== lastGetHistoricStatesData) {
+                const url = `https://api.covidtracking.com/v1/states/daily.json`;
+                const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
+                historicStatesData = response.data;
+            }
+        } catch (error) {
+            console.error(error);
+        }
+        lastGetHistoricStatesData = todayString;
+        return historicStatesData;
     }
 }
 

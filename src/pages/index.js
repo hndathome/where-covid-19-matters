@@ -12,7 +12,6 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //const covidTrackingUrl = `https://api.covidtracking.com/v1/us/daily.json`
         const response = await covidTracking.getHistoricUSData();
         let last = new Date(response[0].lastUpdateET || response[0].lastModified || response[0].datechecked);
         setlastUpdateET(last.toLocaleString());
