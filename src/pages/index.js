@@ -65,35 +65,58 @@ export default function Home() {
               {/* <p><a className="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> */}
             </div>
             <div className="col-md-4">
-              <h2>US Positives</h2>
-              {historicUSValues.length === 0 &&
-                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
-              }
-              {historicUSValues.length > 0 &&
-                <>
-                  <Chart series={[historicUSValues]} seriesNames={[{
-                    "name": `Positives`
-                  }]} xValue="date" yValue="positive" />
+              <div className="row">
+                <div className="col-12">
+                  <h2 style={{ textAlign: "right" }}>US Positives</h2>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  {historicUSValues.length === 0 &&
+                    <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
+                  }
+                  {historicUSValues.length > 0 &&
+                    <>
+                      <Chart series={[historicUSValues]} seriesNames={[{
+                        "name": `Positives`
+                      }]} xValue="date" yValue="positive" />
+                    </>
+                  }
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
                   <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
-                </>
-              }
+                </div>
+              </div>
             </div>
             <div className="col-md-4">
-              <h2>US Deaths</h2>
-              {historicUSValues.length === 0 &&
-                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
-              }
-              {historicUSValues.length > 0 &&
-                <>
-                  <Chart series={[historicUSValues]} seriesNames={[{
-                    "name": `Deaths`
-                  }]} xValue="date" yValue="death" />
+              <div className="row">
+                <div className="col-12">
+                  <h2 style={{ textAlign: "right" }}>US Deaths</h2>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  {historicUSValues.length === 0 &&
+                    <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
+                  }
+                  {historicUSValues.length > 0 &&
+                    <>
+                      <Chart series={[historicUSValues]} seriesNames={[{
+                        "name": `Deaths`
+                      }]} xValue="date" yValue="death" />
+                    </>
+                  }
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
                   <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
-                </>
-              }
+                </div>
+              </div>
             </div>
           </div>
-          {/* <hr className="featurette-divider"></hr> */}
         </div>
       </main>
       <footer className="container">

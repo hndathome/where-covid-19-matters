@@ -140,7 +140,6 @@ export const ZipCodeDetail = (props) => {
                                 </ul>
                             </div>
                         </div></h3>
-
                         <div className="row featurette">
                             <div className="col-md-4">
                                 {allDays.length === 0 &&
@@ -208,9 +207,6 @@ export const ZipCodeDetail = (props) => {
                                     </>
                                 }
                             </div>
-                            {/* <p>{geoState} Department of Health</p>
-                                        
-                                        <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>*/}
                         </div>
                     </main>
                 </div>
