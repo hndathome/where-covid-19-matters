@@ -31,13 +31,24 @@ export default function Summary({ location }) {
                             <p className="lead text-muted">State Health Department links are provided by <strong><em><a href="https://covidtracking.com/">The COVID Tracking Project</a></em></strong>.</p>
                         </div>
                     </section>
-                    <div className="album py-5 bg-light">
-                        <div className="container">
-                            <div className={myZipCodes.length > 2 ? "row" : "row justify-content-around"}>
-                                {myZipCodes.map(zip => <SummaryCard item={zip} key={zip.id} />)}
+                    {location.state &&
+                        <div className="album py-5 bg-light">
+                            <div className="container">
+                                <div className={myZipCodes.length > 2 ? "row" : "row justify-content-around"}>
+                                    {myZipCodes.map(zip => <SummaryCard item={zip} key={zip.id} />)}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    {!location.state &&
+                        <div className="album py-5 bg-light">
+                            <div className="container">
+                                <div className="row justify-content-center">
+                                    <h2>Empty zip code list. <span><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></span></h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </main>
             </Layout>
         </>
