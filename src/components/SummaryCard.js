@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from 'gatsby';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { Carousel } from 'react-bootstrap';
 import LeafletMap from "../components/LeafletMap"
 import Chart from "../components/Chart"
+import hereAPI from "../here.api"
+import localCovid from "../localcoviddata.api"
 
 function SummaryCard(props) {
     const { item, item: { zipcode, state_info, state: geoState, default_city, state_abbreviation } } = props;
     const { covid19Site, covid19SiteSecondary, twitter } = state_info;
 
     const [markers, setMarkers] = useState([]);
-
-    const nytUrl = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipcode}&daysInPast=7`
     const [nytData, setNYTData] = useState({});
     const [lastUpdated, setLastUpdated] = useState('');
     const [seriesNames, setSeriesNames] = useState([]);
     const [series, setSeries] = useState([]);
-
     const [keyMap, setKeyMap] = useState(Math.random());
-
-    const formatPhoneNumber = (phoneNumberString) => {
-        let cleaned = ('' + phoneNumberString).replace(/\D/g, '')
-        var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
-        if (match) {
-            var intlCode = (match[1] ? '+1 ' : '')
-            return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
-        }
-        return null
-    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,13 +25,7 @@ function SummaryCard(props) {
                 let atLat = item.latitude.toString();
                 let atLong = item.longitude.toString();
                 const gps = `${atLat},${atLong}`
-                const hereapiUrl = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=10`
-
-                const response = await axios.get(hereapiUrl, { headers: { 'Accept': 'application/json' } });
-                const { items } = response.data;
-                const dataMarkers = items.filter(current => current.title.startsWith("Covid-19 Testing Site")).reduce((accumulator, current) => {
-                    return [...accumulator, { markerText: current.title.slice(23), position: [current.position.lat, current.position.lng], phone: current.contacts[0].phone[0].value, formatPhone: formatPhoneNumber(current.contacts[0].phone[0].value), address: current.address }]
-                }, []);
+                const dataMarkers = await hereAPI.getCovid19TestingLocations(gps);
                 setMarkers(dataMarkers);
             } catch (error) {
                 console.error(error);
@@ -56,19 +38,19 @@ function SummaryCard(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(nytUrl, { headers: { 'Accept': 'application/json' } });
+                const response = await localCovid.getLocalCovidData(zipcode);
                 let respData;
 
-                if (Object.keys(response.data).length === 0) {
+                if (Object.keys(response).length === 0) {
                     respData = { zipCd: "Empty" };
                 }
                 else {
-                    respData = response.data;
+                    respData = response;
 
                     const myDate = respData.counties[0].historicData[0].date;
                     setLastUpdated(`${myDate.slice(5)}-${myDate.slice(0, 4)}`);
 
-                    const { counties } = response.data;
+                    const { counties } = response;
                     setSeriesNames(counties.reduce((accumulator, current) => {
                         return [...accumulator, { name: current.countyName }]
                     }, []))
@@ -88,7 +70,7 @@ function SummaryCard(props) {
             }
         };
         fetchData();
-    }, [nytUrl]);
+    }, [zipcode]);
 
     const handleSelect = (selectedIndex, e) => {
         if (selectedIndex === 1) {

@@ -23,8 +23,8 @@ const hereAPI = {
         try {
             indexFound = hereArray.findIndex(obj => obj.gps === gps);
 
-            if (hereArray.length === 0 || indexFound === -1 || todayString != hereArray[indexFound].lastDay) {
-                const url = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.HERE_API_KEY}&q=Covid&at=${gps}&limit=10`;
+            if (hereArray.length === 0 || indexFound === -1 || todayString !== hereArray[indexFound].lastDay) {
+                const url = `https://discover.search.hereapi.com/v1/discover?apikey=${process.env.GATSBY_HERE_API_KEY}&q=Covid&at=${gps}&limit=10`;
                 const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
 
                 const { items } = response.data;

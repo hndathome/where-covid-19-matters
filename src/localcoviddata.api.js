@@ -13,8 +13,8 @@ const localCovid = {
         try {
             indexFound = localCovidArray.findIndex(obj => obj.zipCode === zipCode);
 
-            if (localCovidArray.length === 0 || indexFound === -1 || todayString != localCovidArray[indexFound].lastDay) {
-                const url = `https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7`;
+            if (localCovidArray.length === 0 || indexFound === -1 || todayString !== localCovidArray[indexFound].lastDay) {
+                const url = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7`;
                 const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
                 localCovidData = response.data;
             }
