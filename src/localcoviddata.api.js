@@ -14,9 +14,16 @@ const localCovid = {
             indexFound = localCovidArray.findIndex(obj => obj.zipCode === zipCode);
 
             if (localCovidArray.length === 0 || indexFound === -1 || todayString !== localCovidArray[indexFound].lastDay) {
-                const url = `https://cors-anywhere.herokuapp.com/https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7`;
-                const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
-                localCovidData = response.data;
+                const url2 = `https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7`;
+                const url = `https://api.allorigins.win/get?url=${encodeURIComponent(url2)}`;
+
+                //const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });y
+                const response = await fetch(url)
+                    .then(response => {
+                        if (response.ok) return response.json()
+                        throw new Error('Network response was not ok.')
+                    })
+                    .then(data => localCovidData = JSON.parse(data.contents));
             }
             else {
                 localCovidData = { ...localCovidArray[indexFound].localCovidData };
