@@ -1,5 +1,4 @@
 //`https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7` county 7 days
-import axios from 'axios'
 
 let localCovidArray = [];
 let localCovidData;
@@ -14,16 +13,17 @@ const localCovid = {
             indexFound = localCovidArray.findIndex(obj => obj.zipCode === zipCode);
 
             if (localCovidArray.length === 0 || indexFound === -1 || todayString !== localCovidArray[indexFound].lastDay) {
-                const url2 = `https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7`;
-                const url = `https://api.allorigins.win/get?url=${encodeURIComponent(url2)}`;
+                const url = `https://localcoviddata.com/covid19/v1/cases/newYorkTimes?zipCode=${zipCode}&daysInPast=7`;
+                const allOriginsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
 
-                //const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });y
-                const response = await fetch(url)
+                const response = await fetch(allOriginsUrl)
                     .then(response => {
                         if (response.ok) return response.json()
                         throw new Error('Network response was not ok.')
                     })
-                    .then(data => localCovidData = JSON.parse(data.contents));
+                    .then(data => JSON.parse(data.contents));
+
+                localCovidData = response;
             }
             else {
                 localCovidData = { ...localCovidArray[indexFound].localCovidData };
