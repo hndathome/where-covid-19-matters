@@ -220,18 +220,20 @@ export const ZipCodeDetail = (props) => {
 
                                     </div>
                                 </div>
-                                <h3 className="pb-3 mb-4 font-italic border-bottom"><div className="row">
-                                    <div className="col-md-6">
-                                        State Covid-19 Information
-                    </div>
-                                    <div className="col-md-6">
-                                        <ul className="list-group list-group-horizontal" style={{ fontSize: "16px", float: "right" }}>
-                                            <li className="list-group-item"><a href={pageItem.state_info.covid19Site}>Covid-19 Site</a></li>
-                                            <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                            {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                        </ul>
+                                <h3 className="pb-3 mb-4 font-italic border-bottom">
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            State Covid-19 Information
+                                        </div>
+                                        <div className="col-md-6">
+                                            <ul className="list-group list-group-horizontal" style={{ fontSize: "16px", float: "right" }}>
+                                                <li className="list-group-item"><a href={pageItem.state_info.covid19Site}>Covid-19 Site</a></li>
+                                                <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                                {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div></h3>
+                                </h3>
                                 <div className="row featurette">
                                     <div className="col-lg-4">
                                         {allDays.length === 0 &&
@@ -241,7 +243,7 @@ export const ZipCodeDetail = (props) => {
                                             <>
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.geoState} Covid-19 Positives</strong></p>
+                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.state} Covid-19 Positives</strong></p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -267,7 +269,7 @@ export const ZipCodeDetail = (props) => {
                                             <>
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.geoState} Covid-19 Deaths</strong></p>
+                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.state} Covid-19 Deaths</strong></p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -290,9 +292,9 @@ export const ZipCodeDetail = (props) => {
                                             <>
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <h4>Current {pageItem.geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
+                                                        <h4>Current {pageItem.state} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
                                                         <div className="table-responsive">
-                                                            <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.geoState}. The current value may be different than today.`} />
+                                                            <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.state}. The current value may be different than today.`} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -301,10 +303,7 @@ export const ZipCodeDetail = (props) => {
                                     </div>
                                 </div>
                             </>
-
-
                         }
-
                     </main>
                 </div>
             </Layout>
