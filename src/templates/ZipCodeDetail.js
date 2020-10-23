@@ -96,7 +96,7 @@ export const ZipCodeDetail = (props) => {
             }
         };
 
-        if (itemKeysCount === 0) {
+        if (itemKeysCount === 0 || (pageItem.zipcode !== zipcode)) {
             fetchData();
         }
     }, [itemKeysCount, zipcode]);
@@ -141,10 +141,10 @@ export const ZipCodeDetail = (props) => {
                         {!isValid &&
                             <h2 style={{ marginTop: "40px", textAlign: "center" }}><span><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></span></h2>
                         }
-                        {(!stateAbbr && isValid) &&
+                        {((!stateAbbr && isValid) || pageItem.zipcode !== zipcode) &&
                             <h2 className="loading">Loading<span>.</span><span>.</span><span>.</span></h2>
                         }
-                        {stateAbbr &&
+                        {(stateAbbr && pageItem.zipcode === zipcode) &&
                             <>
                                 <h1 style={{ marginTop: "20px", textAlign: "right" }}>{pageItem.default_city}, {stateAbbr.toUpperCase()} {zipcode}</h1>
                                 <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Information</h3>

@@ -1,7 +1,42 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useState, useEffect } from "react"
+import { Link, navigate } from "gatsby"
+import axios from 'axios'
+import { getCurrentPosition, getCurrentReverseGeocode, saveReverseGeoCode } from "../geolocation"
 
 export default function Layout({ children }) {
+    const [geoZip, SetGeoZip] = useState();
+    const [geoCity, SetGeoCity] = useState();
+
+    useEffect(() => {
+        const fetchData = async (position) => {
+            const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`
+            const response = await axios.get(url, { headers: { 'Accept': 'application/json' } });
+            saveReverseGeoCode({ city: response.data.city, postcode: response.data.postcode });
+            SetGeoCity(response.data.city)
+            SetGeoZip(response.data.postcode)
+        }
+
+        const fetchCoordinates = async () => {
+            try {
+                const currentReverseGeoCode = getCurrentReverseGeocode();
+
+                if (Object.keys(currentReverseGeoCode).length === 0) {
+                    const position = await getCurrentPosition();
+                    fetchData(position);
+                }
+                else {
+                    SetGeoCity(currentReverseGeoCode.city)
+                    SetGeoZip(currentReverseGeoCode.postcode)
+                }
+                // Handle coordinates
+            } catch (error) {
+                // Handle error
+                console.error(error);
+            }
+        };
+
+        fetchCoordinates();
+    }, []);
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -13,9 +48,41 @@ export default function Layout({ children }) {
                         <li className="nav-item">
                             <Link className="nav-link" to="/">Home</Link>
                         </li>
-                        {/* <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
-                        </li> */}
+                        {geoZip &&
+                            <li className="nav-item">
+                                <button className="btn btn-link nav-link" onClick={event => {
+                                    event.preventDefault();
+                                    navigate(
+                                        `/details/${geoZip}`,
+                                        {
+                                            state: { updatedItem: {} },
+                                        }
+                                    )
+                                }}>{geoCity}</button>
+                            </li>
+                        }
+                        <li className="nav-item">
+                            <button className="btn btn-link nav-link" onClick={event => {
+                                event.preventDefault();
+                                navigate(
+                                    `/details/10001`,
+                                    {
+                                        state: { updatedItem: {} },
+                                    }
+                                )
+                            }}>New York</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className="btn btn-link nav-link" onClick={event => {
+                                event.preventDefault();
+                                navigate(
+                                    `/details/90001`,
+                                    {
+                                        state: { updatedItem: {} },
+                                    }
+                                )
+                            }}>Los Angeles</button>
+                        </li>
                     </ul>
                 </div>
             </nav>

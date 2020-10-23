@@ -8,6 +8,7 @@
   margin-bottom: 0;
   background-color: #fff;
 }
+
 @media (min-width: 768px) {
   .jumbotron {
     padding-top: calc(var(--jumbotron-padding-y) * 2);
@@ -36,14 +37,16 @@ footer p {
   margin-bottom: .25rem;
 }
 
-.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
 
-body{
+body {
   margin: 0;
 }
 
-.zipcode-form{
-padding-top: 1.5rem;
+.zipcode-form {
+  padding-top: 1.5rem;
 }
 
 .card-body {
@@ -71,9 +74,11 @@ padding-top: 1.5rem;
   0% {
     opacity: .2;
   }
+
   20% {
     opacity: 1;
   }
+
   100% {
     opacity: .2;
   }
@@ -81,15 +86,16 @@ padding-top: 1.5rem;
 
 @media (prefers-reduced-motion: reduce) {
   .loading span {
-    animation: none; /* or define an alternate animation */
+    animation: none;
+ /* or define an alternate animation */;
   }
 }
 
-.addclickspin{
+.addclickspin {
   color: #00b300;
 }
 
-.addclickdefault{
+.addclickdefault {
   color: unset;
 }
 
@@ -98,22 +104,15 @@ padding-top: 1.5rem;
   width: 100%;
 }
 
-/*.my-zipcodes-body{
-<a href="https://www.vecteezy.com/free-vector/amoeba">Amoeba Vectors by Vecteezy</a>
-  background-image: url('../assets/mask-4964590_1280.png');
-  background-position: center; 
-  background-size: cover;
-}
-
-.attribution{
-  position:absolute;
-  bottom:0;
-  right:0;
-  font-size:0.5em
+/*.my-zipcodes-body {
+  background-image: linear-gradient(to right, #83504F 0%, 50%, #1F1F1F 100%);
+ 3 stops 
+  linear-gradient(to right, #7F504B 0%, 20.443925261497498%, #B9A7A5 40.887850522994995%, 70.4439252614975%, #1E1E1E 100%);;
+;
 }*/
 
-.bootstrap-primary{
-  color: #007bff; 
+.bootstrap-primary {
+  color: #007bff;
 }
 
 .VictoryContainer {

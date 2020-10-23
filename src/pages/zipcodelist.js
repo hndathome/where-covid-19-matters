@@ -19,16 +19,15 @@ function ZipCodeList() {
     const [allStatesInfo, setAllStatesInfo] = useState([]);
 
     useEffect(() => {
-        try {
-            const fetchData = async () => {
+        const fetchData = async () => {
+            try {
                 const responseAllStatesInfo = await covidTracking.getStatesInfo();
                 setAllStatesInfo(responseAllStatesInfo);
-            };
-
-            fetchData();
-        } catch (error) {
-            console.error(error);
-        }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
     }, [])
 
     useEffect(() => {
