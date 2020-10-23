@@ -24,6 +24,7 @@ export const ZipCodeDetail = (props) => {
     const [itemKeysCount, setItemKeysCount] = useState(Object.keys(item).length);
     const [pageItem, setPageItem] = useState({ ...item });
     const [stateAbbr, setStateAbbr] = useState(item.state_abbreviation)
+    const [isValid, setIsValid] = useState(true);
 
     useEffect(() => {
         //navigated directly to link
@@ -34,6 +35,7 @@ export const ZipCodeDetail = (props) => {
 
                 if (responseSmartyStreet.zipcodes === undefined) {
                     alert('Invalid zip code.');
+                    setIsValid(false);
                 }
                 else {
                     const { zipcodes } = responseSmartyStreet;
@@ -136,7 +138,10 @@ export const ZipCodeDetail = (props) => {
             <Layout>
                 <div className="container">
                     <main role="main">
-                        {!stateAbbr &&
+                        {!isValid &&
+                            <h2 style={{ marginTop: "40px", textAlign: "center" }}><span><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></span></h2>
+                        }
+                        {(!stateAbbr && isValid) &&
                             <h2 className="loading">Loading<span>.</span><span>.</span><span>.</span></h2>
                         }
                         {stateAbbr &&
