@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react"
 import { Link, navigate } from "gatsby"
 import axios from 'axios'
 import { getCurrentPosition, getCurrentReverseGeocode, saveReverseGeoCode } from "../geolocation"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default function Layout({ children }) {
     const [geoZip, SetGeoZip] = useState();
@@ -48,19 +50,6 @@ export default function Layout({ children }) {
                         <li className="nav-item">
                             <Link className="nav-link" to="/">Home</Link>
                         </li>
-                        {geoZip &&
-                            <li className="nav-item">
-                                <button className="btn btn-link nav-link" onClick={event => {
-                                    event.preventDefault();
-                                    navigate(
-                                        `/details/${geoZip}`,
-                                        {
-                                            state: { updatedItem: {} },
-                                        }
-                                    )
-                                }}>{geoCity}</button>
-                            </li>
-                        }
                         <li className="nav-item">
                             <button className="btn btn-link nav-link" onClick={event => {
                                 event.preventDefault();
@@ -85,6 +74,21 @@ export default function Layout({ children }) {
                         </li>
                     </ul>
                 </div>
+                {geoZip &&
+                    <ul className="navbar-nav gps-nav">
+                        <li className="nav-item"  >
+                            <button className="btn btn-link nav-link" onClick={event => {
+                                event.preventDefault();
+                                navigate(
+                                    `/details/${geoZip}`,
+                                    {
+                                        state: { updatedItem: {} },
+                                    }
+                                )
+                            }}><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faMapMarkerAlt} aria-label="your gps location" />{geoCity}</button>
+                        </li>
+                    </ul>
+                }
             </nav>
             {children}
         </>
