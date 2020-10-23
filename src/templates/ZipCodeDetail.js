@@ -50,6 +50,20 @@ export const ZipCodeDetail = (props) => {
                     let county_seriesNames;
                     let county_series;
 
+                    const responseAllStateDaily = await covidTracking.getHistoricStateData(zipcodes[0].state_abbreviation.toLowerCase());
+                    setAllStateDaily(responseAllStateDaily);
+                    setStateCurrent(responseAllStateDaily[0]);
+                    let newDate = new Date(responseAllStateDaily[0].lastUpdateEt || responseAllStateDaily[0].lastModified || responseAllStateDaily[0].datechecked)
+                    setLastUpdateEt(newDate.toLocaleString());
+                    let stateDaily = responseAllStateDaily.map(obj => {
+                        var temp = Object.assign({}, obj);
+                        var tempDate = obj.date.toString();
+                        temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
+                        return temp;
+                    });
+                    stateDaily.reverse();
+                    setAllDays([stateDaily]);
+
                     if (Object.keys(response).length === 0) {
                         nytData = { zipCd: "Empty" };
                     }
