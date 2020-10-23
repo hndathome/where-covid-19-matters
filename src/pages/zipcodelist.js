@@ -17,16 +17,12 @@ function ZipCodeList() {
     const [delAll, setDelAll] = useState(false);
     const [addingZip, setAddingZip] = useState(false);
     const [allStatesInfo, setAllStatesInfo] = useState([]);
-    const [allStatesDaily, setAllStatesDaily] = useState([]);
 
     useEffect(() => {
         try {
             const fetchData = async () => {
                 const responseAllStatesInfo = await covidTracking.getStatesInfo();
                 setAllStatesInfo(responseAllStatesInfo);
-
-                const responseAllStatesDaily = await covidTracking.getHistoricStatesData();
-                setAllStatesDaily(responseAllStatesDaily);
             };
 
             fetchData();
@@ -58,7 +54,6 @@ function ZipCodeList() {
                             latitude: zipcodes[0].latitude,
                             longitude: zipcodes[0].longitude,
                             state_info: allStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
-                            state_daily: allStatesDaily.filter(({ state }) => state === zipcodes[0].state_abbreviation),
                             default_city: zipcodes[0].default_city
                         }
                     ]);
@@ -74,7 +69,7 @@ function ZipCodeList() {
             fetchData();
             setLookUpZipCode(false);
         }
-    }, [lookUpZipCode, allStatesInfo, allStatesDaily, zipCode, myZipCodes]);
+    }, [lookUpZipCode, allStatesInfo, zipCode, myZipCodes]);
 
     useEffect(() => {
         if (delId !== '') {
@@ -139,7 +134,7 @@ function ZipCodeList() {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="card">
-                                <h5 className="card-header">My Zip Codes</h5>
+                                <h5 className="card-header">Zip Codes</h5>
                                 <ul className="list-group list-group-flush">
                                     {myZipCodes.length === 0 && <li className="list-group-item"><strong>Empty list, enter at least one zip code.</strong></li>}
                                     {myZipCodes.length > 0 && myZipCodes.map(zip => <ZipCode zipcode={zip} key={zip.id} handleDelete={handleDelete} />)}

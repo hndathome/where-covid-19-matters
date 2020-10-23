@@ -10,19 +10,103 @@ import LeafletMap from "../components/LeafletMap"
 import Table from "../components/Table"
 import Chart from "../components/Chart"
 import TestLocation from "../components/TestLocation"
+import covidTracking from "../covidtracking.api"
+import smartyStreets from "../smartystreets.api"
+import hereAPI from "../here.api"
+import localCovid from "../localcoviddata.api"
 
 export const ZipCodeDetail = (props) => {
-    const { zipcode, item: { latitude, longitude, markers, nytData, state_info, state: geoState, default_city, state_abbreviation, county_series, county_seriesNames, state_daily } } = props;
+    const { zipcode, item } = props;
     const [allDays, setAllDays] = useState([]);
     const [stateCurrent, setStateCurrent] = useState({})
     const [lastUpdateEt, setLastUpdateEt] = useState('')
+    const [allStateDaily, setAllStateDaily] = useState();
+    const [itemKeysCount, setItemKeysCount] = useState(Object.keys(item).length);
+    const [pageItem, setPageItem] = useState({ ...item });
+    const [stateAbbr, setStateAbbr] = useState(item.state_abbreviation)
 
     useEffect(() => {
-        if (state_daily[0]) {
-            setStateCurrent(state_daily[0]);
-            let newDate = new Date(state_daily[0].lastUpdateEt || state_daily[0].lastModified || state_daily[0].datechecked)
+        //navigated directly to link
+        const fetchData = async () => {
+            try {
+                const responseAllStatesInfo = await covidTracking.getStatesInfo();
+                const responseSmartyStreet = await smartyStreets.lookupZipCode(zipcode);
+
+                if (responseSmartyStreet.zipcodes === undefined) {
+                    alert('Invalid zip code.');
+                }
+                else {
+                    const { zipcodes } = responseSmartyStreet;
+
+                    let atLat = zipcodes[0].latitude.toString();
+                    let atLong = zipcodes[0].longitude.toString();
+                    const gps = `${atLat},${atLong}`
+                    const markers = await hereAPI.getCovid19TestingLocations(gps);
+
+                    const response = await localCovid.getLocalCovidData(zipcode);
+                    let nytData;
+                    let county_seriesNames;
+                    let county_series;
+
+                    if (Object.keys(response).length === 0) {
+                        nytData = { zipCd: "Empty" };
+                    }
+                    else {
+                        nytData = response;
+                        const { counties } = response;
+
+                        county_seriesNames = counties.reduce((accumulator, current) => {
+                            return [...accumulator, { name: current.countyName }]
+                        }, []);
+
+                        county_series =
+                            counties.reduce((accumulator, current) => {
+                                return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(obj => {
+                                    var temp = Object.assign({}, obj);
+                                    temp.date = `${obj.date.slice(5)}-${obj.date.slice(0, 4)}`
+                                    return temp;
+                                })];
+                            }, []);
+                    }
+
+                    let createdItem = {
+                        id: zipcodes[0].zipcode,
+                        zipcode: zipcodes[0].zipcode,
+                        county_fips: zipcodes[0].county_fips,
+                        county_name: zipcodes[0].county_name,
+                        state_abbreviation: zipcodes[0].state_abbreviation.toLowerCase(),
+                        state: zipcodes[0].state,
+                        latitude: zipcodes[0].latitude,
+                        longitude: zipcodes[0].longitude,
+                        state_info: responseAllStatesInfo.find(({ state }) => state === zipcodes[0].state_abbreviation),
+                        default_city: zipcodes[0].default_city,
+                        markers: markers,
+                        nytData: nytData,
+                        county_seriesNames: county_seriesNames,
+                        county_series: county_series
+                    }
+                    setItemKeysCount(Object.keys(createdItem).length);
+                    setPageItem({ ...createdItem });
+                    setStateAbbr(zipcodes[0].state_abbreviation.toLowerCase())
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        if (itemKeysCount === 0) {
+            fetchData();
+        }
+    }, [itemKeysCount, zipcode]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const responseAllStateDaily = await covidTracking.getHistoricStateData(stateAbbr);
+            setAllStateDaily(responseAllStateDaily);
+            setStateCurrent(responseAllStateDaily[0]);
+            let newDate = new Date(responseAllStateDaily[0].lastUpdateEt || responseAllStateDaily[0].lastModified || responseAllStateDaily[0].datechecked)
             setLastUpdateEt(newDate.toLocaleString());
-            let stateDaily = state_daily.map(obj => {
+            let stateDaily = responseAllStateDaily.map(obj => {
                 var temp = Object.assign({}, obj);
                 var tempDate = obj.date.toString();
                 temp.date = `${tempDate.slice(4, 6)}-${tempDate.slice(6, 8)}-${tempDate.slice(0, 4)}`
@@ -31,7 +115,10 @@ export const ZipCodeDetail = (props) => {
             stateDaily.reverse();
             setAllDays([stateDaily]);
         }
-    }, [state_daily]);
+        if (stateAbbr && !allStateDaily) {
+            fetchData();
+        }
+    }, [stateAbbr, allStateDaily]);
 
     return (
         <>
@@ -49,165 +136,175 @@ export const ZipCodeDetail = (props) => {
             <Layout>
                 <div className="container">
                     <main role="main">
-                        <h1 style={{ marginTop: "20px", textAlign: "right" }}>{default_city}, {state_abbreviation.toUpperCase()} {zipcode}</h1>
-                        <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Information</h3>
-                        <div className="row featurette">
-                            <div className="col-md-4">
-                                {nytData.zipCd === "Empty" &&
-                                    <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
-                                }
-                                {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
-                                    <>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p style={{ textAlign: "right" }}><strong>Covid-19 Positives</strong></p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="positiveCt" />
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
-                                            </div>
-                                        </div>
-                                    </>
-                                }
-                            </div>
-                            <div className="col-md-4">
-                                {nytData.zipCd === "Empty" &&
-                                    <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
-                                }
-                                {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
-                                    <>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p style={{ textAlign: "right" }}><strong>Covid-19 Deaths</strong></p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <Chart series={county_series} seriesNames={county_seriesNames} xValue="date" yValue="deathCt" />
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
-                                            </div>
-                                        </div>
-                                    </>
-                                }
-                            </div>
-                            <div className="col-md-4">
-                                <div className="row">
-                                    <div className="col-12">
-                                        <>
-                                            <div className="card mb-4 box-shadow">
-                                                <LeafletMap
-                                                    className="card-img-top"
-                                                    position={[latitude, longitude]}
-                                                    zoom={8}
-                                                    markers={markers}
-                                                />
-                                                <div className="card-body">
-                                                    <p>Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></p>
-                                                    <p data-toggle="collapse" data-target="#divLocations"><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="show list of Covid-19 locations" />Covid-19 Testing Locations</p>
-                                                    <div className="accordian-body collapse" id="divLocations">
-                                                        <ul className="list-group list-group-flush">
-                                                            {markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
-                                                            {markers.length > 0 && markers.map((location, index) => <TestLocation datapoint={location} key={index} />)}
-                                                        </ul>
+                        {!stateAbbr &&
+                            <h2 className="loading">Loading<span>.</span><span>.</span><span>.</span></h2>
+                        }
+                        {stateAbbr &&
+                            <>
+                                <h1 style={{ marginTop: "20px", textAlign: "right" }}>{pageItem.default_city}, {stateAbbr.toUpperCase()} {zipcode}</h1>
+                                <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Information</h3>
+                                <div className="row featurette">
+                                    <div className="col-md-4">
+                                        {pageItem.nytData.zipCd === "Empty" &&
+                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                                        }
+                                        {(pageItem.nytData.zipCd !== undefined && pageItem.nytData.zipCd !== "Empty") &&
+                                            <>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p style={{ textAlign: "right" }}><strong>Covid-19 Positives</strong></p>
                                                     </div>
                                                 </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <Chart series={pageItem.county_series} seriesNames={pageItem.county_seriesNames} xValue="date" yValue="positiveCt" />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
+                                    <div className="col-md-4">
+                                        {pageItem.nytData.zipCd === "Empty" &&
+                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                                        }
+                                        {(pageItem.nytData.zipCd !== undefined && pageItem.nytData.zipCd !== "Empty") &&
+                                            <>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p style={{ textAlign: "right" }}><strong>Covid-19 Deaths</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <Chart series={pageItem.county_series} seriesNames={pageItem.county_seriesNames} xValue="date" yValue="deathCt" />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <>
+                                                    <div className="card mb-4 box-shadow">
+                                                        <LeafletMap
+                                                            className="card-img-top"
+                                                            position={[pageItem.latitude, pageItem.longitude]}
+                                                            zoom={8}
+                                                            markers={pageItem.markers}
+                                                        />
+                                                        <div className="card-body">
+                                                            <p>Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></p>
+                                                            <p data-toggle="collapse" data-target="#divLocations"><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="show list of Covid-19 locations" /> Covid-19 Testing Locations</p>
+                                                            <div className="accordian-body collapse" id="divLocations">
+                                                                <ul className="list-group list-group-flush">
+                                                                    {pageItem.markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
+                                                                    {pageItem.markers.length > 0 && pageItem.markers.map((location, index) => <TestLocation datapoint={location} key={index} />)}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
                                             </div>
-                                        </>
+                                        </div>
+
                                     </div>
                                 </div>
-
-                            </div>
-                        </div>
-                        <h3 className="pb-3 mb-4 font-italic border-bottom"><div className="row">
-                            <div className="col-md-6">
-                                State Covid-19 Information
-                            </div>
-                            <div className="col-md-6">
-                                <ul className="list-group list-group-horizontal" style={{ fontSize: "16px", float: "right" }}>
-                                    <li className="list-group-item"><a href={state_info.covid19Site}>Covid-19 Site</a></li>
-                                    <li className="list-group-item"><a href={state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                    {state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                </ul>
-                            </div>
-                        </div></h3>
-                        <div className="row featurette">
-                            <div className="col-md-4">
-                                {allDays.length === 0 &&
-                                    <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
-                                }
-                                {(allDays.length > 0) &&
-                                    <>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p style={{ textAlign: "right" }}><strong>{geoState} Covid-19 Positives</strong></p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <Chart series={allDays} seriesNames={[{
-                                                    "name": `Positives`
-                                                }]} xValue="date" yValue="positive" />
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
-                                            </div>
-                                        </div>
-                                    </>
-                                }
-                            </div>
-                            <div className="col-md-4">
-                                {allDays.length === 0 &&
-                                    <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
-                                }
-                                {(allDays.length > 0) &&
-                                    <>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p style={{ textAlign: "right" }}><strong>{geoState} Covid-19 Deaths</strong></p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <Chart series={allDays} seriesNames={[{
-                                                    "name": `Deaths`
-                                                }]} xValue="date" yValue="death" />
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
-                                            </div>
-                                        </div>
-                                    </>
-                                }
-                            </div>
-                            <div className="col-md-4">
-                                {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
-                                    <>
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <h4>Current {geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
-                                                <div className="table-responsive">
-                                                    <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${geoState}. The current value may be different than today.`} />
+                                <h3 className="pb-3 mb-4 font-italic border-bottom"><div className="row">
+                                    <div className="col-md-6">
+                                        State Covid-19 Information
+                    </div>
+                                    <div className="col-md-6">
+                                        <ul className="list-group list-group-horizontal" style={{ fontSize: "16px", float: "right" }}>
+                                            <li className="list-group-item"><a href={pageItem.state_info.covid19Site}>Covid-19 Site</a></li>
+                                            <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                            {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                        </ul>
+                                    </div>
+                                </div></h3>
+                                <div className="row featurette">
+                                    <div className="col-md-4">
+                                        {allDays.length === 0 &&
+                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
+                                        }
+                                        {(allDays.length > 0) &&
+                                            <>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.geoState} Covid-19 Positives</strong></p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </>
-                                }
-                            </div>
-                        </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <Chart series={allDays} seriesNames={[{
+                                                            "name": `Positives`
+                                                        }]} xValue="date" yValue="positive" />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
+                                    <div className="col-md-4">
+                                        {allDays.length === 0 &&
+                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
+                                        }
+                                        {(allDays.length > 0) &&
+                                            <>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.geoState} Covid-19 Deaths</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <Chart series={allDays} seriesNames={[{
+                                                            "name": `Deaths`
+                                                        }]} xValue="date" yValue="death" />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
+                                    <div className="col-md-4">
+                                        {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
+                                            <>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <h4>Current {pageItem.geoState} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
+                                                        <div className="table-responsive">
+                                                            <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.geoState}. The current value may be different than today.`} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
+                                </div>
+                            </>
+
+
+                        }
+
                     </main>
                 </div>
             </Layout>
