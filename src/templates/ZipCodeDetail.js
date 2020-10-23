@@ -144,7 +144,7 @@ export const ZipCodeDetail = (props) => {
                                 <h1 style={{ marginTop: "20px", textAlign: "right" }}>{pageItem.default_city}, {stateAbbr.toUpperCase()} {zipcode}</h1>
                                 <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Information</h3>
                                 <div className="row featurette">
-                                    <div className="col-md-4">
+                                    <div className="col-lg-4">
                                         {pageItem.nytData.zipCd === "Empty" &&
                                             <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
                                         }
@@ -168,7 +168,7 @@ export const ZipCodeDetail = (props) => {
                                             </>
                                         }
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-lg-4">
                                         {pageItem.nytData.zipCd === "Empty" &&
                                             <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
                                         }
@@ -192,7 +192,7 @@ export const ZipCodeDetail = (props) => {
                                             </>
                                         }
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-lg-4">
                                         <div className="row">
                                             <div className="col-12">
                                                 <>
@@ -233,7 +233,7 @@ export const ZipCodeDetail = (props) => {
                                     </div>
                                 </div></h3>
                                 <div className="row featurette">
-                                    <div className="col-md-4">
+                                    <div className="col-lg-4">
                                         {allDays.length === 0 &&
                                             <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
                                         }
@@ -259,7 +259,7 @@ export const ZipCodeDetail = (props) => {
                                             </>
                                         }
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-lg-4">
                                         {allDays.length === 0 &&
                                             <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
                                         }
@@ -285,7 +285,7 @@ export const ZipCodeDetail = (props) => {
                                             </>
                                         }
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-lg-4">
                                         {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
                                             <>
                                                 <div className="row">

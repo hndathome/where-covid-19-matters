@@ -12,7 +12,7 @@ export default function Summary({ location }) {
         <>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Summary Results</title>
+                <title>Summary Data</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
                     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="

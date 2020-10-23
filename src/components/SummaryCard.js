@@ -79,7 +79,7 @@ function SummaryCard(props) {
     };
 
     return (
-        <div className="col-md-4">
+        <div className="col-lg-4">
             <div className="card mb-4 shadow-sm">
                 <div width="100%" height="225" className="bd-placeholder-img card-img-top">
                     <Carousel controls={false} interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide">
