@@ -3,7 +3,7 @@ import { Link, navigate } from "gatsby"
 import axios from 'axios'
 import { getCurrentPosition, getCurrentReverseGeocode, saveReverseGeoCode } from "../geolocation"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default function Layout({ children }) {
     const [geoZip, SetGeoZip] = useState();
@@ -74,9 +74,9 @@ export default function Layout({ children }) {
                         </li>
                     </ul>
                 </div>
-                <ul className="navbar-nav nav-gps" style={{ flexDirection: "row-reverse" }}>
+                <ul className="navbar-nav nav-gps" style={{ flexDirection: "row" }}>
                     {geoZip &&
-                        <li className="nav-item"  >
+                        <li className="nav-item" style={{ paddingRight: "0.5rem" }}  >
                             <button className="btn btn-link nav-link" onClick={event => {
                                 event.preventDefault();
                                 navigate(
@@ -89,7 +89,7 @@ export default function Layout({ children }) {
                         </li>
                     }
                     <li className="nav-item">
-                        <Link className="nav-link" to="/zipcodelist">Enter zip codes</Link>
+                        <Link className="nav-link" to="/zipcodelist"> <FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faPencilAlt} aria-label="enter zip codes" />Enter zip codes</Link>
                     </li>
                 </ul>
 
