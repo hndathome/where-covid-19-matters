@@ -111,3 +111,12 @@ body {
 .VictoryContainer {
   padding-left: 12px;
 }
+
+.my-index-body{
+  /*cloudy knoxville*/
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  /*st petersburg */
+  /*background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);*/
+  /*snow again */
+  /*background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);*/
+}
