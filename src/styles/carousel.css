@@ -171,3 +171,14 @@ div#navbarNav.navbar-collapse.collapse.show ~ .nav-gps {
   flex-direction: column !important;
 }
 
+.carousel-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.my-carousel-caption {
+  z-index: 10;
+  color: #fff;
+ }

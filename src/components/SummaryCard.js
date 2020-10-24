@@ -88,16 +88,27 @@ function SummaryCard(props) {
                                 <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
                             }
                             {nytData.zipCd === "Empty" &&
-                                <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
+                                <>
+                                    <img class="third-slide"
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        alt="No county data available" />
+                                    <div class="carousel-container">
+                                        <div class="my-carousel-caption">
+                                            <p style={{ textAlign: "center" }}>No county data available</p>
+                                        </div>
+                                    </div>
+                                </>
                             }
                             {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
-                                <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
+                                <>
+                                    <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
+                                    <div className="container">
+                                        <Carousel.Caption className="bottom-caption-title">
+                                            <p style={{ color: "black", textAlign: "center" }}>Covid-19 Positive Count</p>
+                                        </Carousel.Caption>
+                                    </div>
+                                </>
                             }
-                            <div className="container">
-                                <Carousel.Caption className="bottom-caption-title">
-                                    <p style={{ color: "black", textAlign: "center" }}>Covid-19 Positive Count</p>
-                                </Carousel.Caption>
-                            </div>
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             {typeof window !== 'undefined' &&
@@ -115,17 +126,21 @@ function SummaryCard(props) {
                             </div>
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
-                            <img className="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
-                            <div className="container">
-                                <Carousel.Caption className="carousel-caption">
-                                    <p>{geoState} Department of Health</p>
-                                    <ul>
-                                        <li><a className="covid19-links" href={covid19Site}>Covid-19 Site</a></li>
-                                        <li><a className="covid19-links" href={covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                        {twitter.startsWith('@') && <li><a className="covid19-links" href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                    </ul>
-                                </Carousel.Caption>
-                            </div>
+                            <>
+                                <img class="third-slide"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                    alt="background for state health department links" />
+                                <div class="carousel-container">
+                                    <div class="my-carousel-caption">
+                                        <p>{geoState} Department of Health</p>
+                                        <ul>
+                                            <li><a className="covid19-links" href={covid19Site}>Covid-19 Site</a></li>
+                                            <li><a className="covid19-links" href={covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                            {twitter.startsWith('@') && <li><a className="covid19-links" href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </>
                         </Carousel.Item>
                     </Carousel>
                 </div>

@@ -165,15 +165,26 @@ export const ZipCodeDetail = (props) => {
                                 <h1 style={{ marginTop: "20px", textAlign: "right" }}>{pageItem.default_city}, {stateAbbr.toUpperCase()} {zipcode}</h1>
                                 <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Information</h3>
                                 <div className="row featurette">
-                                    <div className="col-lg-4">
-                                        {pageItem.nytData.zipCd === "Empty" &&
-                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
-                                        }
-                                        {(pageItem.nytData.zipCd !== undefined && pageItem.nytData.zipCd !== "Empty") &&
-                                            <>
+                                    {pageItem.nytData.zipCd === "Empty" &&
+                                        <>
+                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
+                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
+                                                    <h4 style={{ textAlign: "center" }}>No county data available</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
+                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
+                                                    <h4 style={{ textAlign: "center" }}>No county data available</h4>
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
+                                    {(pageItem.nytData.zipCd !== undefined && pageItem.nytData.zipCd !== "Empty") &&
+                                        <>
+                                            <div className="col-lg-4">
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <p style={{ textAlign: "right" }}><strong>Covid-19 Positives</strong></p>
+                                                        <p style={{ textAlign: "center" }}><strong>Covid-19 Positives</strong></p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -186,18 +197,11 @@ export const ZipCodeDetail = (props) => {
                                                         <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
                                                     </div>
                                                 </div>
-                                            </>
-                                        }
-                                    </div>
-                                    <div className="col-lg-4">
-                                        {pageItem.nytData.zipCd === "Empty" &&
-                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No county data available</h5>
-                                        }
-                                        {(pageItem.nytData.zipCd !== undefined && pageItem.nytData.zipCd !== "Empty") &&
-                                            <>
+                                            </div>
+                                            <div className="col-lg-4">
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <p style={{ textAlign: "right" }}><strong>Covid-19 Deaths</strong></p>
+                                                        <p style={{ textAlign: "center" }}><strong>Covid-19 Deaths</strong></p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -210,9 +214,9 @@ export const ZipCodeDetail = (props) => {
                                                         <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
                                                     </div>
                                                 </div>
-                                            </>
-                                        }
-                                    </div>
+                                            </div>
+                                        </>
+                                    }
                                     <div className="col-lg-4">
                                         <div className="row">
                                             <div className="col-12">
@@ -238,7 +242,6 @@ export const ZipCodeDetail = (props) => {
                                                 </>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <h3 className="pb-3 mb-4 font-italic border-bottom">
@@ -256,15 +259,26 @@ export const ZipCodeDetail = (props) => {
                                     </div>
                                 </h3>
                                 <div className="row featurette">
-                                    <div className="col-lg-4">
-                                        {allDays.length === 0 &&
-                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
-                                        }
-                                        {(allDays.length > 0) &&
-                                            <>
+                                    {allDays.length === 0 &&
+                                        <>
+                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
+                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
+                                                    <h4 style={{ textAlign: "center" }}>No state data available</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
+                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
+                                                    <h4 style={{ textAlign: "center" }}>No state data available</h4>
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
+                                    {(allDays.length > 0) &&
+                                        <>
+                                            <div className="col-lg-4">
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.state} Covid-19 Positives</strong></p>
+                                                        <p style={{ textAlign: "center" }}><strong>{pageItem.state} Covid-19 Positives</strong></p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -279,18 +293,11 @@ export const ZipCodeDetail = (props) => {
                                                         <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
                                                     </div>
                                                 </div>
-                                            </>
-                                        }
-                                    </div>
-                                    <div className="col-lg-4">
-                                        {allDays.length === 0 &&
-                                            <h5 style={{ textAlign: "center", paddingTop: "200px" }}>No data available</h5>
-                                        }
-                                        {(allDays.length > 0) &&
-                                            <>
+                                            </div>
+                                            <div className="col-lg-4">
                                                 <div className="row">
                                                     <div className="col-12">
-                                                        <p style={{ textAlign: "right" }}><strong>{pageItem.state} Covid-19 Deaths</strong></p>
+                                                        <p style={{ textAlign: "center" }}><strong>{pageItem.state} Covid-19 Deaths</strong></p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -305,9 +312,9 @@ export const ZipCodeDetail = (props) => {
                                                         <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
                                                     </div>
                                                 </div>
-                                            </>
-                                        }
-                                    </div>
+                                            </div>
+                                        </>
+                                    }
                                     <div className="col-lg-4">
                                         {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
                                             <>
