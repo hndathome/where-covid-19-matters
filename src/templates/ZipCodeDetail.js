@@ -25,6 +25,7 @@ export const ZipCodeDetail = (props) => {
     const [pageItem, setPageItem] = useState({ ...item });
     const [stateAbbr, setStateAbbr] = useState(item.state_abbreviation)
     const [isValid, setIsValid] = useState(true);
+    const [pageZipCode, setPageZipCode] = useState(item.zipcode);
 
     useEffect(() => {
         //navigated directly to link
@@ -104,16 +105,17 @@ export const ZipCodeDetail = (props) => {
                     setItemKeysCount(Object.keys(createdItem).length);
                     setPageItem({ ...createdItem });
                     setStateAbbr(zipcodes[0].state_abbreviation.toLowerCase())
+                    setPageZipCode(zipcodes[0].zipcode)
                 }
             } catch (error) {
                 console.error(error);
             }
         };
 
-        if (itemKeysCount === 0 || (pageItem.zipcode !== zipcode)) {
+        if (itemKeysCount === 0 || (pageZipCode !== zipcode)) {
             fetchData();
         }
-    }, [itemKeysCount, zipcode]);
+    }, [itemKeysCount, zipcode, pageZipCode]);
 
     useEffect(() => {
         const fetchData = async () => {

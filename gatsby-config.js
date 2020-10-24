@@ -9,7 +9,17 @@ require("dotenv").config({
 
 module.exports = {
   /* Your site config here */
-  plugins: [`gatsby-plugin-fontawesome-css`,
+  plugins: [
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.TRACKING_ID,
+        // this option places the tracking script into the head of the DOM
+        head: true,
+        // other options
+      },
+    },
+    `gatsby-plugin-fontawesome-css`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: 'gatsby-plugin-react-leaflet',
