@@ -152,6 +152,8 @@ function ZipCodeList() {
                                                         maxLength={5}
                                                         onChange={e => setZipCode(e.target.value)}
                                                         aria-label="zip code"
+                                                        pattern="^\d{5}$"
+                                                        title="Five digit zip code"
                                                     />
                                                     <div className="input-group-append">
                                                         <button type="submit" className="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="add zip code"><FontAwesomeIcon className={addingZip ? "addclickspin" : "addclickdefault"} icon={addingZip ? faSpinner : faPlus} aria-label="add zip code to list" /></button>
