@@ -74,8 +74,8 @@ export default function Layout({ children }) {
                         </li>
                     </ul>
                 </div>
-                {geoZip &&
-                    <ul className="navbar-nav gps-nav">
+                <ul className="navbar-nav nav-gps" style={{ flexDirection: "row-reverse" }}>
+                    {geoZip &&
                         <li className="nav-item"  >
                             <button className="btn btn-link nav-link" onClick={event => {
                                 event.preventDefault();
@@ -87,8 +87,12 @@ export default function Layout({ children }) {
                                 )
                             }}><FontAwesomeIcon className="bootstrap-primary" fixedWidth icon={faMapMarkerAlt} aria-label="your gps location" />{geoCity}</button>
                         </li>
-                    </ul>
-                }
+                    }
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/zipcodelist">Enter zip codes</Link>
+                    </li>
+                </ul>
+
             </nav>
             {children}
         </>
