@@ -85,6 +85,10 @@
       background-size: cover;
       background-repeat: no-repeat;
   }
+  .my-zipcodes-body {
+    background-image: url('../assets/coronavirus-covid19-face-mask-1.png');
+    background-size: cover;
+  }
 }
   @media 
   (max-width: 800px) and (min-width: 415px)  {
@@ -95,6 +99,10 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+  .my-zipcodes-body {
+    background-image: url('../assets/coronavirus-covid19-face-mask-2.png');
+    background-size: cover;
+  }
 }
   @media
   (max-width: 415px) {
@@ -103,6 +111,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
+  }
+  .my-zipcodes-body {
+    background-image: url('../assets/coronavirus-covid19-face-mask-3.png');
+    background-size: cover;
   }
 }
   
