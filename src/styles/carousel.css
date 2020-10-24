@@ -170,6 +170,10 @@ td.hiddenRow {
 div#navbarNav.navbar-collapse.collapse.show ~ .nav-gps {
   flex-direction: column !important;
 }
+.carousel-inner {
+  border-top-left-radius: .25rem; 
+  border-top-right-radius: .25rem;
+}
 
 .carousel-container{
   display: flex;
