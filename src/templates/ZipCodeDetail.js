@@ -164,7 +164,7 @@ export const ZipCodeDetail = (props) => {
                         {(stateAbbr && pageItem.zipcode === zipcode) &&
                             <>
                                 <h1 style={{ marginTop: "20px", textAlign: "right" }}>{pageItem.default_city}, {stateAbbr.toUpperCase()} {zipcode}</h1>
-                                <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Information</h3>
+                                <h3 className="pb-3 mb-4 font-italic border-bottom">Local Covid-19 Data</h3>
                                 <div className="row featurette">
                                     {pageItem.nytData.zipCd === "Empty" &&
                                         <>
@@ -246,14 +246,14 @@ export const ZipCodeDetail = (props) => {
                                     </div>
                                 </div>
                                 <h3 className="pb-3 mb-4 font-italic border-bottom">
-                                    State Covid-19 Information
+                                    State Covid-19 Data
                                 </h3>
                                 <div className="row" style={{ marginBottom: "24px" }}>
                                     <div className="col-md-12">
-                                        <ul className="list-group list-group-horizontal" style={{ fontSize: "16px" }}>
+                                        <ul className="list-group doh-links" style={{ fontSize: "16px" }}>
                                             <li className="list-group-item"><a href={pageItem.state_info.covid19Site}>{pageItem.state} Department of Health Covid-19 Site</a></li>
-                                            <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                            {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                            <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>{pageItem.state} Department of Health Covid-19 Secondary Site</a></li>
+                                            {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}>{pageItem.state} Department of Health <FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
                                         </ul>
                                     </div>
                                 </div>

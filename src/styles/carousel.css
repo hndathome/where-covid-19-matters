@@ -93,6 +93,9 @@
     background-image: url('../assets/coronavirus-covid19-face-mask-1.jpg');
     background-size: cover;
   }
+  .doh-links {
+    flex-direction: row;
+  }
 }
   @media 
   (max-width: 800px) and (min-width: 415px)  {
@@ -109,6 +112,10 @@
     background-image: url('../assets/coronavirus-covid19-face-mask-2.jpg');
     background-size: cover;
   }
+
+  .doh-links {
+    flex-direction: row;
+  }
 }
   @media
   (max-width: 415px) {
@@ -123,6 +130,9 @@
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
     background-image: url('../assets/coronavirus-covid19-face-mask-3.jpg');
     background-size: cover;
+  }
+  .doh-links {
+    flex-direction: column;
   }
 }
   

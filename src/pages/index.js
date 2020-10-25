@@ -51,7 +51,7 @@ export default function Home() {
               </div>
             </div>
             <h3 className="pb-3 mb-4 font-italic border-bottom">
-              US Covid-19 Information
+              US Covid-19 Data
             </h3>
             <div className="row">
               <div className="col-lg-4">
