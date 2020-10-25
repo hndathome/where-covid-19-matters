@@ -221,7 +221,8 @@ export const ZipCodeDetail = (props) => {
                                     <div className="col-lg-4">
                                         <div className="card mb-4 box-shadow">
                                             <div className="card-header" data-toggle="collapse" data-target="#divLocations">
-                                                <FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="show list of Covid-19 locations" /> <strong>Covid-19 Testing Locations</strong>
+                                                <FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="show list of Covid-19 testing locations" /> <strong>Covid-19 Testing Locations</strong>
+                                                <p>Click on the "i" icon above to see a list view of Covid-19 Testing Locations.</p>
                                                 <div className="accordian-body collapse card-text" id="divLocations">
                                                     <ul className="list-group list-group-flush">
                                                         {pageItem.markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
@@ -315,7 +316,10 @@ export const ZipCodeDetail = (props) => {
                                     {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
                                         <div className="col-lg-4">
                                             <div className="card mb-4 box-shadow">
-                                                <div className="card-header"><strong>Current {pageItem.state} Numbers</strong></div>
+                                                <div className="card-header">
+                                                    <strong>Current {pageItem.state} Numbers</strong>
+                                                    <p>Click on the "i" icon or table row to view the Parameter's definition.</p>
+                                                </div>
                                                 <div className="table-responsive">
                                                     <Table className="card-body" currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.state}. The current value may be different than today.`} />
                                                 </div>

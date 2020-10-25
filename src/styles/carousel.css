@@ -267,3 +267,7 @@ h3.pb-3.mb-4 {
   color: white;
   border-color: white;
 }
+
+.fa-info-circle {
+  cursor: pointer;
+}

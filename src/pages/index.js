@@ -126,7 +126,9 @@ export default function Home() {
               {Object.keys(currentUSValues).length > 0 &&
                 <div className="col-lg-4">
                   <div className="card mb-4 box-shadow">
-                    <div className="card-header"><strong>Current US Numbers</strong></div>
+                    <div className="card-header"><strong>Current US Numbers</strong>
+                      <p>Click on the "i" icon or table row to view the Parameter's definition.</p>
+                    </div>
                     <div className="table-responsive">
                       <Table className="card-body" currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
                     </div>
