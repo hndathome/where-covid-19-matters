@@ -314,10 +314,8 @@ export const ZipCodeDetail = (props) => {
                                         <div className="col-lg-4">
                                             <div className="card mb-4 box-shadow">
                                                 <div className="card-header"><strong>Current {pageItem.state} Numbers</strong></div>
-                                                <div className="card-body">
-                                                    <div className="table-responsive">
-                                                        <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.state}. The current value may be different than today.`} />
-                                                    </div>
+                                                <div className="table-responsive">
+                                                    <Table className="card-body" currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.state}. The current value may be different than today.`} />
                                                 </div>
                                                 <div className="card-footer">
                                                     <small className="text-muted">Last update: {lastUpdateEt}</small>

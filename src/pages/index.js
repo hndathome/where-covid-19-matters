@@ -127,10 +127,8 @@ export default function Home() {
                 <div className="col-lg-4">
                   <div className="card mb-4 box-shadow">
                     <div className="card-header"><strong>Current US Numbers</strong></div>
-                    <div className="card-body">
-                      <div className="table-responsive">
-                        <Table currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
-                      </div>
+                    <div className="table-responsive">
+                      <Table className="card-body" currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
                     </div>
                     <div className="card-footer">
                       <small className="text-muted">Last update: {lastUpdateET}</small>
