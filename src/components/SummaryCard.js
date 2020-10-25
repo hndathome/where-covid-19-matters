@@ -144,7 +144,7 @@ function SummaryCard(props) {
                         </Carousel.Item>
                     </Carousel>
                 </div>
-                <div className="card-body">
+                <div className="card-body summary-card-body">
                     <h5 className="card-text">{default_city}, {state_abbreviation.toUpperCase()} {zipcode}</h5>
                     <div className="d-flex justify-content-between align-items-center">
                         {nytData.zipCd !== undefined && <>
