@@ -230,7 +230,7 @@ export const ZipCodeDetail = (props) => {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div style={{ height: "360px" }}>
+                                            <div style={{ height: "400px" }}>
                                                 <LeafletMap
                                                     className="card-img-bottom"
                                                     position={[pageItem.latitude, pageItem.longitude]}
