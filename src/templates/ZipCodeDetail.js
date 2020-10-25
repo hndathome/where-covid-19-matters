@@ -150,7 +150,7 @@ export const ZipCodeDetail = (props) => {
                 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
                     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
                     crossorigin=""></script>
-                <body class="my-index-body" />
+                <body className="my-zipcode-details-body" />
             </Helmet>
             <Layout>
                 <div className="container">
@@ -168,14 +168,26 @@ export const ZipCodeDetail = (props) => {
                                 <div className="row featurette">
                                     {pageItem.nytData.zipCd === "Empty" &&
                                         <>
-                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
-                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
-                                                    <h4 style={{ textAlign: "center" }}>No county data available</h4>
+                                            <div className="col-lg-4">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>Covid-19 Positives</strong></div>
+                                                    <div className="card-body">
+                                                        <p>No county data available</p>
+                                                    </div>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></small>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
-                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
-                                                    <h4 style={{ textAlign: "center" }}>No county data available</h4>
+                                            <div className="col-lg-4">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>Covid-19 Deaths</strong></div>
+                                                    <div className="card-body">
+                                                        <p>No county data available</p>
+                                                    </div>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </>
@@ -183,64 +195,48 @@ export const ZipCodeDetail = (props) => {
                                     {(pageItem.nytData.zipCd !== undefined && pageItem.nytData.zipCd !== "Empty") &&
                                         <>
                                             <div className="col-lg-4">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p style={{ textAlign: "center" }}><strong>Covid-19 Positives</strong></p>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>Covid-19 Positives</strong></div>
+                                                    <div className="card-img-bottom">
                                                         <Chart series={pageItem.county_series} seriesNames={pageItem.county_seriesNames} xValue="date" yValue="positiveCt" />
                                                     </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></small>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-lg-4">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p style={{ textAlign: "center" }}><strong>Covid-19 Deaths</strong></p>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>Covid-19 Deaths</strong></div>
+                                                    <div className="card-img-bottom">
                                                         <Chart series={pageItem.county_series} seriesNames={pageItem.county_seriesNames} xValue="date" yValue="deathCt" />
                                                     </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p>Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></p>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <strong><em>The New York Times</em></strong> via <a href="https://anypoint.mulesoft.com/exchange/portals/mulesoft-2778/5a0bd415-9488-4e33-88d6-ba31cbef5957/contact-tracing-exp-api/">COVID-19 Data Tracking API</a></small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </>
                                     }
                                     <div className="col-lg-4">
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <>
-                                                    <div className="card mb-4 box-shadow">
-                                                        <LeafletMap
-                                                            className="card-img-top"
-                                                            position={[pageItem.latitude, pageItem.longitude]}
-                                                            zoom={8}
-                                                            markers={pageItem.markers}
-                                                        />
-                                                        <div className="card-body">
-                                                            <p>Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></p>
-                                                            <p data-toggle="collapse" data-target="#divLocations"><FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="show list of Covid-19 locations" /> Covid-19 Testing Locations</p>
-                                                            <div className="accordian-body collapse" id="divLocations">
-                                                                <ul className="list-group list-group-flush">
-                                                                    {pageItem.markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
-                                                                    {pageItem.markers.length > 0 && pageItem.markers.map((location, index) => <TestLocation datapoint={location} key={index} />)}
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </>
+                                        <div className="card mb-4 box-shadow">
+                                            <div className="card-header" data-toggle="collapse" data-target="#divLocations">
+                                                <FontAwesomeIcon fixedWidth className="bootstrap-primary" icon={faInfoCircle} aria-label="show list of Covid-19 locations" /> <strong>Covid-19 Testing Locations</strong>
+                                                <div className="accordian-body collapse card-text" id="divLocations">
+                                                    <ul className="list-group list-group-flush">
+                                                        {pageItem.markers.length === 0 && <li className="list-group-item"><strong>No locations found.</strong></li>}
+                                                        {pageItem.markers.length > 0 && pageItem.markers.map((location, index) => <TestLocation datapoint={location} key={index} />)}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <LeafletMap
+                                                className="card-img-bottom"
+                                                position={[pageItem.latitude, pageItem.longitude]}
+                                                zoom={8}
+                                                markers={pageItem.markers}
+                                            />
+                                            <div className="card-footer">
+                                                <small className="text-muted">Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></small>
                                             </div>
                                         </div>
                                     </div>
@@ -260,14 +256,26 @@ export const ZipCodeDetail = (props) => {
                                 <div className="row featurette">
                                     {allDays.length === 0 &&
                                         <>
-                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
-                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
-                                                    <h4 style={{ textAlign: "center" }}>No state data available</h4>
+                                            <div className="col-lg-4">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>{pageItem.state} Covid-19 Positives</strong></div>
+                                                    <div className="card-body">
+                                                        <p>No state data available</p>
+                                                    </div>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4" style={{ padding: "0 12px 24px 12px" }}>
-                                                <div class="carousel-container" style={{ backgroundColor: "lightblue", borderRadius: "3px" }}>
-                                                    <h4 style={{ textAlign: "center" }}>No state data available</h4>
+                                            <div className="col-lg-4">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>{pageItem.state} Covid-19 Deaths</strong></div>
+                                                    <div className="card-body">
+                                                        <p>No state data available</p>
+                                                    </div>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </>
@@ -275,59 +283,48 @@ export const ZipCodeDetail = (props) => {
                                     {(allDays.length > 0) &&
                                         <>
                                             <div className="col-lg-4">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p style={{ textAlign: "center" }}><strong>{pageItem.state} Covid-19 Positives</strong></p>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>{pageItem.state} Covid-19 Positives</strong></div>
+                                                    <div className="card-img-bottom">
                                                         <Chart series={allDays} seriesNames={[{
                                                             "name": `Positives`
                                                         }]} xValue="date" yValue="positive" />
                                                     </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-lg-4">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p style={{ textAlign: "center" }}><strong>{pageItem.state} Covid-19 Deaths</strong></p>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
+                                                <div className="card mb-4 box-shadow">
+                                                    <div className="card-header"><strong>{pageItem.state} Covid-19 Deaths</strong></div>
+                                                    <div className="card-img-bottom">
                                                         <Chart series={allDays} seriesNames={[{
                                                             "name": `Deaths`
                                                         }]} xValue="date" yValue="death" />
                                                     </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+                                                    <div className="card-footer">
+                                                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </>
                                     }
-                                    <div className="col-lg-4">
-                                        {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
-                                            <>
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <h4>Current {pageItem.state} Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateEt}</span></h4>
-                                                        <div className="table-responsive">
-                                                            <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.state}. The current value may be different than today.`} />
-                                                        </div>
+                                    {(stateCurrent && Object.keys(stateCurrent).length !== 0) &&
+                                        <div className="col-lg-4">
+                                            <div className="card mb-4 box-shadow">
+                                                <div className="card-header"><strong>Current {pageItem.state} Numbers</strong></div>
+                                                <div className="card-body">
+                                                    <div className="table-responsive">
+                                                        <Table currentValues={stateCurrent} caption={`The most recent COVID data for ${pageItem.state}. The current value may be different than today.`} />
                                                     </div>
                                                 </div>
-                                            </>
-                                        }
-                                    </div>
+                                                <div className="card-footer">
+                                                    <small className="text-muted">Last update: {lastUpdateEt}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </>
                         }

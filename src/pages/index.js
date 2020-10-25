@@ -53,76 +53,91 @@ export default function Home() {
             <h3 className="pb-3 mb-4 font-italic border-bottom">
               US Covid-19 Data
             </h3>
-            <div className="row">
-              <div className="col-lg-4">
-                <div className="row">
-                  <div className="col-12">
-                    {Object.keys(currentUSValues).length === 0 &&
-                      <h2 className="loading">Loading<span>.</span><span>.</span><span>.</span></h2>
-                    }
-                    {Object.keys(currentUSValues).length > 0 &&
-                      <>
-                        <h2 style={{ textAlign: "right" }}>Current US Numbers<span style={{ float: "right", fontSize: ".8rem" }}>Last update: {lastUpdateET}</span></h2>
-                        <div className="table-responsive">
-                          <Table currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
-                        </div>
-                      </>
-                    }
+            <div className="row featurette">
+              {historicUSValues.length === 0 &&
+                <>
+                  <div className="col-lg-4">
+                    <div className="card mb-4 box-shadow">
+                      <div className="card-header"><strong>US Covid-19 Positives</strong></div>
+                      <div className="card-body">
+                        <p className="loading">Loading<span>.</span><span>.</span><span>.</span></p>
+                      </div>
+                      <div className="card-footer">
+                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="row">
-                  <div className="col-12">
-                    <h2 style={{ textAlign: "right" }}>US Positives</h2>
+                  <div className="col-lg-4">
+                    <div className="card mb-4 box-shadow">
+                      <div className="card-header"><strong>US Covid-19 Deaths</strong></div>
+                      <div className="card-body">
+                        <p className="loading">Loading<span>.</span><span>.</span><span>.</span></p>
+                      </div>
+                      <div className="card-footer">
+                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    {historicUSValues.length === 0 &&
-                      <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
-                    }
-                    {historicUSValues.length > 0 &&
-                      <>
+                </>
+              }
+              {historicUSValues.length > 0 &&
+                <>
+                  <div className="col-lg-4">
+                    <div className="card mb-4 box-shadow">
+                      <div className="card-header"><strong>US Covid-19 Positives</strong></div>
+                      <div className="card-img-bottom">
                         <Chart series={[historicUSValues]} seriesNames={[{
                           "name": `Positives`
                         }]} xValue="date" yValue="positive" />
-                      </>
-                    }
+                      </div>
+                      <div className="card-footer">
+                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="row">
-                  <div className="col-12">
-                    <h2 style={{ textAlign: "right" }}>US Deaths</h2>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    {historicUSValues.length === 0 &&
-                      <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
-                    }
-                    {historicUSValues.length > 0 &&
-                      <>
+                  <div className="col-lg-4">
+                    <div className="card mb-4 box-shadow">
+                      <div className="card-header"><strong>US Covid-19 Deaths</strong></div>
+                      <div className="card-img-bottom">
                         <Chart series={[historicUSValues]} seriesNames={[{
                           "name": `Deaths`
                         }]} xValue="date" yValue="death" />
-                      </>
-                    }
+                      </div>
+                      <div className="card-footer">
+                        <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              }
+              {Object.keys(currentUSValues).length === 0 &&
+                <div className="col-lg-4">
+                  <div className="card mb-4 box-shadow">
+                    <div className="card-header"><strong>Current US Numbers</strong></div>
+                    <div className="card-body">
+                      <p className="loading">Loading<span>.</span><span>.</span><span>.</span></p>
+                    </div>
+                    <div className="card-footer">
+                      <small className="text-muted">Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></small>
+                    </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-12">
-                    <p>Source: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+              }
+              {Object.keys(currentUSValues).length > 0 &&
+                <div className="col-lg-4">
+                  <div className="card mb-4 box-shadow">
+                    <div className="card-header"><strong>Current US Numbers</strong></div>
+                    <div className="card-body">
+                      <div className="table-responsive">
+                        <Table currentValues={currentUSValues} caption="The most recent COVID data for the US. The most recent data may not be from today." />
+                      </div>
+                    </div>
+                    <div className="card-footer">
+                      <small className="text-muted">Last update: {lastUpdateET}</small>
+                    </div>
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
         </main>
