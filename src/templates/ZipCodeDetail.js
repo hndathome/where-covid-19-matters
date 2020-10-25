@@ -150,6 +150,7 @@ export const ZipCodeDetail = (props) => {
                 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
                     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
                     crossorigin=""></script>
+                <body class="my-index-body" />
             </Helmet>
             <Layout>
                 <div className="container">
@@ -245,19 +246,17 @@ export const ZipCodeDetail = (props) => {
                                     </div>
                                 </div>
                                 <h3 className="pb-3 mb-4 font-italic border-bottom">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            State Covid-19 Information
-                                        </div>
-                                        <div className="col-md-6">
-                                            <ul className="list-group list-group-horizontal" style={{ fontSize: "16px", float: "right" }}>
-                                                <li className="list-group-item"><a href={pageItem.state_info.covid19Site}>Covid-19 Site</a></li>
-                                                <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                                {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    State Covid-19 Information
                                 </h3>
+                                <div className="row" style={{ marginBottom: "24px" }}>
+                                    <div className="col-md-12">
+                                        <ul className="list-group list-group-horizontal" style={{ fontSize: "16px" }}>
+                                            <li className="list-group-item"><a href={pageItem.state_info.covid19Site}>{pageItem.state} Department of Health Covid-19 Site</a></li>
+                                            <li className="list-group-item"><a href={pageItem.state_info.covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                            {pageItem.state_info.twitter.startsWith('@') && <li className="list-group-item"><a href={`https://twitter.com/${pageItem.state_info.twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                        </ul>
+                                    </div>
+                                </div>
                                 <div className="row featurette">
                                     {allDays.length === 0 &&
                                         <>

@@ -36,12 +36,10 @@ export default function Home() {
 
   return (
     <>
-      <Helmet
-        bodyAttributes={{
-          class: 'my-index-body'
-        }}
-        title="Where Covid-19 Matters"
-      />
+      <Helmet>
+        <title>Where Covid-19 Matters</title>
+        <body class="my-index-body" />
+      </Helmet>
       <Layout>
         <main>
           <div className="container">
@@ -52,7 +50,9 @@ export default function Home() {
                 <p><a className="btn btn-primary btn-lg" href="/zipcodelist" role="button">Enter zip codes &raquo;</a></p>
               </div>
             </div>
-            <hr className="featurette-divider"></hr>
+            <h3 className="pb-3 mb-4 font-italic border-bottom">
+              US Covid-19 Information
+            </h3>
             <div className="row">
               <div className="col-lg-4">
                 <div className="row">

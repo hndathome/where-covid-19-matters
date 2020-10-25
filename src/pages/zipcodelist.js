@@ -123,11 +123,10 @@ function ZipCodeList() {
 
     return (
         <>
-            <Helmet
-                bodyAttributes={{
-                    class: 'my-zipcodes-body'
-                }}
-            />
+            <Helmet>
+                <title>Enter Zip Codes</title>
+                <body class="my-zipcodes-body" />
+            </Helmet>
             <Layout>
                 <div className="container zipcode-form">
                     <div className="row">

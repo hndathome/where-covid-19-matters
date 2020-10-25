@@ -82,9 +82,11 @@
    (min-width: 801px)  {
   .first-featurette{
     margin-top: 3rem;
+    margin-bottom: 3rem;
     background-image: url("../assets/cdc-coronavirus-covid-19-1.jpg");   
       background-size: cover;
       background-repeat: no-repeat;
+      border-radius: .25rem;      
   }
   .my-zipcodes-body {
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
@@ -95,6 +97,7 @@
   @media 
   (max-width: 800px) and (min-width: 415px)  {
     .first-featurette {
+    margin-bottom: 3rem;
     background-image: url("../assets/cdc-coronavirus-covid-19-2.jpg");
     background-position-y: top;
     background-position-x: right;
@@ -110,6 +113,7 @@
   @media
   (max-width: 415px) {
     .first-featurette {
+    margin-bottom: 3rem;
     background-image: url("../assets/cdc-coronavirus-covid-19-3.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -186,4 +190,13 @@ div#navbarNav.navbar-collapse.collapse.show ~ .nav-gps {
 .my-carousel-caption {
   z-index: 10;
   color: #fff;
+ }
+
+ h3.pb-3.mb-4 {
+  background: #c31432;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+  padding: 10px 0px 0px 20px;
+  border-radius: .25rem;
  }
