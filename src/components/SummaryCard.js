@@ -84,33 +84,23 @@ function SummaryCard(props) {
                 <div width="100%" height="225" className="bd-placeholder-img card-img-top">
                     <Carousel interval={null} onSelect={handleSelect} id={`myCarousel${zipcode}`} className="carousel slide">
                         <Carousel.Item className="carousel-item">
+                            <div className="card-header"><strong>Local Covid-19 Positive Count</strong></div>
                             {nytData.zipCd === undefined &&
-                                <h2 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h2>
+                                <div className="card-body summary-card-body">
+                                    <h5 className="loading" style={{ textAlign: "center" }}>Loading<span>.</span><span>.</span><span>.</span></h5>
+                                </div>
                             }
                             {nytData.zipCd === "Empty" &&
-                                <>
-                                    <img class="third-slide"
-                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                        alt="No county data available" />
-                                    <div class="carousel-container">
-                                        <div class="my-carousel-caption">
-                                            <p style={{ textAlign: "center" }}>No county data available</p>
-                                        </div>
-                                    </div>
-                                </>
+                                <div className="card-body summary-card-body">
+                                    <h5>No county data available</h5>
+                                </div>
                             }
                             {(nytData.zipCd !== undefined && nytData.zipCd !== "Empty") &&
-                                <>
-                                    <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
-                                    <div className="container">
-                                        <Carousel.Caption className="bottom-caption-title">
-                                            <p style={{ color: "black", textAlign: "center" }}>Covid-19 Positive Count</p>
-                                        </Carousel.Caption>
-                                    </div>
-                                </>
+                                <Chart series={series} seriesNames={seriesNames} xValue="date" yValue="positiveCt" />
                             }
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
+                            <div className="card-header"><strong>{`Local Covid-19 Testing Locations: ${markers.length}`}</strong></div>
                             {typeof window !== 'undefined' &&
                                 <LeafletMap
                                     position={[item.latitude, item.longitude]}
@@ -119,37 +109,28 @@ function SummaryCard(props) {
                                     key={keyMap}
                                 />
                             }
-                            <div className="container" style={{ width: "100%" }}>
-                                <Carousel.Caption className="bottom-caption-title" style={{ width: "100%" }}>
-                                    <p style={{ color: "black" }}>{`Covid-19 Testing Locations: ${markers.length}`}</p>
-                                </Carousel.Caption>
-                            </div>
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
-                            <>
-                                <img class="third-slide"
-                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                    alt="background for state health department links" />
-                                <div class="carousel-container">
-                                    <div class="my-carousel-caption">
-                                        <p>{geoState} Department of Health</p>
-                                        <ul>
-                                            <li><a className="covid19-links" href={covid19Site}>Covid-19 Site</a></li>
-                                            <li><a className="covid19-links" href={covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
-                                            {twitter.startsWith('@') && <li><a className="covid19-links" href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
-                                        </ul>
-                                    </div>
+                            <div className="card-header"><strong>Department of Health Links</strong></div>
+                            <div className="card-body summary-card-body">
+                                <div>
+                                    <p>{geoState} Department of Health</p>
+                                    <ul>
+                                        <li><a href={covid19Site}>Covid-19 Site</a></li>
+                                        <li><a href={covid19SiteSecondary}>Covid-19 Secondary Site</a></li>
+                                        {twitter.startsWith('@') && <li><a href={`https://twitter.com/${twitter.slice(1)}`}><FontAwesomeIcon icon={faTwitter} aria-label="go to twitter" /></a></li>}
+                                    </ul>
                                 </div>
-                            </>
+                            </div>
                         </Carousel.Item>
                     </Carousel>
                 </div>
-                <div className="card-body summary-card-body">
+                <div className="card-footer summary-card-footer">
                     <h5 className="card-text">{default_city}, {state_abbreviation.toUpperCase()} {zipcode}</h5>
                     <div className="d-flex justify-content-between align-items-center">
                         {nytData.zipCd !== undefined && <>
                             <div className="btn-group">
-                                <button className="btn btn-sm btn-secondary" onClick={event => {
+                                <button className="btn btn-sm btn-primary" onClick={event => {
                                     event.preventDefault();
                                     navigate(
                                         `/details/${zipcode}`,

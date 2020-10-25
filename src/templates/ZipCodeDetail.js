@@ -229,12 +229,14 @@ export const ZipCodeDetail = (props) => {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <LeafletMap
-                                                className="card-img-bottom"
-                                                position={[pageItem.latitude, pageItem.longitude]}
-                                                zoom={8}
-                                                markers={pageItem.markers}
-                                            />
+                                            <div style={{ height: "360px" }}>
+                                                <LeafletMap
+                                                    className="card-img-bottom"
+                                                    position={[pageItem.latitude, pageItem.longitude]}
+                                                    zoom={8}
+                                                    markers={pageItem.markers}
+                                                />
+                                            </div>
                                             <div className="card-footer">
                                                 <small className="text-muted">Source: <a href="https://developer.here.com/blog/finding-covid-19-testing-sites">HERE Geocoding and Search API</a></small>
                                             </div>

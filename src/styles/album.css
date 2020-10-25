@@ -50,6 +50,13 @@ body {
 }
 
 .summary-card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+} 
+
+.summary-card-footer {
   background-color: aliceblue;
 } 
 
@@ -100,7 +107,7 @@ body {
 }
 
 .leaflet-container {
-  height: 400px;
+  height: 100%;
   width: 100%;
 }
 

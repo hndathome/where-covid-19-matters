@@ -239,18 +239,6 @@ div#navbarNav.navbar-collapse.collapse.show ~ .nav-gps {
   border-top-right-radius: .25rem;
 }
 
-.carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.my-carousel-caption {
-  z-index: 10;
-  color: #fff;
-}
-
 h3.pb-3.mb-4 {
   background: #c31432;
   /* fallback for old browsers */
