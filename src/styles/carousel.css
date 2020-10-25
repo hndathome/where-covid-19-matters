@@ -86,7 +86,9 @@
     background-image: url("../assets/cdc-coronavirus-covid-19-1.jpg");   
       background-size: cover;
       background-repeat: no-repeat;
-      border-radius: .25rem;      
+      border-radius: .25rem; 
+      margin-left: 0px !important;
+      margin-right: 0px !important;
   }
   .my-zipcodes-body {
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
@@ -106,6 +108,8 @@
     background-position-x: right;
     background-size: cover;
     background-repeat: no-repeat;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
   }
   .my-zipcodes-body {
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
@@ -210,3 +214,20 @@ div#navbarNav.navbar-collapse.collapse.show ~ .nav-gps {
   padding: 10px 0px 0px 20px;
   border-radius: .25rem;
  }
+
+ .bg-dark {
+  background-color: black !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+
+ .navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 255' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+} 
+
+.navbar-dark .navbar-toggler {
+  color: white;
+  border-color: white;
+}
