@@ -49,9 +49,9 @@ body {
   padding-top: 1.5rem;
 }
 
-/* .card-body {
+.summary-card-body {
   background-color: aliceblue;
-} */
+} 
 
 .loading span {
   color: #00b300;
