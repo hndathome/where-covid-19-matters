@@ -89,11 +89,11 @@ function SummaryCard(props) {
                             }
                             {nytData.zipCd === "Empty" &&
                                 <>
-                                    <img className="third-slide"
+                                    <img class="third-slide"
                                         src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                                         alt="No county data available" />
-                                    <div className="carousel-container">
-                                        <div className="my-carousel-caption">
+                                    <div class="carousel-container">
+                                        <div class="my-carousel-caption">
                                             <p style={{ textAlign: "center" }}>No county data available</p>
                                         </div>
                                     </div>
@@ -127,11 +127,11 @@ function SummaryCard(props) {
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <>
-                                <img className="third-slide"
+                                <img class="third-slide"
                                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                                     alt="background for state health department links" />
-                                <div className="carousel-container">
-                                    <div className="my-carousel-caption">
+                                <div class="carousel-container">
+                                    <div class="my-carousel-caption">
                                         <p>{geoState} Department of Health</p>
                                         <ul>
                                             <li><a className="covid19-links" href={covid19Site}>Covid-19 Site</a></li>

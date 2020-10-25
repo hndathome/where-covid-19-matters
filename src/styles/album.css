@@ -87,8 +87,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .loading span {
     animation: none;
- /* or define an alternate animation */
-    ;
+ /* or define an alternate animation */;
   }
 }
 
@@ -100,16 +99,9 @@ body {
   color: unset;
 }
 
-div.carousel-item > div.leaflet-container {
-  height: 400px !important;
-  width: 100% !important;
-}
-
-div.card-img-top > div.leaflet-container {
-  height: 353px !important;
-  width: 100% !important;
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
+.leaflet-container {
+  height: 400px;
+  width: 100%;
 }
 
 .bootstrap-primary {
@@ -120,17 +112,15 @@ div.card-img-top > div.leaflet-container {
   padding-left: 12px;
 }
 
-.my-index-body {
-  /*018 Cloudy Knoxville*/
+.my-index-body{
+  /*cloudy knoxville*/
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  /*050 Snow Again*/
-  /*background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);*/;
+  /*st petersburg */
+  /*background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);*/
+  /*snow again */
+  /*background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);*/
 }
 
-div.album.py-5.bg-light {
-  /*026 Saint Petersburg*/
+div.album.py-5.bg-light{
   background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
-
-/*134 Glass Water*/
-/*background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);*/
