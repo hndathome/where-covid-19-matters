@@ -14,7 +14,6 @@
   /* Declare heights because of positioning of img element */
 .carousel-item {
   height: 32rem;
-    /* background-color: #777; */;
 }
 
 .carousel-item > img {
@@ -49,7 +48,6 @@
   ------------------------- */
 .featurette-divider {
   margin: 3rem 0;
- /* Space out the Bootstrap <hr> more */;
 }
   
   /* Thin out the marketing headings */
@@ -109,6 +107,7 @@
   .doh-links {
     flex-direction: row;
   }
+
   .doh-links > li:nth-child(1) {
     border-top-right-radius: unset;
     border-bottom-left-radius: 0.25rem;
@@ -185,15 +184,6 @@
   }
 }
 
-.carousel-caption {
-  text-align: unset;
-  padding-bottom: 124px;
-}
-
-.covid19-links {
-  color: #fff;
-}
-
 .carousel-indicators li {
   background-color: #007bff;
 }
@@ -232,11 +222,6 @@ td.hiddenRow {
 
 div#navbarNav.navbar-collapse.collapse.show ~ .nav-gps {
   flex-direction: column !important;
-}
-
-.carousel-inner {
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
 }
 
 h3.pb-3.mb-4 {
