@@ -142,7 +142,7 @@ function SummaryCard(props) {
                                     )
                                 }}>View details</button>
                             </div>
-                            <small className="text-muted">{lastUpdated}</small>
+                            <small className="text-muted summary-text-muted">{lastUpdated}</small>
                         </>}
                     </div>
                 </div>
