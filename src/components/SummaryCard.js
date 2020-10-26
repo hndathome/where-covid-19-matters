@@ -101,14 +101,16 @@ function SummaryCard(props) {
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <div className="card-header"><strong>{`Local Covid-19 Testing Locations: ${markers.length}`}</strong></div>
-                            {typeof window !== 'undefined' &&
-                                <LeafletMap
-                                    position={[item.latitude, item.longitude]}
-                                    zoom={8}
-                                    markers={markers}
-                                    key={keyMap}
-                                />
-                            }
+                            <div style={{ height: "466px" }}>
+                                {typeof window !== 'undefined' &&
+                                    <LeafletMap
+                                        position={[item.latitude, item.longitude]}
+                                        zoom={8}
+                                        markers={markers}
+                                        key={keyMap}
+                                    />
+                                }
+                            </div>
                         </Carousel.Item>
                         <Carousel.Item className="carousel-item">
                             <div className="card-header"><strong>Department of Health Links</strong></div>
