@@ -3,12 +3,7 @@ import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLegend, Vi
 
 function Chart(props) {
     const { series, seriesNames, xValue, yValue } = props;
-
-    // const [xOffsets, setXOffsets] = useState([50, 200, 350])
-    // const [tickPadding, setTickPadding] = useState([-7, 0, -15])
-    // const [anchors, setAnchors] = useState(["end", "end", "start"])
     const [maxima, setMaxima] = useState([]);
-    // const [minima, setMinima] = useState([]);
     const colors = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
 
     useEffect(() => {
@@ -37,7 +32,7 @@ function Chart(props) {
         >
             <VictoryAxis
                 fixLabelOverlap
-                style={{ tickLabels: { padding: 16, fontSize: 8 } }}
+                style={{ tickLabels: { padding: 16, fontSize: 10 } }}
             />
 
             <VictoryAxis dependentAxis
