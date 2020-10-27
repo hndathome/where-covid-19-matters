@@ -123,12 +123,12 @@ function ZipCodeList() {
 
     return (
         <>
+            <img src="../assets/coronavirus-covid19-face-mask-1.jpg" style={{ display: "none" }} alt="" />
+            <img src="../assets/coronavirus-covid19-face-mask-2.jpg" style={{ display: "none" }} alt="" />
+            <img src="../assets/coronavirus-covid19-face-mask-3.jpg" style={{ display: "none" }} alt="" />
             <Helmet>
                 <title>Enter Zip Codes</title>
                 <body class="my-zipcodes-body" />
-                <link rel="preload" href="../assets/coronavirus-covid19-face-mask-1-1.jpg" as="image"></link>
-                <link rel="preload" href="../assets/coronavirus-covid19-face-mask-1-2.jpg" as="image"></link>
-                <link rel="preload" href="../assets/coronavirus-covid19-face-mask-1-3.jpg" as="image"></link>
             </Helmet>
             <Layout>
                 <div className="container zipcode-form">
