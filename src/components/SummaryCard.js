@@ -46,22 +46,21 @@ function SummaryCard(props) {
                 }
                 else {
                     respData = response;
-
-                    const myDate = respData.counties[0].historicData[0].date;
-                    setLastUpdated(`${myDate.slice(5)}-${myDate.slice(0, 4)}`);
-
                     const { counties } = response;
                     setSeriesNames(counties.reduce((accumulator, current) => {
                         return [...accumulator, { name: current.countyName }]
                     }, []))
 
-                    setSeries(counties.reduce((accumulator, current) => {
+                    const reducedCounties = counties.reduce((accumulator, current) => {
                         return [...accumulator, current.historicData.sort((a, b) => a.date.localeCompare(b.date)).map(obj => {
                             var temp = Object.assign({}, obj);
                             temp.date = `${obj.date.slice(5)}-${obj.date.slice(0, 4)}`
                             return temp;
                         })];
-                    }, []));
+                    }, [])
+                    setSeries(reducedCounties);
+
+                    setLastUpdated(reducedCounties[0][reducedCounties[0].length - 1].date);
                 }
                 setNYTData(respData);
             } catch (error) {
