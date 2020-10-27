@@ -92,12 +92,14 @@
     border-radius: .25rem;
     margin-left: 0px !important;
     margin-right: 0px !important;
+    transition: background-image 1s ease-in-out;
   }
 
   .my-zipcodes-body {
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
     background-image: url('../assets/coronavirus-covid19-face-mask-1.jpg');
     background-size: cover;
+    transition: background-image 1s ease-in-out;
   }
 
   .doh-links {
@@ -135,12 +137,14 @@
     background-repeat: no-repeat;
     margin-left: 0px !important;
     margin-right: 0px !important;
+    transition: background-image 1s ease-in-out;
   }
 
   .my-zipcodes-body {
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
     background-image: url('../assets/coronavirus-covid19-face-mask-2.jpg');
     background-size: cover;
+    transition: background-image 1s ease-in-out;
   }
 
   .doh-links {
@@ -171,12 +175,14 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
+    transition: background-image 1s ease-in-out;
   }
 
   .my-zipcodes-body {
     /*Image by <a href="https://pixabay.com/users/cromaconceptovisual-4595909/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">cromaconceptovisual</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4964590">Pixabay</a>*/
     background-image: url('../assets/coronavirus-covid19-face-mask-3.jpg');
     background-size: cover;
+    transition: background-image 1s ease-in-out;
   }
 
   .doh-links {

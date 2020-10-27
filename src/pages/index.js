@@ -36,9 +36,6 @@ export default function Home() {
 
   return (
     <>
-      <img src="../assets/cdc-coronavirus-covid-19-1.jpg" style={{ display: "none" }} alt="" />
-      <img src="../assets/cdc-coronavirus-covid-19-2.jpg" style={{ display: "none" }} alt="" />
-      <img src="../assets/cdc-coronavirus-covid-19-3.jpg" style={{ display: "none" }} alt="" />
       <Helmet>
         <title>Where Covid-19 Matters</title>
         <body class="my-index-body" />
