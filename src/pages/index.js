@@ -39,9 +39,13 @@ export default function Home() {
       <Helmet>
         <title>Where Covid-19 Matters</title>
         <body class="my-index-body" />
+        <link rel="preload" href="../assets/cdc-coronavirus-covid-19-1.jpg" as="image"></link>
+        <link rel="preload" href="../assets/cdc-coronavirus-covid-19-2.jpg" as="image"></link>
+        <link rel="preload" href="../assets/cdc-coronavirus-covid-19-3.jpg" as="image"></link>
       </Helmet>
       <Layout>
         <main>
+
           <div className="container">
             <div className="row featurette first-featurette">
               <div className="col-md-5 offset-md-7" style={{ color: "white" }}>
