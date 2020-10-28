@@ -38,7 +38,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Where Covid-19 Matters</title>
-        <body class="my-index-body" />
+        <body className="my-index-body" />
       </Helmet>
       <Layout>
         <main>

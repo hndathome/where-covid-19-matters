@@ -125,7 +125,7 @@ function ZipCodeList() {
         <>
             <Helmet>
                 <title>Enter Zip Codes</title>
-                <body class="my-zipcodes-body" />
+                <body className="my-zipcodes-body" />
             </Helmet>
             <Layout>
                 <div className="container zipcode-form">
