@@ -51,7 +51,7 @@ export default function Layout({ children }) {
                             <Link className="nav-link" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-link nav-link" onClick={event => {
+                            <button title="View local and state Covid-19 data" className="btn btn-link nav-link" onClick={event => {
                                 event.preventDefault();
                                 navigate(
                                     `/details/10001`,
@@ -62,7 +62,7 @@ export default function Layout({ children }) {
                             }}>New York</button>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-link nav-link" onClick={event => {
+                            <button title="View local and state Covid-19 data" className="btn btn-link nav-link" onClick={event => {
                                 event.preventDefault();
                                 navigate(
                                     `/details/90001`,
@@ -77,7 +77,7 @@ export default function Layout({ children }) {
                 <ul className="navbar-nav nav-gps" style={{ flexDirection: "row" }}>
                     {geoZip &&
                         <li className="nav-item" style={{ paddingRight: "0.5rem" }}  >
-                            <button className="btn btn-link nav-link" onClick={event => {
+                            <button title="View local and state Covid-19 data" className="btn btn-link nav-link" onClick={event => {
                                 event.preventDefault();
                                 navigate(
                                     `/details/${geoZip}`,
